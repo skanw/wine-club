@@ -1,0 +1,99 @@
+/* Wine Club Global Theme Variables */
+
+:root {
+  /* Base Neutrals */
+  --bg-canvas: #F9F7F1;
+  --bg-white: #FFFFFF;
+  --text-headline: #333333;
+  --text-body: #4A4A4A;
+  --text-muted: #7A7A7A;
+  
+  /* Typography */
+  --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Georgia', 'Times New Roman', serif;
+  --font-micro: 'Inter', sans-serif;
+  
+  /* Spacing */
+  --container-max-width: 900px;
+  --section-padding: 5rem;
+  --card-padding: 2rem;
+  
+  /* Animations */
+  --transition-theme: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-hover: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Default to Red Wine Theme */
+  --accent-primary: #5A1E1B;
+  --accent-secondary: #8B2E2A;
+  --accent-light: rgba(90, 30, 27, 0.1);
+  --accent-text: #FFFFFF;
+  --overlay-color: rgba(90, 30, 27, 0.2);
+  --hero-gradient: linear-gradient(135deg, #5A1E1B 0%, #8B2E2A 100%);
+}
+
+/* Red Wine Theme */
+.theme-red {
+  --accent-primary: #5A1E1B;
+  --accent-secondary: #8B2E2A;
+  --accent-light: rgba(90, 30, 27, 0.1);
+  --accent-text: #FFFFFF;
+  --overlay-color: rgba(90, 30, 27, 0.2);
+  --hero-gradient: linear-gradient(135deg, #5A1E1B 0%, #8B2E2A 100%);
+}
+
+/* White Wine Theme */
+.theme-white {
+  --accent-primary: #F3E9D2;
+  --accent-secondary: #E6D4B7;
+  --accent-light: rgba(243, 233, 210, 0.3);
+  --accent-text: #7A6651;
+  --overlay-color: rgba(243, 233, 210, 0.3);
+  --hero-gradient: linear-gradient(135deg, #F3E9D2 0%, #E6D4B7 100%);
+}
+
+/* Theme Transition */
+body {
+  transition: var(--transition-theme);
+}
+
+/* Global Button Styles */
+.btn-primary {
+  background: var(--accent-primary);
+  color: var(--accent-text);
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-hover);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 30px var(--accent-light);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
+  padding: 0.875rem 2rem;
+  border-radius: 50px;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: var(--transition-hover);
+}
+
+.btn-outline:hover {
+  background: var(--accent-primary);
+  color: var(--accent-text);
+  transform: translateY(-2px);
+} 

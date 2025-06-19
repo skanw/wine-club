@@ -402,6 +402,11 @@ route PremiumSubscriptionRoute { path: "/premium-subscription", to: PremiumSubsc
 page PremiumSubscriptionPage {
   component: import PremiumSubscriptionPage from "@src/wine-subscriptions/PremiumSubscriptionPage"
 }
+
+route SubscriptionRoute { path: "/subscription", to: SubscriptionPage }
+page SubscriptionPage {
+  component: import SubscriptionPage from "@src/client/pages/SubscriptionPage"
+}
 page SubscribeToWineCavePage {
   authRequired: true,
   component: import SubscribeToWineCave from "@src/wine-subscriptions/SubscribeToWineCavePage"

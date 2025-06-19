@@ -8,10 +8,11 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { HiBars3 } from 'react-icons/hi2';
 import DropdownUser from '../../user/DropdownUser';
 import { UserMenuItems } from '../../user/UserMenuItems';
-import DarkModeSwitcher from './DarkModeSwitcher';
+import ThemeToggle from './ThemeToggle';
 import { useIsLandingPage } from '../hooks/useIsLandingPage';
 import { cn } from '../cn';
 import '../styles/wine-colors.css';
+import '../styles/theme-variables.css';
 
 export interface NavigationItem {
   name: string;
@@ -43,10 +44,14 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
   
   return (
     <header
-      className={cn('absolute inset-x-0 top-0 z-50 dark:bg-boxdark-2', {
-        'shadow sticky wine-cream-bg bg-opacity-95 backdrop-blur-lg backdrop-filter dark:border dark:border-gray-100/10':
-          !isLandingPage,
+      className={cn('sticky top-0 z-50 bg-opacity-95 backdrop-blur-lg backdrop-filter', {
+        'absolute inset-x-0': isLandingPage,
+        'shadow border-b border-gray-100/10': !isLandingPage,
       })}
+      style={{
+        backgroundColor: 'var(--bg-canvas)',
+        borderColor: 'var(--accent-light)',
+      }}
     >
       {isLandingPage && <WineAnnouncement />}
       <nav className='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
@@ -78,9 +83,10 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
         <div className='hidden lg:flex lg:gap-x-12'>{renderNavigationItems(navigationItems)}</div>
         
         <div className='hidden lg:flex lg:flex-1 gap-3 justify-end items-center'>
-          <ul className='flex justify-center items-center gap-2 sm:gap-4'>
-            <DarkModeSwitcher />
-          </ul>
+          <ThemeToggle className="mr-4" />
+          <WaspRouterLink to={routes.SubscriptionRoute.to} className="btn-primary">
+            Subscribe
+          </WaspRouterLink>
           {isUserLoading ? null : !user ? (
             <WaspRouterLink to={routes.LoginRoute.to} className='text-sm font-semibold leading-6 ml-3'>
               <div className='flex items-center duration-300 ease-in-out text-gray-900 hover:text-yellow-500 dark:text-white'>
@@ -127,7 +133,7 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
                 )}
               </div>
               <div className='py-6'>
-                <DarkModeSwitcher />
+                <ThemeToggle />
               </div>
             </div>
           </div>
