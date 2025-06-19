@@ -10,17 +10,23 @@ export default function Hero() {
         <div className='mx-auto max-w-8xl px-6 lg:px-8'>
           <div className='lg:mb-18 mx-auto max-w-3xl text-center'>
             <h1 className='text-4xl font-bold text-gray-900 sm:text-6xl dark:text-white'>
-              Some <span className='italic'>cool</span> words about your product
+              Transform Your Wine Cave into a <span className='italic text-yellow-600'>Thriving</span> Subscription Business
             </h1>
             <p className='mt-6 mx-auto max-w-2xl text-lg leading-8 text-gray-600 dark:text-white'>
-              With some more exciting words about your product!
+              Launch your wine subscription platform with automated member management, shipping integration, and personalized recommendations. Perfect for boutique wineries and wine caves.
             </p>
             <div className='mt-10 flex items-center justify-center gap-x-6'>
               <a
-                href={DocsUrl}
-                className='rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-200 hover:ring-2 hover:ring-yellow-300 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:text-white'
+                href="/signup"
+                className='rounded-md bg-yellow-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600'
               >
-                Get Started <span aria-hidden='true'>→</span>
+                Start Your Wine Cave <span aria-hidden='true'>🍷</span>
+              </a>
+              <a
+                href="/wine-subscriptions"
+                className='rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-200 hover:ring-2 hover:ring-yellow-300 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600 dark:text-white'
+              >
+                View Demo <span aria-hidden='true'>→</span>
               </a>
             </div>
           </div>
@@ -28,7 +34,7 @@ export default function Hero() {
             <div className='-m-2  flex justify-center rounded-xl lg:-m-4 lg:rounded-2xl lg:p-4'>
               <img
                 src={openSaasBannerWebp}
-                alt='App screenshot'
+                alt='Wine Club Management Dashboard'
                 width={1000}
                 height={530}
                 loading='lazy'
@@ -49,7 +55,7 @@ function TopGradient() {
     aria-hidden='true'
   >
     <div
-      className='aspect-[1020/880] w-[55rem] flex-none sm:right-1/4 sm:translate-x-1/2 dark:hidden bg-gradient-to-tr from-amber-400 to-purple-300 opacity-40'
+      className='aspect-[1020/880] w-[55rem] flex-none sm:right-1/4 sm:translate-x-1/2 dark:hidden bg-gradient-to-tr from-yellow-400 to-red-400 opacity-40'
       style={{
         clipPath: 'polygon(80% 20%, 90% 55%, 50% 100%, 70% 30%, 20% 50%, 50% 0)',
       }}
@@ -65,7 +71,7 @@ function BottomGradient() {
     aria-hidden='true'
   >
     <div
-      className='relative aspect-[1020/880] sm:-left-3/4 sm:translate-x-1/4 dark:hidden bg-gradient-to-br from-amber-400 to-purple-300  opacity-50 w-[72.1875rem]'
+      className='relative aspect-[1020/880] sm:-left-3/4 sm:translate-x-1/4 dark:hidden bg-gradient-to-br from-yellow-400 to-red-400 opacity-50 w-[72.1875rem]'
       style={{
         clipPath: 'ellipse(80% 30% at 80% 50%)',
       }}

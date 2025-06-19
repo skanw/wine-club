@@ -6,7 +6,8 @@ import { Dialog } from '@headlessui/react';
 import { BiLogIn } from 'react-icons/bi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { HiBars3 } from 'react-icons/hi2';
-import logo from '../../static/logo.webp';
+// Wine logo is now inline SVG
+import '../../styles/wine-colors.css';
 import DropdownUser from '../../../user/DropdownUser';
 import { UserMenuItems } from '../../../user/UserMenuItems';
 import DarkModeSwitcher from '../DarkModeSwitcher';
@@ -18,7 +19,22 @@ export interface NavigationItem {
   to: string;
 }
 
-const NavLogo = () => <img className='h-8 w-8' src={logo} alt='Your SaaS App' />;
+const NavLogo = () => (
+  <div className="flex items-center">
+    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 38C22.2091 38 24 36.2091 24 34V28H16V34C16 36.2091 17.7909 38 20 38Z" fill="#8B0000"/>
+      <path d="M23 28V32C23 33.1046 22.1046 34 21 34H19C17.8954 34 17 33.1046 17 32V28H23Z" fill="#DC143C"/>
+      <path d="M12 2C12 2 12 12 20 16C28 12 28 2 28 2H12Z" fill="none" stroke="#FFD700" strokeWidth="2"/>
+      <ellipse cx="20" cy="10" rx="6" ry="4" fill="#8B0000" opacity="0.8"/>
+      <rect x="19" y="16" width="2" height="12" fill="#FFD700"/>
+      <ellipse cx="20" cy="30" rx="4" ry="1" fill="#FFD700"/>
+      <circle cx="14" cy="6" r="1.5" fill="#6B0080"/>
+      <circle cx="26" cy="6" r="1.5" fill="#6B0080"/>
+      <circle cx="13" cy="8" r="1" fill="#6B0080"/>
+      <circle cx="27" cy="8" r="1" fill="#6B0080"/>
+    </svg>
+  </div>
+);
 
 export default function AppNavBar({ navigationItems }: { navigationItems: NavigationItem[] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -41,7 +57,7 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
           >
             <NavLogo />
             {isLandingPage && (
-              <span className='ml-2 text-sm font-semibold leading-6 dark:text-white'>Your Saas</span>
+              <span className='ml-2 text-sm font-semibold leading-6 dark:text-white wine-primary-text'>Wine Club</span>
             )}
           </WaspRouterLink>
         </div>
@@ -78,7 +94,7 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
         <Dialog.Panel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:text-white dark:bg-boxdark px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
           <div className='flex items-center justify-between'>
             <WaspRouterLink to={routes.LandingPageRoute.to} className='-m-1.5 p-1.5'>
-              <span className='sr-only'>Your SaaS</span>
+              <span className='sr-only'>WineClub SaaS</span>
               <NavLogo />
             </WaspRouterLink>
             <button
@@ -144,25 +160,16 @@ const ContestURL = 'https://github.com/wasp-lang/wasp';
 
 function Announcement() {
   return (
-    <div className='flex justify-center items-center gap-3 p-3 w-full bg-gradient-to-r from-[#d946ef] to-[#fc0] font-semibold text-white text-center z-49'>
-      <p
-        onClick={() => window.open(ContestURL, '_blank')}
-        className='hidden lg:block cursor-pointer hover:opacity-90 hover:drop-shadow'
-      >
-        Support Open-Source Software!
+    <div className='flex justify-center items-center gap-3 p-3 w-full bg-gradient-to-r from-yellow-600 to-red-600 font-semibold text-white text-center z-49'>
+      <p className='hidden lg:block hover:opacity-90 hover:drop-shadow'>
+        🍷 Launch Your Wine Subscription Business Today!
       </p>
       <div className='hidden lg:block self-stretch w-0.5 bg-white'></div>
-      <div
-        onClick={() => window.open(ContestURL, '_blank')}
-        className='hidden lg:block cursor-pointer rounded-full bg-neutral-700 px-2.5 py-1 text-xs hover:bg-neutral-600 tracking-wider'
-      >
-        Star Our Repo on Github ⭐️ →
+      <div className='hidden lg:block cursor-pointer rounded-full bg-neutral-700 px-2.5 py-1 text-xs hover:bg-neutral-600 tracking-wider'>
+        Start Free Trial →
       </div>
-      <div
-        onClick={() => window.open(ContestURL, '_blank')}
-        className='lg:hidden cursor-pointer rounded-full bg-neutral-700 px-2.5 py-1 text-xs hover:bg-neutral-600 tracking-wider'
-      >
-        ⭐️ Star the Our Repo on Github and Support Open-Source! ⭐️
+      <div className='lg:hidden cursor-pointer rounded-full bg-neutral-700 px-2.5 py-1 text-xs hover:bg-neutral-600 tracking-wider'>
+        🍷 Start Your Wine Cave Today!
       </div>
     </div>
   );

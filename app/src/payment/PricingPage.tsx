@@ -17,22 +17,22 @@ interface PaymentPlanCard {
 
 export const paymentPlanCards: Record<PaymentPlanId, PaymentPlanCard> = {
   [PaymentPlanId.Hobby]: {
-    name: prettyPaymentPlanName(PaymentPlanId.Hobby),
-    price: '$9.99',
-    description: 'All you need to get started',
-    features: ['Limited monthly usage', 'Basic support'],
+    name: 'Vineyard Starter',
+    price: '$29.99',
+    description: 'Perfect for small wine caves getting started',
+    features: ['Up to 50 subscribers', 'Basic wine cave management', 'Email support', 'Standard shipping integration'],
   },
   [PaymentPlanId.Pro]: {
-    name: prettyPaymentPlanName(PaymentPlanId.Pro),
-    price: '$19.99',
-    description: 'Our most popular plan',
-    features: ['Unlimited monthly usage', 'Priority customer support'],
+    name: 'Wine Master',
+    price: '$79.99',
+    description: 'Ideal for growing wine subscription businesses',
+    features: ['Unlimited subscribers', 'Advanced analytics & insights', 'Loyalty program & referrals', 'Priority support', 'AI wine recommendations', 'Multi-tier subscriptions'],
   },
   [PaymentPlanId.Credits10]: {
-    name: prettyPaymentPlanName(PaymentPlanId.Credits10),
-    price: '$9.99',
-    description: 'One-time purchase of 10 credits for your account',
-    features: ['Use credits for e.g. OpenAI API calls', 'No expiration date'],
+    name: 'Shipping Credits',
+    price: '$24.99',
+    description: 'Additional shipping credits for high-volume periods',
+    features: ['10 premium shipping labels', 'Express delivery options', 'International shipping', 'No expiration date'],
   },
 };
 
@@ -102,13 +102,12 @@ const PricingPage = () => {
       <div className='mx-auto max-w-7xl px-6 lg:px-8'>
         <div id='pricing' className='mx-auto max-w-4xl text-center'>
           <h2 className='mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white'>
-            Pick your <span className='text-yellow-500'>pricing</span>
+            Choose Your <span className='text-yellow-500'>Wine Cave</span> Plan
           </h2>
         </div>
         <p className='mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600 dark:text-white'>
-          Choose between Stripe and LemonSqueezy as your payment provider. Just add your Product IDs! Try it
-          out below with test credit card number <br />
-          <span className='px-2 py-1 bg-gray-100 rounded-md text-gray-500'>4242 4242 4242 4242 4242</span>
+          Scale your wine subscription business with the right plan for your needs. From boutique wine caves to established vineyards, we have you covered. <br />
+          <span className='px-2 py-1 bg-yellow-100 rounded-md text-yellow-800'>✨ Start with a 14-day free trial</span>
         </p>
         {errorMessage && (
           <div className='mt-8 p-4 bg-red-100 text-red-600 rounded-md dark:bg-red-200 dark:text-red-800'>

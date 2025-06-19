@@ -7,75 +7,111 @@ import avatarPlaceholder from '../client/static/avatar-placeholder.webp';
 export const landingPageNavigationItems: NavigationItem[] = [
   { name: 'Features', to: '#features' },
   { name: 'Pricing', to: routes.PricingPageRoute.to },
-  { name: 'Documentation', to: DocsUrl },
-  { name: 'Blog', to: BlogUrl },
+  { name: 'Wine Caves', to: '/wine-caves' },
+  { name: 'Subscriptions', to: '/wine-subscriptions' },
 ];
+
 export const features = [
   {
-    name: 'Cool Feature #1',
-    description: 'Describe your cool feature here.',
-    icon: '🤝',
-    href: DocsUrl,
+    name: 'Wine Cave Management',
+    description: 'Create and manage your wine cave with inventory, tiers, and member management tools.',
+    icon: '🍷',
+    href: '/wine-caves',
   },
   {
-    name: 'Cool Feature #2',
-    description: 'Describe your cool feature here.',
-    icon: '🔐',
-    href: DocsUrl,
+    name: 'Subscription Platform',
+    description: 'Launch wine subscription services with automated billing and member portals.',
+    icon: '📦',
+    href: '/wine-subscriptions',
   },
   {
-    name: 'Cool Feature #3',
-    description: 'Describe your cool feature here.',
-    icon: '🥞',
-    href: DocsUrl,
+    name: 'Member Analytics',
+    description: 'Track member preferences, subscription trends, and business performance.',
+    icon: '📊',
+    href: '/wine-cave-analytics',
   },
   {
-    name: 'Cool Feature #4',
-    description: 'Describe your cool feature here.',
-    icon: '💸',
-    href: DocsUrl,
+    name: 'Automated Shipping',
+    description: 'Integrated shipping with FedEx and UPS for seamless wine delivery.',
+    icon: '🚚',
+    href: '/shipping-dashboard',
+  },
+  {
+    name: 'Loyalty Program',
+    description: 'Reward your best customers with points, referrals, and exclusive offers.',
+    icon: '⭐',
+    href: '/loyalty-dashboard',
+  },
+  {
+    name: 'Personalized Recommendations',
+    description: 'AI-powered wine recommendations based on member preferences and ratings.',
+    icon: '🤖',
+    href: '/recommendations',
   },
 ];
+
 export const testimonials = [
   {
-    name: 'Da Boi',
-    role: 'Wasp Mascot',
-    avatarSrc: daBoiAvatar,
-    socialUrl: 'https://twitter.com/wasplang',
-    quote: "I don't even know how to code. I'm just a plushie.",
+    name: 'Sarah Martinez',
+    role: 'Owner @ Sunset Vineyard',
+    avatarSrc: avatarPlaceholder,
+    socialUrl: 'https://twitter.com/sunsetvineyard',
+    quote: "This platform transformed our small vineyard into a thriving subscription business. We've grown from 50 to 500 members in just 6 months!",
   },
   {
-    name: 'Mr. Foobar',
-    role: 'Founder @ Cool Startup',
+    name: 'Michael Chen',
+    role: 'Founder @ Napa Wine Cave',
     avatarSrc: avatarPlaceholder,
     socialUrl: '',
-    quote: 'This product makes me cooler than I already am.',
+    quote: 'The automated shipping and member management features saved us 20 hours a week. Now we can focus on what we love - making great wine.',
   },
   {
-    name: 'Jamie',
-    role: 'Happy Customer',
+    name: 'Elena Rodriguez',
+    role: 'Wine Enthusiast & Subscriber',
     avatarSrc: avatarPlaceholder,
     socialUrl: '#',
-    quote: 'My cats love it!',
+    quote: 'I love discovering new wines through my subscription. The personalized recommendations are spot-on every time!',
   },
 ];
 
 export const faqs = [
   {
     id: 1,
-    question: 'Whats the meaning of life?',
-    answer: '42.',
-    href: 'https://en.wikipedia.org/wiki/42_(number)',
+    question: 'How do I get started with my wine subscription business?',
+    answer: 'Simply sign up, create your wine cave profile, add your wines and subscription tiers, and start accepting members. We provide step-by-step onboarding.',
+    href: '/onboarding-wizard',
+  },
+  {
+    id: 2,
+    question: 'What shipping carriers do you support?',
+    answer: 'We integrate with FedEx and UPS for automated label printing and tracking. More carriers are being added regularly.',
+    href: '/shipping-dashboard',
+  },
+  {
+    id: 3,
+    question: 'Can I customize my subscription tiers?',
+    answer: 'Yes! Create unlimited subscription tiers with custom pricing, wine selections, and delivery frequencies to match your business model.',
+    href: '/wine-caves/create',
+  },
+  {
+    id: 4,
+    question: 'How does the loyalty program work?',
+    answer: 'Members earn points for purchases, referrals, and reviews. They can redeem points for discounts, exclusive wines, or special experiences.',
+    href: '/loyalty-dashboard',
   },
 ];
+
 export const footerNavigation = {
   app: [
+    { name: 'Wine Caves', href: '/wine-caves' },
+    { name: 'Subscriptions', href: '/wine-subscriptions' },
+    { name: 'Analytics', href: '/wine-cave-analytics' },
     { name: 'Documentation', href: DocsUrl },
-    { name: 'Blog', href: BlogUrl },
   ],
   company: [
     { name: 'About', href: 'https://wasp.sh' },
     { name: 'Privacy', href: '#' },
     { name: 'Terms of Service', href: '#' },
+    { name: 'Wine Industry Compliance', href: '#' },
   ],
 };

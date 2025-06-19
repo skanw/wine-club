@@ -331,25 +331,25 @@ page AdminMessagesPage {
 route WineCaveDashboardRoute { path: "/wine-caves", to: WineCaveDashboardPage }
 page WineCaveDashboardPage {
   authRequired: true,
-  component: import WineCaveDashboard from "@src/wine-cave/WineCaveDashboardPage"
+  component: import WineCaveDashboardPage from "@src/wine-cave/WineCaveDashboardPage"
 }
 
 route CreateWineCaveRoute { path: "/wine-caves/create", to: CreateWineCavePage }
 page CreateWineCavePage {
   authRequired: true,
-  component: import CreateWineCave from "@src/wine-cave/CreateWineCavePage"
+  component: import CreateWineCavePage from "@src/wine-cave/CreateWineCavePage"
 }
 
 route WineCaveDetailRoute { path: "/wine-caves/:id", to: WineCaveDetailPage }
 page WineCaveDetailPage {
   authRequired: true,
-  component: import WineCaveDetail from "@src/wine-cave/WineCaveDetailPage"
+  component: import WineCaveDetailPage from "@src/wine-cave/WineCaveDetailPage"
 }
 
 route WineCaveAnalyticsRoute { path: "/wine-cave-analytics", to: WineCaveAnalyticsPage }
 page WineCaveAnalyticsPage {
   authRequired: true,
-  component: import WineCaveAnalytics from "@src/wine-cave/AnalyticsDashboardPage"
+  component: import AnalyticsDashboardPage from "@src/wine-cave/AnalyticsDashboardPage"
 }
 
 query getWineCaves {

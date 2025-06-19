@@ -1,0 +1,45 @@
+/* Wine Club Color Palette */
+:root {
+  /* Primary Wine Colors */
+  --wine-primary: #8B0000;      /* Dark Red */
+  --wine-secondary: #DC143C;     /* Crimson */
+  --wine-accent: #FFD700;        /* Gold */
+  --wine-grape: #6B0080;         /* Deep Purple */
+  
+  /* Neutral Colors */
+  --wine-cream: #FFF8DC;         /* Cornsilk */
+  --wine-beige: #F5F5DC;         /* Beige */
+  --wine-dark: #2F1B14;          /* Dark Brown */
+  --wine-gray: #8B7B6B;          /* Warm Gray */
+  
+  /* Status Colors */
+  --wine-success: #228B22;       /* Forest Green */
+  --wine-warning: #FF8C00;       /* Dark Orange */
+  --wine-error: #B22222;         /* Fire Brick */
+  --wine-info: #4682B4;          /* Steel Blue */
+  
+  /* Gradients */
+  --wine-gradient: linear-gradient(135deg, var(--wine-primary) 0%, var(--wine-secondary) 100%);
+  --wine-gold-gradient: linear-gradient(135deg, var(--wine-accent) 0%, #FFA500 100%);
+  
+  /* Shadows */
+  --wine-shadow: 0 4px 6px rgba(139, 0, 0, 0.1);
+  --wine-shadow-lg: 0 10px 15px rgba(139, 0, 0, 0.2);
+}
+
+/* Theme Classes */
+.wine-primary-bg { background-color: var(--wine-primary); }
+.wine-secondary-bg { background-color: var(--wine-secondary); }
+.wine-accent-bg { background-color: var(--wine-accent); }
+.wine-cream-bg { background-color: var(--wine-cream); }
+
+.wine-primary-text { color: var(--wine-primary); }
+.wine-secondary-text { color: var(--wine-secondary); }
+.wine-accent-text { color: var(--wine-accent); }
+.wine-dark-text { color: var(--wine-dark); }
+
+.wine-gradient-bg { background: var(--wine-gradient); }
+.wine-gold-gradient-bg { background: var(--wine-gold-gradient); }
+
+.wine-shadow { box-shadow: var(--wine-shadow); }
+.wine-shadow-lg { box-shadow: var(--wine-shadow-lg); } 
