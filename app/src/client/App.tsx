@@ -1,6 +1,7 @@
 import './Main.css';
 import AppNavbar from './components/AppNavbar';
 import CookieConsentBanner from './components/cookie-consent/Banner';
+import PageTransition from './components/PageTransition';
 import { appNavigationItems } from './components/NavBar/contentSections';
 import { landingPageNavigationItems } from '../landing-page/contentSections';
 import { useMemo, useEffect } from 'react';
@@ -45,9 +46,11 @@ export default function App() {
         ) : (
           <>
             {shouldDisplayAppNavBar && <AppNavbar navigationItems={navigationItems} />}
-            <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
-              <Outlet />
-            </div>
+                          <PageTransition transitionType="pour">
+                <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
+                  <Outlet />
+                </div>
+              </PageTransition>
           </>
         )}
       </div>

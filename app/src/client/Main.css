@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import "./styles/wine-colors.css";
+@import "./styles/wine-transitions.css";
 
 @layer utilities {
   /* Chrome, Safari and Opera */
