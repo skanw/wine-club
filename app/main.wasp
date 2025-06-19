@@ -384,6 +384,12 @@ page WineSubscriptionsPage {
   component: import WineSubscriptions from "@src/wine-subscriptions/WineSubscriptionsPage"
 }
 
+route MemberPortalRoute { path: "/member-portal", to: MemberPortalPage }
+page MemberPortalPage {
+  authRequired: true,
+  component: import MemberPortal from "@src/wine-subscriptions/MemberPortalPage"
+}
+
 route SubscribeToWineCaveRoute { path: "/wine-caves/:id/subscribe", to: SubscribeToWineCavePage }
 page SubscribeToWineCavePage {
   authRequired: true,
