@@ -397,6 +397,11 @@ page MemberPortalPage {
 }
 
 route SubscribeToWineCaveRoute { path: "/wine-caves/:id/subscribe", to: SubscribeToWineCavePage }
+
+route PremiumSubscriptionRoute { path: "/premium-subscription", to: PremiumSubscriptionPage }
+page PremiumSubscriptionPage {
+  component: import PremiumSubscriptionPage from "@src/wine-subscriptions/PremiumSubscriptionPage"
+}
 page SubscribeToWineCavePage {
   authRequired: true,
   component: import SubscribeToWineCave from "@src/wine-subscriptions/SubscribeToWineCavePage"
