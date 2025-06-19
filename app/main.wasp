@@ -422,3 +422,31 @@ query getPublicWineCaves {
   entities: [WineCave, SubscriptionTier, Wine]
 }
 //#endregion
+
+//#region Shipping Management
+route ShippingDashboardRoute { path: "/shipping", to: ShippingDashboardPage }
+page ShippingDashboardPage {
+  authRequired: true,
+  component: import ShippingDashboard from "@src/shipping/ShippingDashboardPage"
+}
+
+action createShipment {
+  fn: import { createShipment } from "@src/shipping/operations",
+  entities: [User, WineSubscription, Shipment, ShipmentItem]
+}
+
+action generateShippingLabel {
+  fn: import { generateShippingLabel } from "@src/shipping/operations",
+  entities: [User, Shipment]
+}
+
+action updateShipment {
+  fn: import { updateShipment } from "@src/shipping/operations",
+  entities: [User, Shipment]
+}
+
+query trackShipment {
+  fn: import { trackShipment } from "@src/shipping/operations",
+  entities: [User, Shipment, WineSubscription]
+}
+//#endregion

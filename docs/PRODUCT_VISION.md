@@ -57,7 +57,7 @@ The Wine Club platform is designed to address a critical gap in the boutique win
    - ✅ **WC-001: Wine Cave subscription portal creation** - DONE (commit: e892f78)
    - ✅ **WC-002: Customer signup flow** - DONE (commit: 19e8f35)
    - ✅ **WC-003: Member portal for subscription management** - DONE (commit: 7ed2da1)
-   - Basic analytics dashboard (subscriber count, churn rate, top sellers)  
+   - ✅ **WC-004: Analytics dashboard for wine cave owners** - DONE (commit: 114de46)
    - Integration with at least two shipping carriers for automated label printing  
 2. **Early Adoption – Q3 2026**  
    - Onboard 10 partner wine caves, collectively achieving 500 active subscribers  
