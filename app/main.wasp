@@ -488,3 +488,11 @@ query getAvailableRewards {
   entities: [User]
 }
 //#endregion
+
+//#region Onboarding Wizard
+route OnboardingWizardRoute { path: "/onboarding", to: OnboardingWizardPage }
+page OnboardingWizardPage {
+  authRequired: true,
+  component: import OnboardingWizard from "@src/onboarding/OnboardingWizardPage"
+}
+//#endregion
