@@ -1,5 +1,5 @@
 import './Main.css';
-import NavBar from './components/NavBar/NavBar';
+import AppNavbar from './components/AppNavbar';
 import CookieConsentBanner from './components/cookie-consent/Banner';
 import { appNavigationItems } from './components/NavBar/contentSections';
 import { landingPageNavigationItems } from '../landing-page/contentSections';
@@ -44,7 +44,7 @@ export default function App() {
           <Outlet />
         ) : (
           <>
-            {shouldDisplayAppNavBar && <NavBar navigationItems={navigationItems} />}
+            {shouldDisplayAppNavBar && <AppNavbar navigationItems={navigationItems} />}
             <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
               <Outlet />
             </div>
