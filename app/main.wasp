@@ -450,3 +450,41 @@ query trackShipment {
   entities: [User, Shipment, WineSubscription]
 }
 //#endregion
+
+//#region Loyalty & Referral System
+route LoyaltyDashboardRoute { path: "/loyalty", to: LoyaltyDashboardPage }
+page LoyaltyDashboardPage {
+  authRequired: true,
+  component: import LoyaltyDashboard from "@src/loyalty/LoyaltyDashboardPage"
+}
+
+action awardPoints {
+  fn: import { awardPoints } from "@src/loyalty/operations",
+  entities: [User, WineSubscription, LoyaltyPoints]
+}
+
+action redeemPoints {
+  fn: import { redeemPoints } from "@src/loyalty/operations",
+  entities: [User, WineSubscription, LoyaltyPoints]
+}
+
+action createReferral {
+  fn: import { createReferral } from "@src/loyalty/operations",
+  entities: [User, Referral]
+}
+
+query getLoyaltyPointsHistory {
+  fn: import { getLoyaltyPointsHistory } from "@src/loyalty/operations",
+  entities: [User, LoyaltyPoints, WineSubscription]
+}
+
+query getReferrals {
+  fn: import { getReferrals } from "@src/loyalty/operations",
+  entities: [User, Referral]
+}
+
+query getAvailableRewards {
+  fn: import { getAvailableRewards } from "@src/loyalty/operations",
+  entities: [User]
+}
+//#endregion
