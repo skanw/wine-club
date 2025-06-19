@@ -267,7 +267,7 @@ export const trackShipment = async (args: TrackShipmentInput, context: any): Pro
 
   try {
     // Mock API call to get tracking information
-    const trackingData = await getCarrierTrackingInfo(shipment.carrier, shipment.trackingNumber!);
+    const trackingData = await getCarrierTrackingInfo(shipment.carrier!, shipment.trackingNumber!);
     
     // Update shipment status if it has changed
     if (trackingData.status !== shipment.status) {

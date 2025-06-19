@@ -17,7 +17,7 @@ const SubscribeToWineCavePage = () => {
   const [error, setError] = useState<string>('');
 
   // Find the specific wine cave
-  const wineCave = wineCaves?.find(cave => cave.id === id);
+  const wineCave: any = wineCaves?.find((cave: any) => cave.id === id);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -122,7 +122,7 @@ const SubscribeToWineCavePage = () => {
           
           {wineCave.subscriptionTiers && wineCave.subscriptionTiers.length > 0 ? (
             <div className="space-y-4">
-              {wineCave.subscriptionTiers.map((tier) => (
+              {wineCave.subscriptionTiers.map((tier: any) => (
                 <div
                   key={tier.id}
                   className={`border rounded-lg p-4 cursor-pointer transition-colors ${
@@ -229,7 +229,7 @@ const SubscribeToWineCavePage = () => {
               <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                 <h3 className="font-medium text-gray-900 dark:text-white mb-2">Selected Plan:</h3>
                 {(() => {
-                  const selectedTier = wineCave.subscriptionTiers?.find(tier => tier.id === selectedTierId);
+                  const selectedTier = wineCave.subscriptionTiers?.find((tier: any) => tier.id === selectedTierId);
                   return selectedTier ? (
                     <div>
                       <p className="text-gray-700 dark:text-gray-300">

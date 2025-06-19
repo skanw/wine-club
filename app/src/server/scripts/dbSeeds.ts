@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import type { PrismaClient } from '@prisma/client';
 import { getSubscriptionPaymentPlanIds, SubscriptionStatus } from '../../payment/plans';
 
-type MockUserData = Omit<User, 'id'>;
+type MockUserData = Omit<User, 'id' | 'loyaltyPointsHistory' | 'referralsSent' | 'referralsReceived' | 'preferences' | 'wineRatings'>;
 
 /**
  * This function, which we've imported in `app.db.seeds` in the `main.wasp` file,
@@ -36,7 +36,7 @@ function generateMockUserData(): MockUserData {
     createdAt,
     isAdmin: false,
     credits,
-
+    loyaltyPoints: 0,
     subscriptionStatus,
     lemonSqueezyCustomerPortalUrl: null,
     paymentProcessorUserId: hasUserPaidOnStripe ? `cus_test_${faker.string.uuid()}` : null,
