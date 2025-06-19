@@ -346,6 +346,12 @@ page WineCaveDetailPage {
   component: import WineCaveDetail from "@src/wine-cave/WineCaveDetailPage"
 }
 
+route WineCaveAnalyticsRoute { path: "/wine-cave-analytics", to: WineCaveAnalyticsPage }
+page WineCaveAnalyticsPage {
+  authRequired: true,
+  component: import WineCaveAnalytics from "@src/wine-cave/AnalyticsDashboardPage"
+}
+
 query getWineCaves {
   fn: import { getWineCaves } from "@src/wine-cave/operations",
   entities: [User, WineCave, SubscriptionTier, Wine]

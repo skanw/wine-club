@@ -55,7 +55,8 @@ The Wine Club platform is designed to address a critical gap in the boutique win
 ## Key Goals & Milestones
 1. **MVP Launch – Q1 2026**  
    - ✅ **WC-001: Wine Cave subscription portal creation** - DONE (commit: e892f78)
-   - Fully automated subscription sign-up, checkout, and member portal  
+   - ✅ **WC-002: Customer signup flow** - DONE (commit: 19e8f35)
+   - ✅ **WC-003: Member portal for subscription management** - DONE (commit: 7ed2da1)
    - Basic analytics dashboard (subscriber count, churn rate, top sellers)  
    - Integration with at least two shipping carriers for automated label printing  
 2. **Early Adoption – Q3 2026**  
