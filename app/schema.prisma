@@ -30,6 +30,14 @@ model User {
   // Wine Club relations
   ownedWineCaves            WineCave[]
   wineSubscriptions         WineSubscription[]
+  loyaltyPoints             Int             @default(0)
+  
+  // Loyalty and referral relations
+  loyaltyPointsHistory      LoyaltyPoints[] @relation("MemberLoyaltyPoints")
+  referralsSent             Referral[]      @relation("ReferrerReferrals")
+  referralsReceived         Referral[]      @relation("RefereeReferrals")
+  preferences               MemberPreferences? @relation("MemberPreferences")
+  wineRatings               WineRating[]    @relation("MemberWineRatings")
 }
 
 model GptResponse {
@@ -135,6 +143,7 @@ model WineCave {
   wines                     Wine[]
   subscriptions             WineSubscription[]
   shipments                 Shipment[]
+  loyaltyPoints             LoyaltyPoints[]
 }
 
 model SubscriptionTier {
@@ -173,6 +182,7 @@ model Wine {
   wineCaveId                String
 
   shipmentItems             ShipmentItem[]
+  ratings                   WineRating[]    @relation("WineRatings")
 }
 
 model WineSubscription {
@@ -194,6 +204,7 @@ model WineSubscription {
   subscriptionTierId        String
 
   shipments                 Shipment[]
+  loyaltyPointsHistory      LoyaltyPoints[]
   
   // Delivery preferences
   deliveryAddress           String?
@@ -230,4 +241,73 @@ model ShipmentItem {
   wineId                    String
 
   quantity                  Int             @default(1)
+}
+
+// Loyalty and referral system models
+model LoyaltyPoints {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  points                    Int
+  reason                    String
+  type                      String          // "earned" or "redeemed"
+
+  member                    User            @relation("MemberLoyaltyPoints", fields: [memberId], references: [id])
+  memberId                  String
+
+  subscription              WineSubscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId            String?
+
+  wineCave                  WineCave?       @relation(fields: [wineCaveId], references: [id])
+  wineCaveId                String?
+}
+
+model Referral {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  completedAt               DateTime?
+
+  code                      String          @unique
+  refereeEmail              String
+  status                    String          @default("pending") // "pending", "completed", "expired"
+
+  referrer                  User            @relation("ReferrerReferrals", fields: [referrerId], references: [id])
+  referrerId                String
+
+  referee                   User?           @relation("RefereeReferrals", fields: [refereeId], references: [id])
+  refereeId                 String?
+}
+
+// Member preferences for personalized recommendations
+model MemberPreferences {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+
+  varietals                 String[]        // Preferred wine varietals
+  priceRangeMin             Float?
+  priceRangeMax             Float?
+  bodyPreference            String?         // "light", "medium", "full"
+  tasteProfile              String[]        // Taste preferences
+
+  member                    User            @relation("MemberPreferences", fields: [memberId], references: [id])
+  memberId                  String          @unique
+}
+
+// Wine ratings and reviews
+model WineRating {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  rating                    Int             // 1-5 stars
+  review                    String?
+  isPublic                  Boolean         @default(true)
+
+  member                    User            @relation("MemberWineRatings", fields: [memberId], references: [id])
+  memberId                  String
+
+  wine                      Wine            @relation("WineRatings", fields: [wineId], references: [id])
+  wineId                    String
+
+  @@unique([memberId, wineId])
 }

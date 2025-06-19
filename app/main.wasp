@@ -460,12 +460,12 @@ page LoyaltyDashboardPage {
 
 action awardPoints {
   fn: import { awardPoints } from "@src/loyalty/operations",
-  entities: [User, WineSubscription, LoyaltyPoints]
+  entities: [User, WineSubscription, LoyaltyPoints, WineCave]
 }
 
 action redeemPoints {
   fn: import { redeemPoints } from "@src/loyalty/operations",
-  entities: [User, WineSubscription, LoyaltyPoints]
+  entities: [User, WineSubscription, LoyaltyPoints, WineCave]
 }
 
 action createReferral {
@@ -475,7 +475,7 @@ action createReferral {
 
 query getLoyaltyPointsHistory {
   fn: import { getLoyaltyPointsHistory } from "@src/loyalty/operations",
-  entities: [User, LoyaltyPoints, WineSubscription]
+  entities: [User, LoyaltyPoints, WineSubscription, WineCave]
 }
 
 query getReferrals {

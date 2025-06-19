@@ -111,7 +111,7 @@ export const createShipment = async (args: CreateShipmentInput, context: any): P
 };
 
 // Generate shipping label using carrier API
-export const generateShippingLabel: GenerateShippingLabel<GenerateShippingLabelInput, Shipment> = async (args, context) => {
+export const generateShippingLabel = async (args: GenerateShippingLabelInput, context: any): Promise<Shipment> => {
   if (!context.user) {
     throw new HttpError(401, 'You must be logged in to generate shipping labels');
   }
@@ -178,7 +178,7 @@ export const generateShippingLabel: GenerateShippingLabel<GenerateShippingLabelI
 };
 
 // Update shipment status
-export const updateShipment: UpdateShipment<UpdateShipmentInput, Shipment> = async (args, context) => {
+export const updateShipment = async (args: UpdateShipmentInput, context: any): Promise<Shipment> => {
   if (!context.user) {
     throw new HttpError(401, 'You must be logged in to update shipments');
   }
@@ -227,7 +227,7 @@ export const updateShipment: UpdateShipment<UpdateShipmentInput, Shipment> = asy
 };
 
 // Track shipment status
-export const trackShipment: TrackShipment<TrackShipmentInput, any> = async (args, context) => {
+export const trackShipment = async (args: TrackShipmentInput, context: any): Promise<any> => {
   if (!context.user) {
     throw new HttpError(401, 'You must be logged in to track shipments');
   }
@@ -267,7 +267,7 @@ export const trackShipment: TrackShipment<TrackShipmentInput, any> = async (args
 
   try {
     // Mock API call to get tracking information
-    const trackingData = await getCarrierTrackingInfo(shipment.carrier, shipment.trackingNumber);
+    const trackingData = await getCarrierTrackingInfo(shipment.carrier, shipment.trackingNumber!);
     
     // Update shipment status if it has changed
     if (trackingData.status !== shipment.status) {
