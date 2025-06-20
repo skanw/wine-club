@@ -13,21 +13,23 @@ export default function LandingPage() {
         {/* Hero Section - Full Bleed */}
         <Hero />
         
-        {/* Content Sections with 120px Vertical Rhythm */}
-        <div className="max-w-luxury-content mx-auto px-16 lg:px-24 space-y-luxury-xl">
-          <section className="py-luxury-xl">
+        {/* HH-07: Content Sections with 120px margin-top after hero, 90px between sections */}
+        <div className="max-w-luxury-content mx-auto px-16 lg:px-24">
+          {/* HH-07: 120px margin-top after hero */}
+          <section className="mt-30 mb-22.5"> {/* 120px top, 90px bottom */}
             <Clients />
           </section>
           
-          <section className="py-luxury-xl">
+          {/* HH-07: 90px between subsequent sections */}
+          <section className="mb-22.5"> {/* 90px bottom */}
             <Features features={features} />
           </section>
           
-          <section className="py-luxury-xl">
+          <section className="mb-22.5"> {/* 90px bottom */}
             <Testimonials testimonials={testimonials} />
           </section>
           
-          <section className="py-luxury-xl">
+          <section className="mb-22.5"> {/* 90px bottom */}
             <FAQ faqs={faqs} />
           </section>
         </div>

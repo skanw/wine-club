@@ -163,6 +163,10 @@ module.exports = {
         ...defaultTheme.screens,
       },
       spacing: {
+        // HH-07: Section rhythm spacing values
+        '22.5': '5.625rem',      // 90px - Between subsequent sections
+        '30': '7.5rem',          // 120px - After hero section
+        
         // Luxury spacing scale for vertical rhythm
         'luxury-xs': '0.75rem',    // 12px
         'luxury-sm': '1.5rem',     // 24px
@@ -199,7 +203,6 @@ module.exports = {
         21: '5.25rem',
         21.5: '5.375rem',
         22: '5.5rem',
-        22.5: '5.625rem',
         24.5: '6.125rem',
         25: '6.25rem',
         25.5: '6.375rem',
@@ -208,7 +211,6 @@ module.exports = {
         27.5: '6.875rem',
         29: '7.25rem',
         29.5: '7.375rem',
-        30: '7.5rem',
         31: '7.75rem',
         32.5: '8.125rem',
         34: '8.5rem',
@@ -238,24 +240,6 @@ module.exports = {
         65: '16.25rem',
         67: '16.75rem',
         67.5: '16.875rem',
-        70: '17.5rem',
-        72.5: '18.125rem',
-        73: '18.25rem',
-        75: '18.75rem',
-        90: '22.5rem',
-        94: '23.5rem',
-        95: '23.75rem',
-        100: '25rem',
-        115: '28.75rem',
-        125: '31.25rem',
-        132.5: '33.125rem',
-        150: '37.5rem',
-        171.5: '42.875rem',
-        180: '45rem',
-        187.5: '46.875rem',
-        203: '50.75rem',
-        230: '57.5rem',
-        242.5: '60.625rem',
       },
       maxWidth: {
         // Luxury content width
