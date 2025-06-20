@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 
 type Theme = 'light' | 'dark';
 
@@ -74,32 +73,33 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ className = '' }) => {
 
   return (
     <button
-      className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-champagne-500 focus:ring-offset-2 ${
-        activeTheme === 'dark' 
-          ? 'bg-bordeaux-600 hover:bg-bordeaux-700' 
-          : 'bg-champagne-300 hover:bg-champagne-400'
-      } ${className}`}
+      className={`
+        relative inline-flex items-center justify-center
+        w-10 h-10 rounded-full
+        transition-all duration-300 ease-in-out
+        focus:outline-none focus:ring-2 focus:ring-champagne-500 focus:ring-offset-2
+        hover:scale-110 hover:shadow-lg
+        min-w-11 min-h-11
+        ${activeTheme === 'dark' 
+          ? 'bg-bordeaux-600 hover:bg-bordeaux-700 text-champagne-100' 
+          : 'bg-champagne-300 hover:bg-champagne-400 text-bordeaux-700'
+        } 
+        ${className}
+      `}
       onClick={toggleTheme}
       role="switch"
       aria-checked={activeTheme === 'dark'}
-      aria-label="Toggle red-wine (dark) / white-wine (light) theme"
-      title={`Currently ${activeTheme === 'light' ? 'white-wine (light)' : 'red-wine (dark)'} theme. Click to switch.`}
+      aria-label={`Switch to ${activeTheme === 'light' ? 'dark' : 'light'} theme`}
+      title={`Currently ${activeTheme} theme. Click to switch to ${activeTheme === 'light' ? 'dark' : 'light'} theme.`}
+      style={{ minWidth: '44px', minHeight: '44px' }} // HH-03: 44px hit-area
     >
-      <span
-        className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-300 ${
-          activeTheme === 'dark' ? 'translate-x-6' : 'translate-x-1'
-        }`}
-      >
-        <span className="flex h-full w-full items-center justify-center">
-          {activeTheme === 'light' ? (
-            <SunIcon className="h-3 w-3 text-champagne-600" />
-          ) : (
-            <MoonIcon className="h-3 w-3 text-bordeaux-600" />
-          )}
-        </span>
+      {/* HH-03: 🌞/🌜 icons */}
+      <span className="text-xl transition-transform duration-300 ease-in-out transform hover:scale-110">
+        {activeTheme === 'light' ? '🌞' : '🌜'}
       </span>
+      
       <span className="sr-only">
-        {activeTheme === 'light' ? 'White-wine (light) theme active' : 'Red-wine (dark) theme active'}
+        {activeTheme === 'light' ? 'Light theme active. Click to switch to dark theme.' : 'Dark theme active. Click to switch to light theme.'}
       </span>
     </button>
   );
