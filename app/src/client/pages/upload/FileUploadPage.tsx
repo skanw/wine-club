@@ -1,11 +1,17 @@
-import { cn } from '../client/cn';
+import { cn } from '../../cn';
+import { useAuth } from 'wasp/client/auth';
 import { useState, useEffect, FormEvent } from 'react';
+import type { User } from 'wasp/entities';
 import type { File } from 'wasp/entities';
 import { useQuery, getAllFilesByUser, getDownloadFileSignedURL } from 'wasp/client/operations';
+import { TbUpload } from 'react-icons/tb';
+import { AiOutlineFile } from 'react-icons/ai';
+import { BsDownload } from 'react-icons/bs';
+import { uploadFile } from './fileUploading';
+import { validateFile } from './validation';
 import {
   type FileWithValidType,
   type FileUploadError,
-  validateFile,
   uploadFileWithProgress,
 } from './fileUploading';
 import { ALLOWED_FILE_TYPES } from './validation';

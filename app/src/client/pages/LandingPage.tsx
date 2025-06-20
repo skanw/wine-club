@@ -1,10 +1,10 @@
-import { features, faqs, footerNavigation, testimonials } from './contentSections';
-import Hero from '../client/components/Hero';
-import Clients from '../client/components/Clients';
-import Features from '../client/components/Features';
-import Testimonials from '../client/components/Testimonials';
-import FAQ from '../client/components/FAQ';
-import Footer from '../client/components/Footer';
+import { features, faqs, footerNavigation, testimonials } from '../../landing-page/contentSections';
+import Hero from '../components/Hero';
+import Clients from '../components/Clients';
+import Features from '../components/Features';
+import Testimonials from '../components/Testimonials';
+import FAQ from '../components/FAQ';
+import Footer from '../components/Footer';
 
 export default function LandingPage() {
   return (

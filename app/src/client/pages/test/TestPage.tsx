@@ -1,4 +1,4 @@
-import TestSuite from '../client/components/TestSuite';
+import TestSuite from '../../components/TestSuite';
 
 export default function TestPage() {
   return (

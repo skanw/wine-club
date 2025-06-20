@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import ThemeToggle from '../client/components/ThemeToggle';
-import LanguageSwitcher from '../client/components/LanguageSwitcher';
-import WineLogo from '../client/components/WineLogo';
+import { useAuth } from 'wasp/client/auth';
+import ThemeToggle from '../../components/ThemeToggle';
+import LanguageSwitcher from '../../components/LanguageSwitcher';
+import WineLogo from '../../components/WineLogo';
 import '../client/styles/wine-colors.css';
 import '../client/styles/wine-transitions.css';
 
