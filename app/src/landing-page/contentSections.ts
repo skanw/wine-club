@@ -1,4 +1,4 @@
-import type { NavigationItem } from '../client/components/NavBar/NavBar';
+import type { NavigationItem } from '../client/components/AppNavbar';
 import { routes } from 'wasp/client/router';
 import { DocsUrl, BlogUrl } from '../shared/common';
 import daBoiAvatar from '../client/static/da-boi.webp';
