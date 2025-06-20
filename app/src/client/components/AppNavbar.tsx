@@ -9,6 +9,9 @@ import { HiBars3 } from 'react-icons/hi2';
 import DropdownUser from '../../user/DropdownUser';
 import { UserMenuItems } from '../../user/UserMenuItems';
 import ThemeToggle from './ThemeToggle';
+import LanguageSwitcher from './LanguageSwitcher';
+import WineLogo from './WineLogo';
+import { useTranslation } from 'react-i18next';
 import { useIsLandingPage } from '../hooks/useIsLandingPage';
 import { cn } from '../cn';
 import '../styles/wine-colors.css';
@@ -19,26 +22,10 @@ export interface NavigationItem {
   to: string;
 }
 
-const WineLogo = () => (
-  <div className="flex items-center">
-    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 38C22.2091 38 24 36.2091 24 34V28H16V34C16 36.2091 17.7909 38 20 38Z" fill="#8B0000"/>
-      <path d="M23 28V32C23 33.1046 22.1046 34 21 34H19C17.8954 34 17 33.1046 17 32V28H23Z" fill="#DC143C"/>
-      <path d="M12 2C12 2 12 12 20 16C28 12 28 2 28 2H12Z" fill="none" stroke="#FFD700" strokeWidth="2"/>
-      <ellipse cx="20" cy="10" rx="6" ry="4" fill="#8B0000" opacity="0.8"/>
-      <rect x="19" y="16" width="2" height="12" fill="#FFD700"/>
-      <ellipse cx="20" cy="30" rx="4" ry="1" fill="#FFD700"/>
-      <circle cx="14" cy="6" r="1.5" fill="#6B0080"/>
-      <circle cx="26" cy="6" r="1.5" fill="#6B0080"/>
-      <circle cx="13" cy="8" r="1" fill="#6B0080"/>
-      <circle cx="27" cy="8" r="1" fill="#6B0080"/>
-    </svg>
-  </div>
-);
-
 export default function AppNavbar({ navigationItems }: { navigationItems: NavigationItem[] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isLandingPage = useIsLandingPage();
+  const { t } = useTranslation();
 
   const { data: user, isLoading: isUserLoading } = useAuth();
   
@@ -60,12 +47,7 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
             to={routes.LandingPageRoute.to}
             className='flex items-center -m-1.5 p-1.5 text-gray-900 duration-300 ease-in-out hover:text-yellow-500'
           >
-            <WineLogo />
-            {isLandingPage && (
-              <span className='ml-2 text-lg font-bold leading-6 dark:text-white wine-primary-text'>
-                Wine Club
-              </span>
-            )}
+            <WineLogo size="lg" showText={isLandingPage} />
           </WaspRouterLink>
         </div>
         
@@ -83,14 +65,15 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
         <div className='hidden lg:flex lg:gap-x-12'>{renderNavigationItems(navigationItems)}</div>
         
         <div className='hidden lg:flex lg:flex-1 gap-3 justify-end items-center'>
+          <LanguageSwitcher className="mr-2" variant="navbar" showLabels={false} />
           <ThemeToggle className="mr-4" />
           <WaspRouterLink to={routes.SubscriptionRoute.to} className="btn-primary">
-            Subscribe
+            {t('subscription.subscribeButton')}
           </WaspRouterLink>
           {isUserLoading ? null : !user ? (
             <WaspRouterLink to={routes.LoginRoute.to} className='text-sm font-semibold leading-6 ml-3'>
               <div className='flex items-center duration-300 ease-in-out text-gray-900 hover:text-yellow-500 dark:text-white'>
-                Log in <BiLogIn size='1.1rem' className='ml-1 mt-[0.1rem]' />
+                {t('navigation.login')} <BiLogIn size='1.1rem' className='ml-1 mt-[0.1rem]' />
               </div>
             </WaspRouterLink>
           ) : (
@@ -107,7 +90,7 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
           <div className='flex items-center justify-between'>
             <WaspRouterLink to={routes.LandingPageRoute.to} className='-m-1.5 p-1.5'>
               <span className='sr-only'>Wine Club SaaS</span>
-              <WineLogo />
+              <WineLogo size="lg" />
             </WaspRouterLink>
             <button
               type='button'
@@ -125,14 +108,15 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
                 {isUserLoading ? null : !user ? (
                   <WaspRouterLink to={routes.LoginRoute.to}>
                     <div className='flex justify-end items-center duration-300 ease-in-out text-gray-900 hover:text-yellow-500 dark:text-white'>
-                      Log in <BiLogIn size='1.1rem' className='ml-1' />
+                      {t('navigation.login')} <BiLogIn size='1.1rem' className='ml-1' />
                     </div>
                   </WaspRouterLink>
                 ) : (
                   <UserMenuItems user={user} setMobileMenuOpen={setMobileMenuOpen} />
                 )}
               </div>
-              <div className='py-6'>
+              <div className='py-6 space-y-4'>
+                <LanguageSwitcher variant="inline" showLabels={true} />
                 <ThemeToggle />
               </div>
             </div>
@@ -169,17 +153,19 @@ function renderNavigationItems(
 }
 
 function WineAnnouncement() {
+  const { t } = useTranslation();
+  
   return (
     <div className='flex justify-center items-center gap-3 p-3 w-full wine-gradient-bg font-semibold text-white text-center z-49'>
       <p className='hidden lg:block hover:opacity-90 hover:drop-shadow'>
-        🍷 Launch Your Wine Subscription Business Today!
+        🍷 {t('hero.subscribeNow')} - {t('hero.title')}!
       </p>
       <div className='hidden lg:block self-stretch w-0.5 bg-white'></div>
       <div className='hidden lg:block cursor-pointer rounded-full bg-neutral-700 px-2.5 py-1 text-xs hover:bg-neutral-600 tracking-wider'>
-        Start Free Trial →
+        {t('hero.learnMore')} →
       </div>
       <div className='lg:hidden cursor-pointer rounded-full bg-neutral-700 px-2.5 py-1 text-xs hover:bg-neutral-600 tracking-wider'>
-        🍷 Start Your Wine Cave Today!
+        🍷 {t('hero.subscribeNow')}!
       </div>
     </div>
   );

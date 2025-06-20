@@ -7,5 +7,6 @@ export const appNavigationItems: NavigationItem[] = [
   { name: 'Premium Subscription', to: '/premium-subscription' },
   { name: 'Subscriptions', to: routes.WineSubscriptionsRoute.to },
   { name: 'Member Portal', to: routes.MemberPortalRoute.to },
+  { name: 'Demo', to: routes.DemoAppRoute.to },
   { name: 'Pricing', to: routes.PricingPageRoute.to },
 ];

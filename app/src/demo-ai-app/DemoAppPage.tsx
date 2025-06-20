@@ -1,411 +1,437 @@
-import { type Task } from 'wasp/entities';
-
-import {
-  generateGptResponse,
-  deleteTask,
-  updateTask,
-  createTask,
-  useQuery,
-  getAllTasksByUser,
-} from 'wasp/client/operations';
-
-import { useState, useMemo } from 'react';
-import { CgSpinner } from 'react-icons/cg';
-import { TiDelete } from 'react-icons/ti';
-import type { GeneratedSchedule, MainTask, SubTask } from './schedule';
-import { cn } from '../client/cn';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ThemeToggle from '../client/components/ThemeToggle';
+import LanguageSwitcher from '../client/components/LanguageSwitcher';
+import WineLogo from '../client/components/WineLogo';
+import '../client/styles/wine-colors.css';
+import '../client/styles/wine-transitions.css';
 
 export default function DemoAppPage() {
+  const { t } = useTranslation();
+  const [activeDemo, setActiveDemo] = useState('overview');
+
   return (
-    <div className='py-10 lg:mt-10'>
-      <div className='mx-auto max-w-7xl px-6 lg:px-8'>
-        <div className='mx-auto max-w-4xl text-center'>
-          <h2 className='mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white'>
-            <span className='text-yellow-500'>AI</span> Day Scheduler
-          </h2>
-        </div>
-        <p className='mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600 dark:text-white'>
-          This example app uses OpenAI's chat completions with function calling to return a structured JSON object. Try
-          it out, enter your day's tasks, and let AI do the rest!
-        </p>
-        {/* begin AI-powered Todo List */}
-        <div className='my-8 border rounded-3xl border-gray-900/10 dark:border-gray-100/10'>
-          <div className='sm:w-[90%] md:w-[70%] lg:w-[50%] py-10 px-6 mx-auto my-8 space-y-10'>
-            <NewTaskForm handleCreateTask={createTask} />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 wine-transition-slow">
+      {/* Demo Header */}
+      <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center space-x-4">
+              <WineLogo size="lg" showText={true} />
+              <div className="hidden md:block">
+                <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  Interactive Platform Demo
+                </h1>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <LanguageSwitcher variant="navbar" showLabels={false} />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
-        {/* end AI-powered Todo List */}
+      </header>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Demo Navigation */}
+          <div className="lg:col-span-1">
+            <nav className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                Demo Features
+              </h2>
+              <ul className="space-y-2">
+                {[
+                  { id: 'overview', label: 'Platform Overview', icon: '🏠' },
+                  { id: 'theme', label: 'Theme System', icon: '🎨' },
+                  { id: 'i18n', label: 'Internationalization', icon: '🌍' },
+                  { id: 'subscription', label: 'Subscription Flow', icon: '🍷' },
+                  { id: 'analytics', label: 'Analytics Dashboard', icon: '📊' },
+                  { id: 'features', label: 'Core Features', icon: '⚡' }
+                ].map((item) => (
+                  <li key={item.id}>
+                    <button
+                      onClick={() => setActiveDemo(item.id)}
+                      className={`w-full flex items-center space-x-3 px-3 py-2 rounded-md text-left transition-colors ${
+                        activeDemo === item.id
+                          ? 'bg-wine-100 text-wine-800 dark:bg-wine-900 dark:text-wine-200'
+                          : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
+                      }`}
+                    >
+                      <span>{item.icon}</span>
+                      <span className="text-sm font-medium">{item.label}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          {/* Demo Content */}
+          <div className="lg:col-span-3">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+              {activeDemo === 'overview' && <OverviewDemo />}
+              {activeDemo === 'theme' && <ThemeDemo />}
+              {activeDemo === 'i18n' && <I18nDemo />}
+              {activeDemo === 'subscription' && <SubscriptionDemo />}
+              {activeDemo === 'analytics' && <AnalyticsDemo />}
+              {activeDemo === 'features' && <FeaturesDemo />}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function NewTaskForm({ handleCreateTask }: { handleCreateTask: typeof createTask }) {
-  const [description, setDescription] = useState<string>('');
-  const [todaysHours, setTodaysHours] = useState<string>('8');
-  const [response, setResponse] = useState<GeneratedSchedule | null>({
-    mainTasks: [
-      {
-        name: 'Respond to emails',
-        priority: 'high',
-      },
-      {
-        name: 'Learn WASP',
-        priority: 'low',
-      },
-      {
-        name: 'Read a book',
-        priority: 'medium',
-      },
-    ],
-    subtasks: [
-      {
-        description: 'Read introduction and chapter 1',
-        time: 0.5,
-        mainTaskName: 'Read a book',
-      },
-      {
-        description: 'Read chapter 2 and take notes',
-        time: 0.3,
-        mainTaskName: 'Read a book',
-      },
-      {
-        description: 'Read chapter 3 and summarize key points',
-        time: 0.2,
-        mainTaskName: 'Read a book',
-      },
-      {
-        description: 'Check and respond to important emails',
-        time: 1,
-        mainTaskName: 'Respond to emails',
-      },
-      {
-        description: 'Organize and prioritize remaining emails',
-        time: 0.5,
-        mainTaskName: 'Respond to emails',
-      },
-      {
-        description: 'Draft responses to urgent emails',
-        time: 0.5,
-        mainTaskName: 'Respond to emails',
-      },
-      {
-        description: 'Watch tutorial video on WASP',
-        time: 0.5,
-        mainTaskName: 'Learn WASP',
-      },
-      {
-        description: 'Complete online quiz on the basics of WASP',
-        time: 1.5,
-        mainTaskName: 'Learn WASP',
-      },
-      {
-        description: 'Review quiz answers and clarify doubts',
-        time: 1,
-        mainTaskName: 'Learn WASP',
-      },
-    ],
-  });
-  const [isPlanGenerating, setIsPlanGenerating] = useState<boolean>(false);
-
-  const { data: tasks, isLoading: isTasksLoading } = useQuery(getAllTasksByUser);
-
-  const handleSubmit = async () => {
-    try {
-      await handleCreateTask({ description });
-      setDescription('');
-    } catch (err: any) {
-      window.alert('Error: ' + (err.message || 'Something went wrong'));
-    }
-  };
-
-  const handleGeneratePlan = async () => {
-    try {
-      setIsPlanGenerating(true);
-      const response = await generateGptResponse({
-        hours: todaysHours,
-      });
-      if (response) {
-        setResponse(response);
-      }
-    } catch (err: any) {
-      window.alert('Error: ' + (err.message || 'Something went wrong'));
-    } finally {
-      setIsPlanGenerating(false);
-    }
-  };
-
+function OverviewDemo() {
+  const { t } = useTranslation();
+  
   return (
-    <div className='flex flex-col justify-center gap-10'>
-      <div className='flex flex-col gap-3'>
-        <div className='flex items-center justify-between gap-3'>
-          <input
-            type='text'
-            id='description'
-            className='text-sm text-gray-600 w-full rounded-md border border-gray-200 bg-[#f5f0ff] shadow-md focus:outline-none focus:border-transparent focus:shadow-none duration-200 ease-in-out hover:shadow-none'
-            placeholder='Enter task description'
-            value={description}
-            onChange={(e) => setDescription(e.currentTarget.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSubmit();
-              }
-            }}
-          />
-         <button
-            type='button'
-            onClick={handleSubmit}
-            disabled={!description}
-            className={cn(
-              'min-w-[7rem] font-medium text-gray-800/90 bg-yellow-50 shadow-md ring-1 ring-inset ring-slate-200 py-2 px-4 rounded-md duration-200 ease-in-out focus:outline-none focus:shadow-none',
-              description && 'hover:bg-yellow-100 hover:shadow-none'
-            )}
-          >
-            Add Task
-          </button>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Wine Club SaaS Platform
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div className="bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 p-4 rounded-lg">
+          <div className="text-red-600 dark:text-red-400 text-2xl mb-2">🍷</div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">Wine Cave Management</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Create and manage multiple wine caves with subscription tiers
+          </p>
+        </div>
+        
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-lg">
+          <div className="text-blue-600 dark:text-blue-400 text-2xl mb-2">📦</div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">Subscription Management</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Automated billing and member portal for subscribers
+          </p>
+        </div>
+        
+        <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-lg">
+          <div className="text-green-600 dark:text-green-400 text-2xl mb-2">📊</div>
+          <h3 className="font-semibold text-gray-900 dark:text-white">Analytics & Insights</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Track revenue, subscribers, and business growth
+          </p>
         </div>
       </div>
 
-      <div className='space-y-10 col-span-full'>
-        {isTasksLoading && <div>Loading...</div>}
-        {tasks!! && tasks.length > 0 ? (
-          <div className='space-y-4'>
-            {tasks.map((task: Task) => (
-              <Todo key={task.id} id={task.id} isDone={task.isDone} description={task.description} time={task.time} />
-            ))}
-            <div className='flex flex-col gap-3'>
-              <div className='flex items-center justify-between gap-3'>
-                <label htmlFor='time' className='text-sm text-gray-600 dark:text-gray-300 text-nowrap font-semibold'>
-                  How many hours will you work today?
+      <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Platform Highlights
+        </h3>
+        <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+          <li className="flex items-center space-x-2">
+            <span className="text-green-500">✓</span>
+            <span>Multi-tenant architecture for wine cave owners</span>
+          </li>
+          <li className="flex items-center space-x-2">
+            <span className="text-green-500">✓</span>
+            <span>Integrated shipping with FedEx and UPS</span>
+          </li>
+          <li className="flex items-center space-x-2">
+            <span className="text-green-500">✓</span>
+            <span>AI-powered wine recommendations</span>
+          </li>
+          <li className="flex items-center space-x-2">
+            <span className="text-green-500">✓</span>
+            <span>Loyalty program and referral system</span>
+          </li>
+          <li className="flex items-center space-x-2">
+            <span className="text-green-500">✓</span>
+            <span>Responsive design with dark/light themes</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function ThemeDemo() {
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Wine Theme System
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Red Wine Theme
+          </h3>
+          <div className="bg-red-50 dark:bg-red-900/20 p-4 rounded-lg border border-red-200 dark:border-red-800">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-8 h-8 bg-red-600 rounded-full"></div>
+              <span className="font-medium text-red-800 dark:text-red-200">Rich & Bold</span>
+            </div>
+            <p className="text-sm text-red-700 dark:text-red-300">
+              Inspired by deep reds and burgundy wines, perfect for premium experiences.
+            </p>
+          </div>
+        </div>
+        
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            White Wine Theme
+          </h3>
+          <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
+            <div className="flex items-center space-x-3 mb-3">
+              <div className="w-8 h-8 bg-amber-500 rounded-full"></div>
+              <span className="font-medium text-amber-800 dark:text-amber-200">Light & Elegant</span>
+            </div>
+            <p className="text-sm text-amber-700 dark:text-amber-300">
+              Inspired by golden whites and champagne, offering a refined aesthetic.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8 bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Theme Controls
+        </h3>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-gray-600 dark:text-gray-400">
+              Single-click toggle between red and white wine themes
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+              Preferences saved in localStorage with cookie fallback
+            </p>
+          </div>
+          <ThemeToggle className="ml-4" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function I18nDemo() {
+  const { t, i18n } = useTranslation();
+  
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Internationalization (i18n)
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Current Language: {i18n.language === 'en-US' ? 'English' : 'Français'}
+          </h3>
+          
+          <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+            <h4 className="font-medium text-blue-800 dark:text-blue-200 mb-2">
+              {t('hero.title')}
+            </h4>
+            <p className="text-sm text-blue-700 dark:text-blue-300">
+              {t('hero.description')}
+            </p>
+          </div>
+          
+          <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+            <h4 className="font-medium text-green-800 dark:text-green-200 mb-2">
+              {t('subscription.title')}
+            </h4>
+            <p className="text-sm text-green-700 dark:text-green-300">
+              {t('subscription.subtitle')}
+            </p>
+          </div>
+        </div>
+        
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Language Switcher
+          </h3>
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <LanguageSwitcher variant="inline" showLabels={true} />
+          </div>
+          
+          <div className="text-sm text-gray-600 dark:text-gray-400 space-y-2">
+            <p>• Complete translation coverage for all UI elements</p>
+            <p>• React-i18next integration with namespace support</p>
+            <p>• Automatic language detection and persistence</p>
+            <p>• Easy to add new languages and translations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SubscriptionDemo() {
+  const { t } = useTranslation();
+  const [selectedPlan, setSelectedPlan] = useState('premium');
+  
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Subscription Flow Demo
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Subscription Tiers
+          </h3>
+          
+          {[
+            { id: 'basic', name: 'Basic', price: '$29', bottles: 2 },
+            { id: 'premium', name: 'Premium', price: '$59', bottles: 4 },
+            { id: 'collector', name: 'Collector', price: '$99', bottles: 6 }
+          ].map((plan) => (
+            <div
+              key={plan.id}
+              className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                selectedPlan === plan.id
+                  ? 'border-wine-500 bg-wine-50 dark:bg-wine-900/20'
+                  : 'border-gray-200 dark:border-gray-600 hover:border-wine-300'
+              }`}
+              onClick={() => setSelectedPlan(plan.id)}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="font-medium text-gray-900 dark:text-white">
+                    {plan.name}
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {plan.bottles} bottles per month
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="text-lg font-bold text-wine-600 dark:text-wine-400">
+                    {plan.price}
+                  </div>
+                  <div className="text-xs text-gray-500">per month</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+            Mock Subscription Form
+          </h3>
+          
+          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <form className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  {t('common.email')}
                 </label>
                 <input
-                  type='number'
-                  id='time'
-                  step={0.5}
-                  min={1}
-                  max={24}
-                  className='min-w-[7rem] text-gray-800/90 text-center font-medium rounded-md border border-gray-200 bg-yellow-50 hover:bg-yellow-100 shadow-md focus:outline-none focus:border-transparent focus:shadow-none duration-200 ease-in-out hover:shadow-none'
-                  value={todaysHours}
-                  onChange={(e) => setTodaysHours(e.currentTarget.value)}
+                  type="email"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                  placeholder="your@email.com"
                 />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Wine Preferences
+                </label>
+                <select className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                  <option>Red wines preferred</option>
+                  <option>White wines preferred</option>
+                  <option>Mixed selection</option>
+                </select>
+              </div>
+              
+              <button
+                type="button"
+                className="w-full bg-wine-600 hover:bg-wine-700 text-white font-medium py-2 px-4 rounded-md transition-colors"
+              >
+                {t('subscription.subscribeButton')}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AnalyticsDemo() {
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Analytics Dashboard
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">1,247</div>
+          <div className="text-sm text-blue-700 dark:text-blue-300">Active Subscribers</div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-green-600 dark:text-green-400">$47,230</div>
+          <div className="text-sm text-green-700 dark:text-green-300">Monthly Revenue</div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 p-4 rounded-lg">
+          <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">23</div>
+          <div className="text-sm text-purple-700 dark:text-purple-300">Active Wine Caves</div>
+        </div>
+      </div>
+      
+      <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+          Growth Chart (Mock)
+        </h3>
+        <div className="h-32 bg-gradient-to-r from-wine-100 to-wine-200 dark:from-wine-900 dark:to-wine-800 rounded-lg flex items-end justify-around p-4">
+          {[30, 45, 60, 40, 75, 90, 85, 95, 70, 80, 100, 90].map((height, index) => (
+            <div 
+              key={index}
+              className="bg-wine-600 dark:bg-wine-400 rounded-t-sm transition-all duration-1000 ease-out"
+              style={{ height: `${height}%`, width: '8px' }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FeaturesDemo() {
+  const features = [
+    { icon: '🍷', title: 'Wine Cave Management', desc: 'Create and manage multiple wine caves with custom branding' },
+    { icon: '📦', title: 'Subscription Automation', desc: 'Automated billing, shipping, and member management' },
+    { icon: '🚚', title: 'Shipping Integration', desc: 'FedEx and UPS integration with label printing' },
+    { icon: '⭐', title: 'Loyalty Program', desc: 'Points system and referral rewards for members' },
+    { icon: '🤖', title: 'AI Recommendations', desc: 'Machine learning powered wine suggestions' },
+    { icon: '📊', title: 'Analytics & Reporting', desc: 'Comprehensive business intelligence dashboard' }
+  ];
+  
+  return (
+    <div className="p-6">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Core Features
+      </h2>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {features.map((feature, index) => (
+          <div key={index} className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+            <div className="flex items-start space-x-3">
+              <div className="text-2xl">{feature.icon}</div>
+              <div>
+                <h3 className="font-semibold text-gray-900 dark:text-white">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  {feature.desc}
+                </p>
               </div>
             </div>
           </div>
-        ) : (
-          <div className='text-gray-600 text-center'>Add tasks to begin</div>
-        )}
-      </div>
-
-      <button
-        type='button'
-        disabled={isPlanGenerating || tasks?.length === 0}
-        onClick={() => handleGeneratePlan()}
-        className='flex items-center justify-center min-w-[7rem] font-medium text-gray-800/90 bg-yellow-50 shadow-md ring-1 ring-inset ring-slate-200 py-2 px-4 rounded-md hover:bg-yellow-100 duration-200 ease-in-out focus:outline-none focus:shadow-none hover:shadow-none disabled:opacity-70 disabled:cursor-not-allowed'
-      >
-        {isPlanGenerating ? (
-          <>
-            <CgSpinner className='inline-block mr-2 animate-spin' />
-            Generating...
-          </>
-        ) : (
-          'Generate Schedule'
-        )}
-      </button>
-
-      {!!response && (
-        <div className='flex flex-col'>
-          <h3 className='text-lg font-semibold text-gray-900 dark:text-white'>Today's Schedule</h3>
-
-          <TaskTable schedule={response} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-type TodoProps = Pick<Task, 'id' | 'isDone' | 'description' | 'time'>;
-
-function Todo({ id, isDone, description, time }: TodoProps) {
-  const handleCheckboxChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    await updateTask({
-      id,
-      isDone: e.currentTarget.checked,
-    });
-  };
-
-  const handleTimeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    await updateTask({
-      id,
-      time: e.currentTarget.value,
-    });
-  };
-
-  const handleDeleteClick = async () => {
-    await deleteTask({ id });
-  };
-
-  return (
-    <div className='flex items-center justify-between bg-purple-50 rounded-lg border border-gray-200 p-2 w-full'>
-      <div className='flex items-center justify-between gap-5 w-full'>
-        <div className='flex items-center gap-3'>
-          <input
-            type='checkbox'
-            className='ml-1 form-checkbox bg-purple-300 checked:bg-purple-300 rounded border-purple-400 duration-200 ease-in-out hover:bg-purple-400 hover:checked:bg-purple-600 focus:ring focus:ring-purple-300 focus:checked:bg-purple-400 focus:ring-opacity-50 text-black'
-            checked={isDone}
-            onChange={handleCheckboxChange}
-          />
-          <span
-            className={cn('text-slate-600', {
-              'line-through text-slate-500': isDone,
-            })}
-          >
-            {description}
-          </span>
-        </div>
-        <div className='flex items-center gap-2'>
-          <input
-            id='time'
-            type='number'
-            min={0.5}
-            step={0.5}
-            className={cn(
-              'w-18 h-8 text-center text-slate-600 text-xs rounded border border-gray-200 focus:outline-none focus:border-transparent focus:ring-2 focus:ring-purple-300 focus:ring-opacity-50',
-              {
-                'pointer-events-none opacity-50': isDone,
-              }
-            )}
-            value={time}
-            onChange={handleTimeChange}
-          />
-          <span
-            className={cn('italic text-slate-600 text-xs', {
-              'text-slate-500': isDone,
-            })}
-          >
-            hrs
-          </span>
-        </div>
-      </div>
-      <div className='flex items-center justify-end w-15'>
-        <button className='p-1' onClick={handleDeleteClick} title='Remove task'>
-          <TiDelete size='20' className='text-red-600 hover:text-red-700' />
-        </button>
+        ))}
       </div>
     </div>
   );
-}
-
-function TaskTable({ schedule }: { schedule: GeneratedSchedule }) {
-  return (
-    <div className='flex flex-col gap-6 py-6'>
-      <table className='table-auto w-full border-separate border border-spacing-2 rounded-md border-slate-200 shadow-sm'>
-        {!!schedule.mainTasks ? (
-          schedule.mainTasks
-            .map((mainTask) => <MainTaskTable key={mainTask.name} mainTask={mainTask} subtasks={schedule.subtasks} />)
-            .sort((a, b) => {
-              const priorityOrder = ['low', 'medium', 'high'];
-              if (a.props.mainTask.priority && b.props.mainTask.priority) {
-                return (
-                  priorityOrder.indexOf(b.props.mainTask.priority) - priorityOrder.indexOf(a.props.mainTask.priority)
-                );
-              } else {
-                return 0;
-              }
-            })
-        ) : (
-          <div className='text-slate-600 text-center'>OpenAI didn't return any Main Tasks. Try again.</div>
-        )}
-      </table>
-
-      {/* ))} */}
-    </div>
-  );
-}
-
-function MainTaskTable({ mainTask, subtasks }: { mainTask: MainTask; subtasks: SubTask[] }) {
-  return (
-    <>
-      <thead>
-        <tr>
-          <th
-            className={cn(
-              'flex items-center justify-between gap-5 py-4 px-3 text-slate-800 border rounded-md border-slate-200 bg-opacity-70',
-              {
-                'bg-red-100': mainTask.priority === 'high',
-                'bg-green-100': mainTask.priority === 'low',
-                'bg-yellow-100': mainTask.priority === 'medium',
-              }
-            )}
-          >
-            <span>{mainTask.name}</span>
-            <span className='opacity-70 text-xs font-medium italic'> {mainTask.priority} priority</span>
-          </th>
-        </tr>
-      </thead>
-      {!!subtasks ? (
-        subtasks.map((subtask) => {
-          if (subtask.mainTaskName === mainTask.name) {
-            return (
-              <tbody key={subtask.description}>
-                <tr>
-                  <td
-                    className={cn(
-                      'flex items-center justify-between gap-4 py-2 px-3 text-slate-600 border rounded-md border-purple-100 bg-opacity-60',
-                      {
-                        'bg-red-50': mainTask.priority === 'high',
-                        'bg-green-50': mainTask.priority === 'low',
-                        'bg-yellow-50': mainTask.priority === 'medium',
-                      }
-                    )}
-                  >
-                    <SubtaskTable description={subtask.description} time={subtask.time} />
-                  </td>
-                </tr>
-              </tbody>
-            );
-          }
-        })
-      ) : (
-        <div className='text-slate-600 text-center'>OpenAI didn't return any Subtasks. Try again.</div>
-      )}
-    </>
-  );
-}
-
-function SubtaskTable({ description, time }: { description: string; time: number }) {
-  const [isDone, setIsDone] = useState<boolean>(false);
-
-  const convertHrsToMinutes = (time: number) => {
-    if (time === 0) return 0;
-    const hours = Math.floor(time);
-    const minutes = Math.round((time - hours) * 60);
-    return `${hours > 0 ? hours + 'hr' : ''} ${minutes > 0 ? minutes + 'min' : ''}`;
-  };
-
-  const minutes = useMemo(() => convertHrsToMinutes(time), [time]);
-
-  return (
-    <>
-      <input
-        type='checkbox'
-        className='ml-1 form-checkbox bg-purple-500 checked:bg-purple-300 rounded border-purple-600 duration-200 ease-in-out hover:bg-purple-600 hover:checked:bg-purple-600 focus:ring focus:ring-purple-300 focus:checked:bg-purple-400 focus:ring-opacity-50'
-        checked={isDone}
-        onChange={(e) => setIsDone(e.currentTarget.checked)}
-      />
-      <span
-        className={cn('leading-tight justify-self-start w-full text-slate-600', {
-          'line-through text-slate-500 opacity-50': isDone,
-        })}
-      >
-        {description}
-      </span>
-      <span
-        className={cn('text-slate-600 text-right', {
-          'line-through text-slate-500 opacity-50': isDone,
-        })}
-      >
-        {minutes}
-      </span>
-    </>
-  );
-}
+} 

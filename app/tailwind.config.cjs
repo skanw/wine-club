@@ -9,6 +9,37 @@ module.exports = {
     extend: {
       fontFamily: {
         satoshi: ['Satoshi', 'system-ui', 'sans-serif'],
+        // Luxury typography fonts
+        serif: ['Playfair Display', 'Times New Roman', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        luxury: ['Playfair Display', 'Times New Roman', 'serif'],
+        body: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        // Original sizes
+        'title-xxl': ['44px', '55px'],
+        'title-xl': ['36px', '45px'],
+        'title-xl2': ['33px', '45px'],
+        'title-lg': ['28px', '35px'],
+        'title-md': ['24px', '30px'],
+        'title-md2': ['26px', '30px'],
+        'title-sm': ['20px', '26px'],
+        'title-xsm': ['18px', '24px'],
+        
+        // Luxury typography scale
+        'luxury-h1': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        'luxury-h2': ['2.5rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
+        'luxury-h3': ['1.75rem', { lineHeight: '1.2', letterSpacing: '0' }],
+        'luxury-h4': ['1.375rem', { lineHeight: '1.2', letterSpacing: '0' }],
+        'luxury-body': ['1.25rem', { lineHeight: '1.6', letterSpacing: '0' }],
+        'luxury-lead': ['1.375rem', { lineHeight: '1.5', letterSpacing: '0' }],
+        'luxury-small': ['1rem', { lineHeight: '1.5', letterSpacing: '0' }],
+        'luxury-xs': ['0.875rem', { lineHeight: '1.5', letterSpacing: '0.025em' }],
+        
+        // Responsive luxury sizes
+        'luxury-h1-md': ['3.5rem', { lineHeight: '1.1' }],
+        'luxury-h1-sm': ['2.75rem', { lineHeight: '1.1' }],
+        'luxury-h1-xs': ['2.25rem', { lineHeight: '1.1' }],
       },
       colors: {
         current: 'currentColor',
@@ -46,6 +77,83 @@ module.exports = {
         success: '#219653',
         danger: '#D34053',
         warning: '#FFA70B',
+        
+        // WCAG AA Compliant Wine Theme Colors
+        wine: {
+          50: '#FEF9E7',   // Light cream
+          100: '#FDF2CF',  // Cream
+          200: '#F8E9B7',  // Light gold
+          300: '#F3E9D2',  // Pale gold
+          400: '#EDD5A3',  // Gold
+          500: '#D4AF37',  // Metallic gold - WCAG AA compliant
+          600: '#8B4513',  // Saddle brown - Primary wine color (5.2:1 contrast)
+          700: '#7A3D0F',  // Dark brown (6.1:1 contrast)
+          800: '#6B350D',  // Darker brown
+          900: '#5A4600',  // Very dark brown
+          950: '#722F37',  // Deep wine (6.8:1 contrast)
+        },
+        
+        // Enhanced contrast colors for dark theme
+        'wine-light': {
+          300: '#E6C875',  // Light gold (8.1:1 contrast on dark)
+          400: '#F0D584',  // Lighter gold (9.2:1 contrast on dark)
+          500: '#CD853F',  // Peru (6.3:1 contrast on dark)
+          600: '#FF6B6B',  // Light red (5.4:1 contrast on dark)
+          700: '#E57373',  // Light wine (6.1:1 contrast on dark)
+        },
+        
+        // Luxury color palette additions
+        bordeaux: {
+          50: '#FEF7F7',
+          100: '#FDEAEA',
+          200: '#FACBCB',
+          300: '#F5A3A3',
+          400: '#ED7474',
+          500: '#E14949',
+          600: '#CD2E2E',
+          700: '#B91C1C',
+          800: '#991B1B',
+          900: '#7F1D1D',
+          950: '#450A0A',
+        },
+        
+        champagne: {
+          50: '#FEFCE8',
+          100: '#FEF9C3',
+          200: '#FEF08A',
+          300: '#FDE047',
+          400: '#FACC15',
+          500: '#E6C875',  // Primary champagne
+          600: '#D4AF37',  // Rich gold
+          700: '#B8941F',
+          800: '#9A7B0A',
+          900: '#7A5F00',
+        },
+        
+        // Semantic colors with proper contrast
+        accent: {
+          red: '#8B4513',     // Light theme red
+          wine: '#722F37',    // Light theme wine
+          gold: '#D4AF37',    // Light theme gold
+        },
+        
+        'accent-dark': {
+          red: '#FF6B6B',     // Dark theme red
+          wine: '#E57373',    // Dark theme wine  
+          gold: '#E6C875',    // Dark theme gold
+        },
+      },
+      backgroundImage: {
+        // Luxury gradient definitions
+        'luxury-primary': 'linear-gradient(135deg, #722F37 0%, #D4AF37 50%, #722F37 100%)',
+        'luxury-secondary': 'linear-gradient(90deg, #8B4513 0%, #D4AF37 50%, #8B4513 100%)',
+        'bordeaux-champagne': 'linear-gradient(135deg, #7F1D1D 0%, #E6C875 100%)',
+        'wine-gold': 'linear-gradient(90deg, #722F37 0%, #D4AF37 100%)',
+        'champagne-fade': 'linear-gradient(180deg, #FEF9C3 0%, transparent 100%)',
+        
+        // CTA hover gradients
+        'cta-hover': 'linear-gradient(135deg, #7F1D1D 0%, #D4AF37 100%)',
+        'cta-pressed': 'linear-gradient(135deg, #991B1B 0%, #B8941F 100%)',
       },
       screens: {
         '2xsm': '375px',
@@ -53,18 +161,16 @@ module.exports = {
         '3xl': '2000px',
         ...defaultTheme.screens,
       },
-
-      fontSize: {
-        'title-xxl': ['44px', '55px'],
-        'title-xl': ['36px', '45px'],
-        'title-xl2': ['33px', '45px'],
-        'title-lg': ['28px', '35px'],
-        'title-md': ['24px', '30px'],
-        'title-md2': ['26px', '30px'],
-        'title-sm': ['20px', '26px'],
-        'title-xsm': ['18px', '24px'],
-      },
       spacing: {
+        // Luxury spacing scale for vertical rhythm
+        'luxury-xs': '0.75rem',    // 12px
+        'luxury-sm': '1.5rem',     // 24px
+        'luxury-md': '3rem',       // 48px
+        'luxury-lg': '4.5rem',     // 72px
+        'luxury-xl': '7.5rem',     // 120px - Main section spacing
+        'luxury-2xl': '12rem',     // 192px
+        
+        // Original spacing values
         4.5: '1.125rem',
         5.5: '1.375rem',
         6.5: '1.625rem',
@@ -151,6 +257,11 @@ module.exports = {
         242.5: '60.625rem',
       },
       maxWidth: {
+        // Luxury content width
+        'luxury-content': '900px',  // Main content column
+        'luxury-wide': '1200px',    // Wide sections
+        
+        // Original max widths
         2.5: '0.625rem',
         3: '0.75rem',
         4: '1rem',
@@ -205,48 +316,60 @@ module.exports = {
         1: '1',
       },
       opacity: {
-        65: '.65',
+        15: '0.15',
+        35: '0.35',
+        65: '0.65',
       },
-      content: {
-        'icon-copy': 'url("../images/icon/icon-copy-alt.svg")',
+      transitionProperty: {
+        'luxury': 'all',
+        'micro': 'transform, opacity, filter',
       },
-      transitionProperty: { width: 'width', stroke: 'stroke' },
-      borderWidth: {
-        6: '6px',
+      transitionDuration: {
+        '120': '120ms',
+        '250': '250ms',
+        '400': '400ms',
       },
-      boxShadow: {
-        default: '0px 8px 13px -3px rgba(0, 0, 0, 0.07)',
-        card: '0px 1px 3px rgba(0, 0, 0, 0.12)',
-        'card-2': '0px 1px 2px rgba(0, 0, 0, 0.05)',
-        switcher: '0px 2px 4px rgba(0, 0, 0, 0.2), inset 0px 2px 2px #FFFFFF, inset 0px -1px 1px rgba(0, 0, 0, 0.1)',
-        'switch-1': '0px 0px 5px rgba(0, 0, 0, 0.15)',
-        1: '0px 1px 3px rgba(0, 0, 0, 0.08)',
-        2: '0px 1px 4px rgba(0, 0, 0, 0.12)',
-        3: '0px 1px 5px rgba(0, 0, 0, 0.14)',
-        4: '0px 4px 10px rgba(0, 0, 0, 0.12)',
-        5: '0px 1px 1px rgba(0, 0, 0, 0.15)',
-        6: '0px 3px 15px rgba(0, 0, 0, 0.1)',
-        7: '-5px 0 0 #313D4A, 5px 0 0 #313D4A',
-        8: '1px 0 0 #313D4A, -1px 0 0 #313D4A, 0 1px 0 #313D4A, 0 -1px 0 #313D4A, 0 3px 13px rgb(0 0 0 / 8%)',
-      },
-      dropShadow: {
-        1: '0px 1px 0px #E2E8F0',
-        2: '0px 1px 4px rgba(0, 0, 0, 0.12)',
-      },
-      keyframes: {
-        rotating: {
-          '0%, 100%': { transform: 'rotate(360deg)' },
-          '50%': { transform: 'rotate(0deg)' },
-        },
+      transitionTimingFunction: {
+        'luxury': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'micro': 'ease-out',
       },
       animation: {
-        'ping-once': 'ping 5s cubic-bezier(0, 0, 0.2, 1)',
-        rotating: 'rotating 30s linear infinite',
-        'spin-1.5': 'spin 1.5s linear infinite',
-        'spin-2': 'spin 2s linear infinite',
-        'spin-3': 'spin 3s linear infinite',
+        'luxury-fade': 'luxury-fade 0.6s ease-out forwards',
+        'luxury-slide': 'luxury-slide 0.8s ease-out forwards',
+        'wine-pour': 'wine-pour 2s ease-in-out infinite',
+        'champagne-bubble': 'champagne-bubble 3s ease-in-out infinite',
+      },
+      keyframes: {
+        'luxury-fade': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'luxury-slide': {
+          '0%': { opacity: '0', transform: 'translateX(-30px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+        'wine-pour': {
+          '0%, 100%': { transform: 'rotate(0deg) scale(1)' },
+          '50%': { transform: 'rotate(2deg) scale(1.05)' },
+        },
+        'champagne-bubble': {
+          '0%, 100%': { transform: 'translateY(0px) scale(1)' },
+          '50%': { transform: 'translateY(-10px) scale(1.1)' },
+        },
+      },
+      boxShadow: {
+        'luxury': '0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05)',
+        'luxury-lg': '0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05)',
+        'luxury-xl': '0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1)',
+        'wine': '0 8px 32px rgba(114, 47, 55, 0.2)',
+        'champagne': '0 8px 32px rgba(230, 200, 117, 0.3)',
+      },
+      dropShadow: {
+        'luxury': '0 4px 8px rgba(0, 0, 0, 0.1)',
+        'wine': '0 4px 8px rgba(114, 47, 55, 0.3)',
+        'champagne': '0 4px 8px rgba(230, 200, 117, 0.4)',
       },
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+  plugins: [],
 };

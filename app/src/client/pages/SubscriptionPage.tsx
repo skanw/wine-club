@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './SubscriptionPage.css';
+import { useCustomCursor, useEnhancedButton, useIntersectionAnimation, useMobileOptimizations } from '../hooks/useMicroInteractions';
+import ScrollSpyNavbar from '../components/ScrollSpyNavbar';
 
 interface SubscriptionPlan {
   id: string;
@@ -24,6 +26,12 @@ interface FeaturedBottle {
 
 const SubscriptionPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'red' | 'white'>('red');
+
+  // Micro-interaction hooks
+  useCustomCursor('.hero-section');
+  const { getButtonProps } = useEnhancedButton();
+  const { addRef } = useIntersectionAnimation();
+  const { isMobile } = useMobileOptimizations();
 
   // Simple animation triggers
   const [animationsTriggered, setAnimationsTriggered] = useState({
@@ -156,12 +164,24 @@ const SubscriptionPage: React.FC = () => {
   const currentPlans = activeTab === 'red' ? redWinePlans : whiteWinePlans;
   const currentBottles = featuredBottles[activeTab];
 
+  // Navigation items for scroll-spy
+  const navItems = [
+    { id: 'hero', label: 'Welcome', href: '#hero' },
+    { id: 'why-join', label: 'Why Join', href: '#why-join' },
+    { id: 'bottles', label: 'Featured Bottles', href: '#bottles' },
+    { id: 'plans', label: 'Plans', href: '#plans' }
+  ];
+
   return (
     <div className="subscription-page">
+      {/* Scroll-Spy Navigation */}
+      <ScrollSpyNavbar items={navItems} />
+      
       {/* Hero Section */}
       <section 
+        id="hero"
         ref={heroRef}
-        className={`hero-section ${animationsTriggered.hero ? 'animate-fadeInUp' : ''}`}
+        className={`hero-section wine-cursor-area ${animationsTriggered.hero ? 'animate-fadeInUp' : ''}`}
       >
         <div className="hero-background">
           <div className="hero-overlay"></div>
@@ -176,13 +196,25 @@ const SubscriptionPage: React.FC = () => {
               Experience the world's finest wines through our sommelier-curated subscription service. 
               Each bottle tells a story of terroir, tradition, and exceptional craftsmanship.
             </p>
-            <button className="btn-primary hero-cta">Subscribe Now</button>
+            <button 
+              {...getButtonProps(
+                async () => {
+                  // Simulate subscription flow
+                  await new Promise(resolve => setTimeout(resolve, 2000));
+                  console.log('Subscription started!');
+                },
+                'subscribe-button hero-cta'
+              )}
+            >
+              Subscribe Now
+            </button>
           </div>
         </div>
       </section>
 
       {/* Why Join Section */}
       <section 
+        id="why-join"
         ref={whyJoinRef}
         className={`why-join-section ${animationsTriggered.whyJoin ? 'animate-slideInUp' : ''}`}
       >
@@ -210,6 +242,7 @@ const SubscriptionPage: React.FC = () => {
 
       {/* Featured Bottles */}
       <section 
+        id="bottles"
         ref={bottlesRef}
         className={`featured-bottles-section ${animationsTriggered.bottles ? 'animate-zoom' : ''}`}
       >
@@ -261,6 +294,7 @@ const SubscriptionPage: React.FC = () => {
 
       {/* Subscription Plans */}
       <section 
+        id="plans"
         ref={plansRef}
         className={`plans-section ${animationsTriggered.plans ? 'animate-fadeInUp' : ''}`}
       >

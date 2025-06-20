@@ -252,4 +252,835 @@
 .stagger.animate > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
 .stagger.animate > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
 .stagger.animate > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
-.stagger.animate > *:nth-child(6) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); } 
+.stagger.animate > *:nth-child(6) { transition-delay: 0.6s; opacity: 1; transform: translateY(0); }
+
+/* Wine Club Scroll Animations */
+
+/* Base animation classes - initial hidden states */
+.scroll-animate-fadeIn {
+  opacity: 0;
+  will-change: opacity;
+}
+
+.scroll-animate-slideUp {
+  opacity: 0;
+  transform: translateY(30px);
+  will-change: opacity, transform;
+}
+
+.scroll-animate-slideDown {
+  opacity: 0;
+  transform: translateY(-30px);
+  will-change: opacity, transform;
+}
+
+.scroll-animate-slideLeft {
+  opacity: 0;
+  transform: translateX(30px);
+  will-change: opacity, transform;
+}
+
+.scroll-animate-slideRight {
+  opacity: 0;
+  transform: translateX(-30px);
+  will-change: opacity, transform;
+}
+
+.scroll-animate-scaleUp {
+  opacity: 0;
+  transform: scale(0.8);
+  will-change: opacity, transform;
+}
+
+.scroll-animate-parallax {
+  will-change: transform;
+}
+
+/* Visible states - triggered by scroll */
+.scroll-animate-visible.scroll-animate-fadeIn {
+  opacity: 1;
+}
+
+.scroll-animate-visible.scroll-animate-slideUp {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate-visible.scroll-animate-slideDown {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate-visible.scroll-animate-slideLeft {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-animate-visible.scroll-animate-slideRight {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-animate-visible.scroll-animate-scaleUp {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Wine-themed custom animations */
+@keyframes wineGlassFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+@keyframes wineSwirl {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(90deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  75% {
+    transform: rotate(270deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes wineBottlePour {
+  0% {
+    transform: rotate(0deg);
+    transform-origin: bottom right;
+  }
+  50% {
+    transform: rotate(15deg);
+    transform-origin: bottom right;
+  }
+  100% {
+    transform: rotate(0deg);
+    transform-origin: bottom right;
+  }
+}
+
+@keyframes wineCork {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(10deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes wineSparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes wineRipple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Wine-themed animation utility classes */
+.wine-glass-float {
+  animation: wineGlassFloat 3s ease-in-out infinite;
+}
+
+.wine-swirl {
+  animation: wineSwirl 4s ease-in-out infinite;
+}
+
+.wine-bottle-pour {
+  animation: wineBottlePour 2s ease-in-out infinite;
+}
+
+.wine-cork {
+  animation: wineCork 2.5s ease-in-out infinite;
+}
+
+.wine-sparkle {
+  animation: wineSparkle 1.5s ease-in-out infinite;
+}
+
+.wine-ripple {
+  animation: wineRipple 1s ease-out forwards;
+}
+
+/* Scroll-triggered wine animations */
+.scroll-animate-visible.wine-entrance {
+  animation: wineGlassFloat 2s ease-out, fadeIn 0.8s ease-out;
+}
+
+.scroll-animate-visible.wine-bottle-reveal {
+  animation: wineBottlePour 1.5s ease-out, slideUp 0.8s ease-out;
+}
+
+.scroll-animate-visible.wine-cork-pop {
+  animation: wineCork 1s ease-out, scaleUp 0.6s ease-out;
+}
+
+/* Staggered animation delays */
+.stagger-delay-100 {
+  animation-delay: 100ms;
+}
+
+.stagger-delay-200 {
+  animation-delay: 200ms;
+}
+
+.stagger-delay-300 {
+  animation-delay: 300ms;
+}
+
+.stagger-delay-400 {
+  animation-delay: 400ms;
+}
+
+.stagger-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Hover micro-interactions */
+.wine-hover-lift {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wine-hover-lift:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.wine-hover-tilt {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wine-hover-tilt:hover {
+  transform: rotate(2deg) scale(1.05);
+}
+
+.wine-hover-glow {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wine-hover-glow::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: linear-gradient(45deg, 
+    var(--primary-400), 
+    var(--primary-600), 
+    var(--primary-400)
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.wine-hover-glow:hover::before {
+  opacity: 0.3;
+}
+
+/* Wine button ripple effect */
+.wine-ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.wine-ripple-btn::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: wineRipple 0.6s ease-out;
+  pointer-events: none;
+}
+
+.wine-ripple-btn:active::after {
+  transform: scale(1);
+}
+
+/* Advanced parallax effects */
+.parallax-wine-slow {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.parallax-wine-medium {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.parallax-wine-fast {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Scroll progress indicator */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    var(--primary-600), 
+    var(--accent-wine), 
+    var(--primary-600)
+  );
+  transform-origin: left;
+  z-index: 1000;
+  transition: transform 0.1s ease-out;
+}
+
+/* Wine-themed loading states */
+.wine-loading-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.wine-loading-dots::before,
+.wine-loading-dots::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary-600);
+  animation: wineSparkle 1.4s ease-in-out infinite;
+}
+
+.wine-loading-dots::after {
+  animation-delay: 0.2s;
+}
+
+/* Wine glass clink animation */
+@keyframes wineGlassClink {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  75% {
+    transform: rotate(5deg);
+  }
+}
+
+.wine-glass-clink {
+  animation: wineGlassClink 0.5s ease-in-out;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate-fadeIn,
+  .scroll-animate-slideUp,
+  .scroll-animate-slideDown,
+  .scroll-animate-slideLeft,
+  .scroll-animate-slideRight,
+  .scroll-animate-scaleUp {
+    transition: none;
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .wine-glass-float,
+  .wine-swirl,
+  .wine-bottle-pour,
+  .wine-cork,
+  .wine-sparkle,
+  .wine-ripple {
+    animation: none;
+  }
+  
+  .wine-hover-lift:hover,
+  .wine-hover-tilt:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .scroll-animate-visible.scroll-animate-fadeIn,
+  .scroll-animate-visible.scroll-animate-slideUp,
+  .scroll-animate-visible.scroll-animate-slideDown,
+  .scroll-animate-visible.scroll-animate-slideLeft,
+  .scroll-animate-visible.scroll-animate-slideRight,
+  .scroll-animate-visible.scroll-animate-scaleUp {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .wine-hover-glow::before {
+    display: none;
+  }
+}
+
+/* Custom wine-themed scroll indicators */
+.wine-scroll-indicator {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wine-scroll-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(var(--primary-600), 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.wine-scroll-dot.active {
+  background: var(--primary-600);
+  transform: scale(1.2);
+}
+
+.wine-scroll-dot:hover {
+  background: var(--primary-700);
+  transform: scale(1.1);
+}
+
+/* Toast notification animations */
+@keyframes wineToastSlideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes wineToastSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.wine-toast-enter {
+  animation: wineToastSlideIn 0.3s ease-out forwards;
+}
+
+.wine-toast-exit {
+  animation: wineToastSlideOut 0.3s ease-in forwards;
+}
+
+/* HCI-Optimized Wine Club Scroll Animations */
+
+/* ================================
+   CORE REVEAL PATTERN
+   ================================ */
+
+/* Base reveal class - hidden state */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+  will-change: opacity, transform;
+}
+
+/* Visible state - triggered by Intersection Observer */
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto; /* Remove after animation for performance */
+}
+
+/* ================================
+   WINE-THEMED REVEAL VARIANTS
+   ================================ */
+
+/* Wine Glass Reveal - subtle scale effect */
+.wine-reveal {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.wine-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  will-change: auto;
+}
+
+/* Bottle Reveal - gentle rotation */
+.bottle-reveal {
+  opacity: 0;
+  transform: translateY(15px) rotate(-2deg);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  will-change: opacity, transform;
+}
+
+.bottle-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+  will-change: auto;
+}
+
+/* Card Reveal - lift effect */
+.card-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 450ms ease-out, transform 450ms ease-out;
+  will-change: opacity, transform;
+}
+
+.card-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  will-change: auto;
+}
+
+/* Hero Text Reveal - fade only for large text */
+.hero-reveal {
+  opacity: 0;
+  transition: opacity 600ms ease-out;
+  will-change: opacity;
+}
+
+.hero-reveal.is-visible {
+  opacity: 1;
+  will-change: auto;
+}
+
+/* ================================
+   STAGGERED ANIMATION DELAYS
+   ================================ */
+
+.reveal-stagger-1 { transition-delay: 0ms; }
+.reveal-stagger-2 { transition-delay: 100ms; }
+.reveal-stagger-3 { transition-delay: 200ms; }
+.reveal-stagger-4 { transition-delay: 300ms; }
+.reveal-stagger-5 { transition-delay: 400ms; }
+.reveal-stagger-6 { transition-delay: 500ms; }
+
+/* ================================
+   WINE-THEMED DECORATIVE ANIMATIONS
+   ================================ */
+
+/* Subtle floating for wine glasses */
+@keyframes wineGlassFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.wine-glass-float {
+  animation: wineGlassFloat 4s ease-in-out infinite;
+}
+
+/* Cork pop effect (on interaction only) */
+@keyframes wineCorKPop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.wine-cork-pop {
+  animation: wineCorKPop 0.6s ease-out;
+}
+
+/* Wine pour shimmer effect */
+@keyframes winePourShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.wine-pour-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: winePourShimmer 2s ease-in-out infinite;
+}
+
+/* ================================
+   ACCESSIBILITY & PERFORMANCE
+   ================================ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .wine-reveal,
+  .bottle-reveal,
+  .card-reveal,
+  .hero-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+  
+  .wine-glass-float,
+  .wine-cork-pop,
+  .wine-pour-shimmer {
+    animation: none !important;
+  }
+  
+  /* Immediately show content for reduced motion users */
+  .reveal.is-visible,
+  .wine-reveal.is-visible,
+  .bottle-reveal.is-visible,
+  .card-reveal.is-visible,
+  .hero-reveal.is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .reveal,
+  .wine-reveal,
+  .bottle-reveal,
+  .card-reveal,
+  .hero-reveal {
+    /* Ensure animations don't interfere with high contrast */
+    border: 2px solid transparent;
+  }
+  
+  .wine-pour-shimmer {
+    background: none;
+    animation: none;
+  }
+}
+
+/* ================================
+   PERFORMANCE OPTIMIZATIONS
+   ================================ */
+
+/* Use transform3d for hardware acceleration when needed */
+.reveal-3d {
+  transform: translate3d(0, 10px, 0);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+.reveal-3d.is-visible {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Optimize for mobile devices */
+@media (max-width: 768px) {
+  .reveal,
+  .wine-reveal,
+  .bottle-reveal,
+  .card-reveal {
+    /* Reduce animation distance on mobile for better performance */
+    transform: translateY(5px);
+  }
+  
+  .reveal.is-visible,
+  .wine-reveal.is-visible,
+  .bottle-reveal.is-visible,
+  .card-reveal.is-visible {
+    transform: translateY(0);
+  }
+  
+  /* Faster animations on mobile */
+  .reveal,
+  .wine-reveal,
+  .bottle-reveal,
+  .card-reveal,
+  .hero-reveal {
+    transition-duration: 300ms;
+  }
+}
+
+/* ================================
+   SCROLL PROGRESS INDICATOR
+   ================================ */
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--primary-600) 0%,
+    var(--accent-wine) 50%,
+    var(--primary-600) 100%
+  );
+  transform-origin: left;
+  z-index: 1000;
+  transition: transform 0.1s ease-out;
+}
+
+/* ================================
+   WINE-THEMED LOADING STATES
+   ================================ */
+
+.wine-loading-reveal {
+  opacity: 0;
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    var(--surface-hover) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: wineLoadingShimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes wineLoadingShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ================================
+   FOCUS MANAGEMENT FOR ANIMATIONS
+   ================================ */
+
+/* Ensure animated elements don't interfere with focus */
+.reveal:focus-visible,
+.wine-reveal:focus-visible,
+.bottle-reveal:focus-visible,
+.card-reveal:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  /* Ensure focus is visible even during animation */
+  z-index: 10;
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+
+@media print {
+  .reveal,
+  .wine-reveal,
+  .bottle-reveal,
+  .card-reveal,
+  .hero-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .scroll-progress-bar {
+    display: none;
+  }
+}
+
+/* ================================
+   DEBUGGING HELPERS (DEVELOPMENT ONLY)
+   ================================ */
+
+/* Uncomment for debugging animation states */
+/*
+.reveal:not(.is-visible) {
+  outline: 2px dashed red;
+}
+
+.reveal.is-visible {
+  outline: 2px dashed green;
+}
+*/
+
+/* ================================
+   WINE BOTTLE DECORATION ANIMATIONS
+   ================================ */
+
+.wine-bottle-decoration {
+  opacity: 0.2;
+  transform: translateY(0);
+  transition: opacity 300ms ease-out, transform 300ms ease-out;
+  animation: wineBottleGentle 8s ease-in-out infinite;
+}
+
+@keyframes wineBottleGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(2px) rotate(-1deg);
+  }
+}
+
+/* ================================
+   TRUST INDICATOR ANIMATIONS
+   ================================ */
+
+.trust-indicator {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+.trust-indicator.is-visible {
+  opacity: 0.8;
+  transform: scale(1);
+}
+
+.trust-indicator:hover {
+  opacity: 1;
+  transform: scale(1.05);
+} 

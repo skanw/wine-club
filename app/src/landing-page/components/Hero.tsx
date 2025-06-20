@@ -1,111 +1,166 @@
-import openSaasBannerWebp from '../../client/static/open-saas-banner.webp';
-import { DocsUrl } from '../../shared/common';
-import { useScrollAnimation } from '../../client/hooks/useScrollAnimation';
+import { Link } from 'wasp/client/router';
+import { useAuth } from 'wasp/client/auth';
+import useScrollReveal from '../../client/hooks/useScrollReveal';
+import { useStaggeredScrollReveal } from '../../client/hooks/useScrollReveal';
 
-export default function Hero() {
-  const heroTitle = useScrollAnimation({ 
-    animationClass: 'animate-wine-reveal',
-    delay: 200 
-  });
-  const heroSubtitle = useScrollAnimation({ 
-    animationClass: 'animate-fade-in-up',
-    delay: 400 
-  });
-  const heroButtons = useScrollAnimation({ 
-    animationClass: 'animate-fade-in-up',
-    delay: 600 
-  });
-  const heroImage = useScrollAnimation({ 
-    animationClass: 'animate-wine-pour',
-    delay: 800 
-  });
+const Hero = () => {
+  const { data: user } = useAuth();
+  
+  // Use staggered scroll reveals for hero elements
+  const heroReveals = useStaggeredScrollReveal(4, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  }, 150);
 
   return (
-    <div className='relative pt-14 w-full wine-section'>
-      <TopGradient />
-      <BottomGradient />
-      <div className='py-24 sm:py-32'>
-        <div className='mx-auto max-w-8xl px-6 lg:px-8'>
-          <div className='lg:mb-18 mx-auto max-w-3xl text-center'>
-            <h1 
-              ref={heroTitle.elementRef}
-              className={`text-4xl font-bold text-gray-900 sm:text-6xl dark:text-white scroll-animate-hidden ${heroTitle.className}`}
-            >
-              Transform Your Wine Cave into a <span className='italic wine-secondary-text'>Thriving</span> Subscription Business
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Full-Bleed 8K Vineyard Background with Parallax */}
+      <div className="absolute inset-0 z-0">
+        {/* Primary Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80')`,
+            transform: 'scale(1.1)',
+            willChange: 'transform'
+          }}
+        />
+        
+        {/* Soft Semi-Transparent Bordeaux to Champagne Overlay */}
+        <div className="absolute inset-0 bg-luxury-overlay opacity-60" />
+        
+        {/* Elegant Gradient Vignette */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
+      </div>
+
+      {/* Wine Bottle Decorative Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+        <div className="wine-bottle-decoration absolute top-20 left-10 opacity-5 animate-wine-pour">
+          <svg width="50" height="140" viewBox="0 0 50 140" className="text-champagne-500 drop-shadow-luxury">
+            <rect x="20" y="0" width="10" height="25" fill="currentColor" />
+            <rect x="15" y="25" width="20" height="90" fill="currentColor" rx="2" />
+            <ellipse cx="25" cy="125" rx="12" ry="10" fill="currentColor" />
+          </svg>
+        </div>
+        <div className="wine-bottle-decoration absolute top-40 right-20 opacity-5 transform rotate-12 animate-champagne-bubble">
+          <svg width="50" height="140" viewBox="0 0 50 140" className="text-bordeaux-400 drop-shadow-luxury">
+            <rect x="20" y="0" width="10" height="25" fill="currentColor" />
+            <rect x="15" y="25" width="20" height="90" fill="currentColor" rx="2" />
+            <ellipse cx="25" cy="125" rx="12" ry="10" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Main Content - Centered 900px Max Width */}
+      <div className="relative z-20 max-w-luxury-content mx-auto px-6 sm:px-8 lg:px-12 text-center">
+        <div className="space-y-luxury-xl">
+          {/* Translucent Floating Card for Headline */}
+          <div 
+            ref={heroReveals[0].ref} 
+            className="hero-reveal backdrop-blur-md bg-white/10 dark:bg-black/20 rounded-3xl p-8 sm:p-12 shadow-luxury-xl border border-white/20 dark:border-white/10"
+            style={{ willChange: 'transform' }}
+          >
+            {/* Main Headline - Luxury Typography */}
+            <h1 className="luxury-h1 text-luxury-h1 md:text-luxury-h1-md sm:text-luxury-h1-sm font-luxury text-white leading-tight mb-6">
+              Transform Your{' '}
+              <span className="text-champagne-gradient">
+                Wine Cave
+              </span>
+              <br />
+              Into a Thriving{' '}
+              <span className="text-bordeaux-gradient">
+                Business
+              </span>
             </h1>
-            <p 
-              ref={heroSubtitle.elementRef}
-              className={`mt-6 mx-auto max-w-2xl text-lg leading-8 text-gray-600 dark:text-white scroll-animate-hidden ${heroSubtitle.className}`}
-            >
-              Launch your wine subscription platform with automated member management, shipping integration, and personalized recommendations. Perfect for boutique wineries and wine caves.
-            </p>
-            <div 
-              ref={heroButtons.elementRef}
-              className={`mt-10 flex items-center justify-center gap-x-6 scroll-animate-hidden ${heroButtons.className}`}
-            >
-              <a
-                href="/signup"
-                className='rounded-md wine-gradient-bg px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm wine-hover-lift wine-transition-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600'
+
+            {/* Wine Tasting Notes Style Subtitle */}
+            <div className="wine-tasting-notes text-white/90 max-w-3xl mx-auto mb-8">
+              Launch your boutique wine subscription service with our all-in-one platform. 
+              From inventory management to customer loyalty programs, we handle the technology 
+              so you can focus on crafting exceptional wine experiences that delight your members.
+            </div>
+
+            {/* Premium CTA Buttons with Micro-Interactions */}
+            <div className="luxury-btn-group justify-center">
+              <Link
+                to="/signup"
+                className="luxury-btn luxury-btn-primary luxury-btn-lg group"
               >
-                Start Your Wine Cave <span aria-hidden='true'>🍷</span>
-              </a>
-              <a
-                href="/wine-subscriptions"
-                className='rounded-md px-3.5 py-2.5 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-200 hover:ring-2 hover:ring-yellow-300 shadow-sm wine-hover-lift wine-transition-normal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600 dark:text-white'
+                <span className="icon icon-scale">🍷</span>
+                Start Your Wine Business
+                <svg className="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+              
+              <Link
+                to="/pricing"
+                className="luxury-btn luxury-btn-secondary luxury-btn-lg group"
               >
-                View Demo <span aria-hidden='true'>→</span>
-              </a>
+                <span className="icon icon-up">📊</span>
+                View Live Demo
+              </Link>
             </div>
           </div>
-          <div className='mt-14 flow-root sm:mt-14'>
-            <div 
-              ref={heroImage.elementRef}
-              className={`-m-2 flex justify-center rounded-xl lg:-m-4 lg:rounded-2xl lg:p-4 scroll-animate-hidden ${heroImage.className}`}
-            >
-              <img
-                src={openSaasBannerWebp}
-                alt='Wine Club Management Dashboard'
-                width={1000}
-                height={530}
-                loading='lazy'
-                className='rounded-md shadow-2xl ring-1 ring-gray-900/10 wine-hover-lift wine-transition-slow'
-              />
+
+          {/* Trust Indicators - Refined Layout */}
+          <div ref={heroReveals[1].ref} className="trust-indicator">
+            <div className="flex flex-wrap justify-center items-center gap-8 backdrop-blur-sm bg-white/5 dark:bg-black/10 rounded-2xl p-6 border border-white/10">
+              <div className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300">
+                <div className="w-8 h-8 rounded-full bg-champagne-500 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="luxury-small font-medium">No Setup Fees</span>
+              </div>
+              
+              <div className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300">
+                <div className="w-8 h-8 rounded-full bg-bordeaux-500 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="luxury-small font-medium">Free 14-Day Trial</span>
+              </div>
+              
+              <div className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300">
+                <div className="w-8 h-8 rounded-full bg-champagne-600 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <span className="luxury-small font-medium">Cancel Anytime</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-}
 
-function TopGradient() {
-  return (
-    <div
-      className='absolute top-0 right-0 -z-10 transform-gpu overflow-hidden w-full blur-3xl sm:top-0'
-    aria-hidden='true'
-  >
-    <div
-      className='aspect-[1020/880] w-[55rem] flex-none sm:right-1/4 sm:translate-x-1/2 dark:hidden bg-gradient-to-tr from-yellow-400 to-red-400 opacity-40'
-      style={{
-        clipPath: 'polygon(80% 20%, 90% 55%, 50% 100%, 70% 30%, 20% 50%, 50% 0)',
-      }}
-      />
-    </div>
-  );
-}
+      {/* Floating Wine Glass Animation - Enhanced */}
+      <div className="absolute bottom-16 right-16 wine-glass-float pointer-events-none opacity-10 animate-champagne-bubble">
+        <svg width="80" height="100" viewBox="0 0 80 100" className="text-champagne-400 drop-shadow-champagne">
+          <ellipse cx="40" cy="30" rx="25" ry="20" fill="currentColor" opacity="0.4" />
+          <rect x="37" y="50" width="6" height="35" fill="currentColor" />
+          <ellipse cx="40" cy="88" rx="18" ry="6" fill="currentColor" />
+          <circle cx="35" cy="25" r="2" fill="currentColor" opacity="0.6" />
+          <circle cx="45" cy="20" r="1.5" fill="currentColor" opacity="0.8" />
+          <circle cx="40" cy="35" r="1" fill="currentColor" opacity="0.7" />
+        </svg>
+      </div>
 
-function BottomGradient() {
-  return (
-    <div
-      className='absolute inset-x-0 top-[calc(100%-40rem)] sm:top-[calc(100%-65rem)] -z-10 transform-gpu overflow-hidden blur-3xl'
-    aria-hidden='true'
-  >
-    <div
-      className='relative aspect-[1020/880] sm:-left-3/4 sm:translate-x-1/4 dark:hidden bg-gradient-to-br from-yellow-400 to-red-400 opacity-50 w-[72.1875rem]'
-      style={{
-        clipPath: 'ellipse(80% 30% at 80% 50%)',
-      }}
-    />
-    </div>
+      {/* Elegant Scroll Indicator */}
+      <div ref={heroReveals[2].ref} className="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="flex flex-col items-center space-y-3 text-white/70 hover:text-white transition-colors duration-300 group">
+          <span className="luxury-caption">Discover More</span>
+          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors duration-300">
+            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce group-hover:bg-white/80 transition-colors duration-300"></div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
-}
+};
+
+export default Hero;

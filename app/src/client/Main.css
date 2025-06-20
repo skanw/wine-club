@@ -5,6 +5,11 @@
 @import "./styles/wine-transitions.css";
 @import "./styles/wine-scroll-animations.css";
 @import "./styles/theme-variables.css";
+@import "./styles/micro-interactions.css";
+@import "./styles/scroll-spy-navbar.css";
+@import "./styles/luxury-typography.css";
+@import "./styles/luxury-colors.css";
+@import "./styles/luxury-cta.css";
 
 @layer utilities {
   /* Chrome, Safari and Opera */
