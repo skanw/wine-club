@@ -4,9 +4,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 // 🌍 Wine Club Internationalization Configuration
 
-// Language Resources - using require to avoid module resolution issues
-const enUS = require('./locales/en-US.json');
-const frFR = require('./locales/fr-FR.json');
+// Language Resources - imported as ES Modules so they work in the browser
+import enUS from './locales/en-US.json';
+import frFR from './locales/fr-FR.json';
 
 export type SupportedLanguage = 'en-US' | 'fr-FR';
 export type LanguageCode = 'en' | 'fr';
