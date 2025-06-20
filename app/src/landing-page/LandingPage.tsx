@@ -10,12 +10,30 @@ export default function LandingPage() {
   return (
     <div className='bg-white dark:text-white dark:bg-boxdark-2'>
       <main className='isolate dark:bg-boxdark-2'>
+        {/* Hero Section - Full Bleed */}
         <Hero />
-        <Clients />
-        <Features features={features} />
-        <Testimonials testimonials={testimonials} />
-        <FAQ faqs={faqs} />
+        
+        {/* Content Sections with 120px Vertical Rhythm */}
+        <div className="max-w-luxury-content mx-auto px-16 lg:px-24 space-y-luxury-xl">
+          <section className="py-luxury-xl">
+            <Clients />
+          </section>
+          
+          <section className="py-luxury-xl">
+            <Features features={features} />
+          </section>
+          
+          <section className="py-luxury-xl">
+            <Testimonials testimonials={testimonials} />
+          </section>
+          
+          <section className="py-luxury-xl">
+            <FAQ faqs={faqs} />
+          </section>
+        </div>
       </main>
+      
+      {/* Footer - Full Width */}
       <Footer footerNavigation={footerNavigation} />
     </div>
   );

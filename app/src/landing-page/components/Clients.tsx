@@ -5,7 +5,7 @@ import SalesforceLogo from "../logos/SalesforceLogo";
 
 export default function Clients() {
   return (
-    <div className='mt-12 mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-between gap-y-6'>
+    <div className='mx-auto flex flex-col items-center gap-y-6'>
       <h2 className='mb-6 text-center font-semibold tracking-wide text-gray-500 dark:text-white'>
         Built with / Used by:
       </h2>

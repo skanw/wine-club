@@ -104,30 +104,31 @@ module.exports = {
         
         // Luxury color palette additions
         bordeaux: {
-          50: '#FEF7F7',
-          100: '#FDEAEA',
-          200: '#FACBCB',
-          300: '#F5A3A3',
-          400: '#ED7474',
-          500: '#E14949',
-          600: '#CD2E2E',
-          700: '#B91C1C',
-          800: '#991B1B',
-          900: '#7F1D1D',
-          950: '#450A0A',
+          50: '#FEF2F2',   // Lightest Bordeaux
+          100: '#FEE2E2',  // Very Light Bordeaux
+          200: '#FECACA',  // Light Bordeaux
+          300: '#FCA5A5',  // Medium Light Bordeaux
+          400: '#F87171',  // Medium Bordeaux
+          500: '#EF4444',  // Base Bordeaux
+          600: '#5A1E1B',  // Dark Bordeaux - Primary
+          700: '#4A1813',  // Darker Bordeaux
+          800: '#3A120F',  // Very Dark Bordeaux
+          900: '#2A0D0A',  // Darkest Bordeaux
+          950: '#1A0907',  // Ultra Dark Bordeaux
         },
         
         champagne: {
-          50: '#FEFCE8',
-          100: '#FEF9C3',
-          200: '#FEF08A',
-          300: '#FDE047',
-          400: '#FACC15',
-          500: '#E6C875',  // Primary champagne
-          600: '#D4AF37',  // Rich gold
-          700: '#B8941F',
-          800: '#9A7B0A',
-          900: '#7A5F00',
+          50: '#FEFDFB',   // Lightest Champagne
+          100: '#FDF9F0',  // Very Light Champagne
+          200: '#F9F0E1',  // Light Champagne
+          300: '#F3E6D2',  // Medium Light Champagne
+          400: '#ECDCC3',  // Medium Champagne
+          500: '#D9C6A0',  // Base Champagne - Primary
+          600: '#C5B28A',  // Dark Champagne
+          700: '#B19E74',  // Darker Champagne
+          800: '#9D8A5E',  // Very Dark Champagne
+          900: '#897648',  // Darkest Champagne
+          950: '#756432',  // Ultra Dark Champagne
         },
         
         // Semantic colors with proper contrast

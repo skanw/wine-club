@@ -20,13 +20,13 @@ export default function Features({ features }: { features: Feature[] }) {
   return (
     <section 
       id='features' 
-      className='relative mx-auto py-luxury-xl px-6 lg:px-8 bg-gradient-to-b from-neutral-ivory to-neutral-cream dark:from-neutral-obsidian dark:to-neutral-charcoal transition-colors duration-500'
+      className='relative mx-auto bg-gradient-to-b from-neutral-ivory to-neutral-cream dark:from-neutral-obsidian dark:to-neutral-charcoal transition-colors duration-500'
     >
       {/* Luxury Content Container */}
-      <div className='mx-auto max-w-luxury-content'>
+      <div className='mx-auto'>
         {/* Section Header with Luxury Typography */}
         <div className='text-center mb-luxury-lg'>
-          <div ref={titleReveal.ref} className="hero-reveal mb-6">
+          <div ref={titleReveal.ref} className="section-title-reveal mb-6">
             <h2 className='luxury-h2 text-luxury-h2 md:text-luxury-h2 font-luxury text-luxury-gradient'>
               {t('features.title')}{' '}
               <span className='text-champagne-gradient'>{t('features.best')}</span>{' '}

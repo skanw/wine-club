@@ -13,7 +13,7 @@ const Hero = () => {
   }, 150);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-luxury-xl">
       {/* Full-Bleed 8K Vineyard Background with Parallax */}
       <div className="absolute inset-0 z-0">
         {/* Primary Background Image */}
@@ -26,12 +26,11 @@ const Hero = () => {
           }}
         />
         
-        {/* Soft Semi-Transparent Bordeaux to Champagne Overlay */}
-        <div className="absolute inset-0 bg-luxury-overlay opacity-60" />
+        {/* Enhanced Overlay for Better Contrast */}
+        <div className="absolute inset-0 bg-gradient-to-br from-bordeaux-900/70 via-bordeaux-800/50 to-champagne-900/60" />
         
-        {/* Elegant Gradient Vignette */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
+        {/* Subtle Text Shadow Enhancement Layer */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
       </div>
 
       {/* Wine Bottle Decorative Elements */}
@@ -53,85 +52,108 @@ const Hero = () => {
       </div>
 
       {/* Main Content - Centered 900px Max Width */}
-      <div className="relative z-20 max-w-luxury-content mx-auto px-6 sm:px-8 lg:px-12 text-center">
+      <div className="relative z-20 max-w-luxury-content mx-auto px-16 sm:px-20 lg:px-24 text-center">
         <div className="space-y-luxury-xl">
-          {/* Translucent Floating Card for Headline */}
+          {/* Lightweight Translucent Panel for Headline */}
           <div 
             ref={heroReveals[0].ref} 
-            className="hero-reveal backdrop-blur-md bg-white/10 dark:bg-black/20 rounded-3xl p-8 sm:p-12 shadow-luxury-xl border border-white/20 dark:border-white/10"
-            style={{ willChange: 'transform' }}
+            className="hero-reveal backdrop-blur-sm bg-white/5 dark:bg-black/10 rounded-xl p-8 sm:p-10 max-w-2xl mx-auto border border-white/10 shadow-lg"
+            style={{ 
+              willChange: 'transform',
+              maxWidth: '700px'
+            }}
           >
-            {/* Main Headline - Luxury Typography */}
-            <h1 className="luxury-h1 text-luxury-h1 md:text-luxury-h1-md sm:text-luxury-h1-sm font-luxury text-white leading-tight mb-6">
+            {/* Main Headline with Enhanced Text Shadow */}
+            <h1 
+              className="luxury-h1 text-luxury-h1 md:text-luxury-h1-md sm:text-luxury-h1-sm font-luxury text-white leading-tight mb-6"
+              style={{
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3)'
+              }}
+            >
               Transform Your{' '}
-              <span className="text-champagne-gradient">
+              <span className="text-champagne-300">
                 Wine Cave
               </span>
               <br />
               Into a Thriving{' '}
-              <span className="text-bordeaux-gradient">
+              <span className="text-bordeaux-300">
                 Business
               </span>
             </h1>
 
-            {/* Wine Tasting Notes Style Subtitle */}
-            <div className="wine-tasting-notes text-white/90 max-w-3xl mx-auto mb-8">
+            {/* Wine Tasting Notes Style Subtitle with Text Shadow and Reveal */}
+            <div 
+              ref={heroReveals[1].ref}
+              className="hero-subtitle-reveal wine-tasting-notes text-white/95 max-w-2xl mx-auto mb-8 text-lg leading-relaxed"
+              style={{
+                textShadow: '0 1px 4px rgba(0, 0, 0, 0.4)'
+              }}
+            >
               Launch your boutique wine subscription service with our all-in-one platform. 
               From inventory management to customer loyalty programs, we handle the technology 
               so you can focus on crafting exceptional wine experiences that delight your members.
             </div>
 
-            {/* Premium CTA Buttons with Micro-Interactions */}
-            <div className="luxury-btn-group justify-center">
+            {/* Premium CTA Buttons with Micro-Interactions and Reveal */}
+            <div 
+              ref={heroReveals[2].ref}
+              className="cta-bar-reveal flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
               <Link
                 to="/signup"
-                className="luxury-btn luxury-btn-primary luxury-btn-lg group"
+                className="btn-primary group"
+                style={{
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                }}
               >
-                <span className="icon icon-scale">🍷</span>
+                <span className="text-xl group-hover:scale-110 transition-transform duration-200">🍷</span>
                 Start Your Wine Business
-                <svg className="icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </Link>
               
               <Link
                 to="/pricing"
-                className="luxury-btn luxury-btn-secondary luxury-btn-lg group"
+                className="btn-secondary group"
+                style={{
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                }}
               >
-                <span className="icon icon-up">📊</span>
+                <span className="text-xl group-hover:scale-110 transition-transform duration-200">📊</span>
                 View Live Demo
               </Link>
             </div>
           </div>
 
           {/* Trust Indicators - Refined Layout */}
-          <div ref={heroReveals[1].ref} className="trust-indicator">
+          <div ref={heroReveals[3].ref} className="trust-indicator">
             <div className="flex flex-wrap justify-center items-center gap-8 backdrop-blur-sm bg-white/5 dark:bg-black/10 rounded-2xl p-6 border border-white/10">
-              <div className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300">
+              <div className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors duration-300">
                 <div className="w-8 h-8 rounded-full bg-champagne-500 flex items-center justify-center">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="luxury-small font-medium">No Setup Fees</span>
+                <span className="font-medium" style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)' }}>No Setup Fees</span>
               </div>
               
-              <div className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-bordeaux-500 flex items-center justify-center">
+              <div className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors duration-300">
+                <div className="w-8 h-8 rounded-full bg-bordeaux-600 flex items-center justify-center">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="luxury-small font-medium">Free 14-Day Trial</span>
+                <span className="font-medium" style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)' }}>Free 14-Day Trial</span>
               </div>
               
-              <div className="flex items-center space-x-3 text-white/80 hover:text-white transition-colors duration-300">
+              <div className="flex items-center space-x-3 text-white/90 hover:text-white transition-colors duration-300">
                 <div className="w-8 h-8 rounded-full bg-champagne-600 flex items-center justify-center">
                   <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                   </svg>
                 </div>
-                <span className="luxury-small font-medium">Cancel Anytime</span>
+                <span className="font-medium" style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)' }}>Cancel Anytime</span>
               </div>
             </div>
           </div>
@@ -151,9 +173,9 @@ const Hero = () => {
       </div>
 
       {/* Elegant Scroll Indicator */}
-      <div ref={heroReveals[2].ref} className="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
+      <div className="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
         <div className="flex flex-col items-center space-y-3 text-white/70 hover:text-white transition-colors duration-300 group">
-          <span className="luxury-caption">Discover More</span>
+          <span className="text-sm" style={{ textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)' }}>Discover More</span>
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-white/60 transition-colors duration-300">
             <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-bounce group-hover:bg-white/80 transition-colors duration-300"></div>
           </div>

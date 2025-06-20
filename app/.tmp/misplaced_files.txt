@@ -1,0 +1,56 @@
+=== MISPLACED FILE AUDIT ===
+
+Components NOT in src/client/components/:
+src/landing-page/components/Hero.tsx
+src/landing-page/components/Features.tsx
+src/landing-page/components/Footer.tsx
+src/landing-page/components/Testimonials.tsx
+src/landing-page/components/Clients.tsx
+src/landing-page/components/FAQ.tsx
+
+Pages NOT in src/client/pages/:
+src/messages/MessagesPage.tsx
+src/test/TestPage.tsx
+src/auth/LoginPage.tsx
+src/auth/SignupPage.tsx
+src/auth/email-and-pass/EmailVerificationPage.tsx
+src/auth/email-and-pass/PasswordResetPage.tsx
+src/auth/email-and-pass/RequestPasswordResetPage.tsx
+src/wine-cave/WineCaveDashboardPage.tsx
+src/wine-cave/AnalyticsDashboardPage.tsx
+src/wine-cave/WineCaveDetailPage.tsx
+src/wine-cave/CreateWineCavePage.tsx
+src/payment/CheckoutPage.tsx
+src/payment/PricingPage.tsx
+src/admin/elements/settings/SettingsPage.tsx
+src/admin/elements/calendar/CalendarPage.tsx
+src/admin/elements/forms/FormLayoutsPage.tsx
+src/admin/elements/forms/FormElementsPage.tsx
+src/admin/elements/charts/ChartsPage.tsx
+src/admin/elements/ui-elements/AlertsPage.tsx
+src/admin/elements/ui-elements/ButtonsPage.tsx
+src/admin/dashboards/users/UsersDashboardPage.tsx
+src/admin/dashboards/analytics/AnalyticsDashboardPage.tsx
+src/user/AccountPage.tsx
+src/loyalty/LoyaltyDashboardPage.tsx
+src/shipping/ShippingDashboardPage.tsx
+src/demo-ai-app/DemoAppPage.tsx
+src/file-upload/FileUploadPage.tsx
+src/landing-page/LandingPage.tsx
+src/wine-subscriptions/MemberPortalPage.tsx
+src/wine-subscriptions/SubscribeToWineCavePage.tsx
+src/wine-subscriptions/WineSubscriptionsPage.tsx
+src/wine-subscriptions/PremiumSubscriptionPage.tsx
+src/client/components/NotFoundPage.tsx
+src/client/hooks/useIsLandingPage.tsx
+src/onboarding/OnboardingWizardPage.tsx
+
+Hooks NOT in src/client/hooks/:
+src/auth/userSignupFields.ts
+src/admin/useRedirectHomeUnlessUserIsAdmin.ts
+src/client/hooks/useColorMode.tsx
+src/client/hooks/useIsLandingPage.tsx
+src/client/hooks/useLocalStorage.tsx
+src/client/hooks/useScrollReveal.tsx
+src/client/hooks/useScrollAnimation.tsx
+src/client/hooks/useMicroInteractions.tsx

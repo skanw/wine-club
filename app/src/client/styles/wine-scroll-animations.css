@@ -12,6 +12,61 @@
   transform: none !important;
 }
 
+/* Base Reveal Pattern - Fade + TranslateY 10px */
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hero-specific reveal patterns */
+.hero-subtitle-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s, 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  will-change: opacity, transform;
+}
+
+.hero-subtitle-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cta-bar-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s, 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+  will-change: opacity, transform;
+}
+
+.cta-bar-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section title reveal pattern */
+.section-title-reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.section-title-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Base animation states */
 .animate-fade-in-up {
   animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;

@@ -21,20 +21,13 @@ app OpenSaaS {
     "<meta name='twitter:image:width' content='800' />",
     "<meta name='twitter:image:height' content='400' />",
     "<meta name='twitter:card' content='summary_large_image' />",
-    // TODO: You can put your Plausible analytics scripts below (https://docs.opensaas.sh/guides/analytics/):
-    // NOTE: Plausible does not use Cookies, so you can simply add the scripts here.
-    // Google, on the other hand, does, so you must instead add the script dynamically
-    // via the Cookie Consent component after the user clicks the "Accept" cookies button.
-    "<script defer data-domain='<your-site-id>' src='https://plausible.io/js/script.js'></script>",  // for production
-    "<script defer data-domain='<your-site-id>' src='https://plausible.io/js/script.local.js'></script>",  // for development
+    "<script defer data-domain='<your-site-id>' src='https://plausible.io/js/script.js'></script>",
+    "<script defer data-domain='<your-site-id>' src='https://plausible.io/js/script.local.js'></script>",
   ],
 
-  // 🔐 Auth out of the box! https://wasp.sh/docs/auth/overview
   auth: {
     userEntity: User,
     methods: {
-      // NOTE: If you decide to not use email auth, make sure to also delete the related routes and pages below.
-      //   (RequestPasswordReset(Route|Page), PasswordReset(Route|Page), EmailVerification(Route|Page))
       email: {
         fromField: {
           name: "Open SaaS App",
@@ -50,30 +43,13 @@ app OpenSaaS {
         },
         userSignupFields: import { getEmailUserFields } from "@src/auth/userSignupFields",
       },
-      // Uncomment to enable Google Auth (check https://wasp.sh/docs/auth/social-auth/google for setup instructions):
-      // google: { // Guide for setting up Auth via Google
-      //   userSignupFields: import { getGoogleUserFields } from "@src/auth/userSignupFields",
-      //   configFn: import { getGoogleAuthConfig } from "@src/auth/userSignupFields",
-      // },
-      // Uncomment to enable GitHub Auth (check https://wasp.sh/docs/auth/social-auth/github for setup instructions):
-      // gitHub: {
-      //   userSignupFields: import { getGitHubUserFields } from "@src/auth/userSignupFields",
-      //   configFn: import { getGitHubAuthConfig } from "@src/auth/userSignupFields",
-      // },
-      // Uncomment to enable Discord Auth (check https://wasp.sh/docs/auth/social-auth/discord for setup instructions):
-      // discord: {
-      //   userSignupFields: import { getDiscordUserFields } from "@src/auth/userSignupFields",
-      //   configFn: import { getDiscordAuthConfig } from "@src/auth/userSignupFields"
-      // }
     },
     onAuthFailedRedirectTo: "/login",
     onAuthSucceededRedirectTo: "/demo-app",
   },
 
   db: {
-    // Run `wasp db seed` to seed the database with the seed functions below:
     seeds: [
-      // Populates the database with a bunch of fake users to work with during development.
       import { seedMockUsers } from "@src/server/scripts/dbSeeds",
     ]
   },
@@ -83,9 +59,6 @@ app OpenSaaS {
   },
 
   emailSender: {
-    // NOTE: Using SMTP provider for production compatibility
-    // For development, emails will be logged to console
-    // For production, configure SMTP environment variables
     provider: SMTP,
     defaultFrom: {
       name: "WineClub SaaS",
@@ -247,8 +220,7 @@ job dailyStatsJob {
     fn: import { calculateDailyStats } from "@src/analytics/stats"
   },
   schedule: {
-    cron: "0 * * * *" // every hour. useful in production
-    // cron: "* * * * *" // every minute. useful for debugging
+    cron: "0 * * * *"
   },
   entities: [User, DailyStats, Logs, PageViewSource]
 }
@@ -282,13 +254,13 @@ page AdminChartsPage {
 route AdminFormElementsRoute { path: "/admin/forms/form-elements", to: AdminFormElementsPage }
 page AdminFormElementsPage {
   authRequired: true,
-  component: import AdminForms from "@src/admin/elements/forms/FormElementsPage"
+  component: import FormElements from "@src/admin/elements/forms/FormElementsPage"
 }
 
 route AdminFormLayoutsRoute { path: "/admin/forms/form-layouts", to: AdminFormLayoutsPage }
 page AdminFormLayoutsPage {
   authRequired: true,
-  component: import AdminForms from "@src/admin/elements/forms/FormLayoutsPage"
+  component: import FormLayout from "@src/admin/elements/forms/FormLayoutsPage"
 }
 
 route AdminCalendarRoute { path: "/admin/calendar", to: AdminCalendarPage }
@@ -297,16 +269,16 @@ page AdminCalendarPage {
   component: import AdminCalendar from "@src/admin/elements/calendar/CalendarPage"
 }
 
+route AdminUIElementsRoute { path: "/admin/ui", to: AdminUIElementsPage }
+page AdminUIElementsPage {
+  authRequired: true,
+  component: import Buttons from "@src/admin/elements/ui-elements/ButtonsPage"
+}
+
 route AdminUIAlertsRoute { path: "/admin/ui/alerts", to: AdminUIAlertsPage }
 page AdminUIAlertsPage {
   authRequired: true,
-  component: import AdminUI from "@src/admin/elements/ui-elements/AlertsPage"
-}
-
-route AdminUIButtonsRoute { path: "/admin/ui/buttons", to: AdminUIButtonsPage }
-page AdminUIButtonsPage {
-  authRequired: true,
-  component: import AdminUI from "@src/admin/elements/ui-elements/ButtonsPage"
+  component: import Alerts from "@src/admin/elements/ui-elements/AlertsPage"
 }
 
 route NotFoundRoute { path: "*", to: NotFoundPage }
@@ -316,9 +288,6 @@ page NotFoundPage {
 //#endregion
 
 //#region Contact Form Messages
-// TODO: 
-// add functionality to allow users to send messages to admin
-// and make them accessible via the admin dashboard
 route AdminMessagesRoute { path: "/admin/messages", to: AdminMessagesPage }
 page AdminMessagesPage {
   authRequired: true,
@@ -337,12 +306,6 @@ route CreateWineCaveRoute { path: "/wine-caves/create", to: CreateWineCavePage }
 page CreateWineCavePage {
   authRequired: true,
   component: import CreateWineCavePage from "@src/wine-cave/CreateWineCavePage"
-}
-
-route WineCaveDetailRoute { path: "/wine-caves/:id", to: WineCaveDetailPage }
-page WineCaveDetailPage {
-  authRequired: true,
-  component: import WineCaveDetailPage from "@src/wine-cave/WineCaveDetailPage"
 }
 
 route WineCaveAnalyticsRoute { path: "/wine-cave-analytics", to: WineCaveAnalyticsPage }
@@ -396,6 +359,10 @@ page MemberPortalPage {
 }
 
 route SubscribeToWineCaveRoute { path: "/wine-caves/:id/subscribe", to: SubscribeToWineCavePage }
+page SubscribeToWineCavePage {
+  authRequired: true,
+  component: import SubscribeToWineCave from "@src/wine-subscriptions/SubscribeToWineCavePage"
+}
 
 route PremiumSubscriptionRoute { path: "/premium-subscription", to: PremiumSubscriptionPage }
 page PremiumSubscriptionPage {
@@ -405,10 +372,6 @@ page PremiumSubscriptionPage {
 route SubscriptionRoute { path: "/subscription", to: SubscriptionPage }
 page SubscriptionPage {
   component: import SubscriptionPage from "@src/client/pages/SubscriptionPage"
-}
-page SubscribeToWineCavePage {
-  authRequired: true,
-  component: import SubscribeToWineCave from "@src/wine-subscriptions/SubscribeToWineCavePage"
 }
 
 action createWineSubscription {
@@ -504,4 +467,4 @@ page OnboardingWizardPage {
   authRequired: true,
   component: import OnboardingWizard from "@src/onboarding/OnboardingWizardPage"
 }
-//#endregion
+//#endregion 
