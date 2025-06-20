@@ -40,5 +40,5 @@
     ],
     "outDir": ".wasp/out/user"
   },
-  "include": ["src"]
+  "include": ["src/**/*", "src/client/i18n/locales/**/*.json"]
 }
