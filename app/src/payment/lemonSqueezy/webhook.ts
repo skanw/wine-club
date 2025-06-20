@@ -2,11 +2,12 @@ import { type MiddlewareConfigFn, HttpError } from 'wasp/server';
 import { type PaymentsWebhook } from 'wasp/server/api';
 import { type PrismaClient } from '@prisma/client';
 import express from 'express';
-import { paymentPlans, PaymentPlanId, SubscriptionStatus } from '../plans';
+import { paymentPlans, PaymentPlanId, SubscriptionStatus } from '../../shared/plans';
 import { updateUserLemonSqueezyPaymentDetails } from './paymentDetails';
 import { type Order, type Subscription, getCustomer } from '@lemonsqueezy/lemonsqueezy.js';
 import crypto from 'crypto';
 import { requireNodeEnvVar } from '../../server/utils';
+import { type User } from 'wasp/entities';
 
 export const lemonSqueezyWebhook: PaymentsWebhook = async (request, response, context) => {
   try {

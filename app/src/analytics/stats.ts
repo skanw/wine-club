@@ -6,7 +6,7 @@ import { listOrders } from '@lemonsqueezy/lemonsqueezy.js';
 import { getDailyPageViews, getSources } from './providers/plausibleAnalyticsUtils';
 // import { getDailyPageViews, getSources } from './providers/googleAnalyticsUtils';
 import { paymentProcessor } from '../payment/paymentProcessor';
-import { SubscriptionStatus } from '../payment/plans';
+import { SubscriptionStatus } from '../shared/plans';
 
 export type DailyStatsProps = { dailyStats?: DailyStats; weeklyStats?: DailyStats[]; isLoading?: boolean };
 

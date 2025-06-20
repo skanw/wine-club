@@ -1,17 +1,11 @@
 import * as z from 'zod';
-import type { Task, GptResponse } from 'wasp/entities';
-import type {
-  GenerateGptResponse,
-  CreateTask,
-  DeleteTask,
-  UpdateTask,
-  GetGptResponses,
-  GetAllTasksByUser,
-} from 'wasp/server/operations';
+import { type Task, type User, type GptResponse } from 'wasp/entities';
+import { type AuthUser } from 'wasp/auth';
 import { HttpError } from 'wasp/server';
+import { type GenerateGptResponse, type CreateTask, type DeleteTask, type UpdateTask, type GetGptResponses, type GetAllTasksByUser } from 'wasp/server/operations';
 import { GeneratedSchedule } from './schedule';
 import OpenAI from 'openai';
-import { SubscriptionStatus } from '../payment/plans';
+import { SubscriptionStatus } from '../shared/plans';
 import { ensureArgsSchemaOrThrowHttpError } from '../server/validation';
 
 const openai = setupOpenAI();

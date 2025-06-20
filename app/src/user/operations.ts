@@ -2,9 +2,10 @@ import * as z from 'zod';
 import { type UpdateIsUserAdminById, type GetPaginatedUsers } from 'wasp/server/operations';
 import { type User } from 'wasp/entities';
 import { HttpError, prisma } from 'wasp/server';
-import { SubscriptionStatus } from '../payment/plans';
+import { SubscriptionStatus } from '../shared/plans';
 import { type Prisma } from '@prisma/client';
 import { ensureArgsSchemaOrThrowHttpError } from '../server/validation';
+import { type AuthUser } from 'wasp/auth';
 
 const updateUserAdminByIdInputSchema = z.object({
   id: z.string().nonempty(),

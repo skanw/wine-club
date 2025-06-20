@@ -1,7 +1,8 @@
 import { type User } from 'wasp/entities';
 import { faker } from '@faker-js/faker';
 import type { PrismaClient } from '@prisma/client';
-import { getSubscriptionPaymentPlanIds, SubscriptionStatus } from '../../payment/plans';
+import { sanitizeAndSerializeProviderData } from 'wasp/auth/utils';
+import { getSubscriptionPaymentPlanIds, SubscriptionStatus } from '../../shared/plans';
 
 type MockUserData = Omit<User, 'id' | 'loyaltyPointsHistory' | 'referralsSent' | 'referralsReceived' | 'preferences' | 'wineRatings'>;
 

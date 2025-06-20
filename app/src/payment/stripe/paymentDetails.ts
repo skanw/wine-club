@@ -1,5 +1,5 @@
-import type { SubscriptionStatus } from '../plans';
-import { PaymentPlanId } from '../plans';
+import type { SubscriptionStatus } from '../../shared/plans';
+import { PaymentPlanId } from '../../shared/plans';
 import { PrismaClient } from '@prisma/client';
 
 export const updateUserStripePaymentDetails = (

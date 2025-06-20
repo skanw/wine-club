@@ -1,4 +1,4 @@
-import type { PaymentPlan } from './plans';
+import type { PaymentPlan } from '../shared/plans';
 import type { PaymentsWebhook } from 'wasp/server/api';
 import type { MiddlewareConfigFn } from 'wasp/server';
 import { PrismaClient } from '@prisma/client';

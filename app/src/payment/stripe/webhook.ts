@@ -2,14 +2,15 @@ import { type MiddlewareConfigFn, HttpError } from 'wasp/server';
 import { type PaymentsWebhook } from 'wasp/server/api';
 import { type PrismaClient } from '@prisma/client';
 import express from 'express';
-import { Stripe } from 'stripe';
+import Stripe from 'stripe';
 import { stripe } from './stripeClient';
-import { paymentPlans, PaymentPlanId, SubscriptionStatus, PaymentPlanEffect, PaymentPlan } from '../plans';
+import { paymentPlans, PaymentPlanId, SubscriptionStatus, PaymentPlanEffect, PaymentPlan } from '../../shared/plans';
 import { updateUserStripePaymentDetails } from './paymentDetails';
 import { emailSender } from 'wasp/server/email';
 import { assertUnreachable } from '../../shared/utils';
 import { requireNodeEnvVar } from '../../server/utils';
 import { z } from 'zod';
+import { type User } from 'wasp/entities';
 
 export const stripeWebhook: PaymentsWebhook = async (request, response, context) => {
   const secret = requireNodeEnvVar('STRIPE_WEBHOOK_SECRET');

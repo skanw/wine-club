@@ -1,9 +1,10 @@
 import * as z from 'zod';
 import type { GenerateCheckoutSession, GetCustomerPortalUrl } from 'wasp/server/operations';
-import { PaymentPlanId, paymentPlans } from '../payment/plans';
+import { PaymentPlanId, paymentPlans } from '../shared/plans';
 import { paymentProcessor } from './paymentProcessor';
 import { HttpError } from 'wasp/server';
 import { ensureArgsSchemaOrThrowHttpError } from '../server/validation';
+import { type User } from 'wasp/entities';
 
 export type CheckoutSession = {
   sessionUrl: string | null;

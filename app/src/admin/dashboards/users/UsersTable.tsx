@@ -1,4 +1,4 @@
-import { SubscriptionStatus } from '../../../payment/plans';
+import { SubscriptionStatus } from '../../../shared/plans';
 import { useQuery, getPaginatedUsers } from 'wasp/client/operations';
 import { useState, useEffect } from 'react';
 import SwitcherOne from '../../elements/forms/SwitcherOne';
@@ -62,7 +62,7 @@ const UsersTable = () => {
               <label htmlFor='status-filter' className='block text-sm ml-2 text-gray-700 dark:text-white'>
                 status:
               </label>
-              <div className='flex-grow relative z-20 rounded border border-stroke pr-8 outline-none bg-white transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input'>
+              <div className='flex-grow relative z-20 rounded border border-stroke pr-8 outline-none bg-white transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'>
                 <div className='flex items-center'>
                   {subscriptionStatusFilter.length > 0 ? (
                     subscriptionStatusFilter.map((opt) => (
