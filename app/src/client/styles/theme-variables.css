@@ -10,10 +10,10 @@
   --primary-300: #F8E9B7;
   --primary-400: #F3E9D2;
   --primary-500: #EDD5A3;
-  --primary-600: #D4AF37;  /* Gold accent */
+  --primary-600: #D9C6A0;  /* HH-02: Secondary = Champagne #D9C6A0 */
   --primary-700: #B8941F;
   --primary-800: #9A7B0A;
-  --primary-900: #7A5F00;
+  --primary-900: #5A1E1B;  /* HH-02: Primary = Bordeaux #5A1E1B */
   --primary-950: #5A4600;
 
   /* Semantic Colors - WCAG AA Compliant */
@@ -31,29 +31,29 @@
   --text-muted: #757575;           /* Contrast: 4.5:1 ✓ */
   
   /* Interactive Text Colors */
-  --text-link: #8B4513;            /* Contrast: 5.2:1 ✓ */
-  --text-link-hover: #7A3D0F;      /* Contrast: 6.1:1 ✓ */
-  --text-accent: #B8941F;          /* Contrast: 4.8:1 ✓ */
+  --text-link: #5A1E1B;            /* HH-02: Primary Bordeaux */
+  --text-link-hover: #4A1813;      /* Darker Bordeaux */
+  --text-accent: #D9C6A0;          /* HH-02: Secondary Champagne */
   
   /* Border Colors */
   --border-primary: rgba(26, 26, 26, 0.15);    /* Subtle but visible */
   --border-secondary: rgba(26, 26, 26, 0.08);  /* Very subtle */
-  --border-focus: #D4AF37;         /* Gold focus ring */
+  --border-focus: #D9C6A0;         /* HH-02: Champagne focus ring */
   --border-error: #D32F2F;         /* Contrast: 5.8:1 ✓ */
   --border-success: #2E7D32;       /* Contrast: 5.1:1 ✓ */
   
   /* Accent Colors - Enhanced Contrast */
-  --accent-red: #8B4513;           /* Saddle brown - Contrast: 5.2:1 ✓ */
-  --accent-wine: #722F37;          /* Deep wine - Contrast: 6.8:1 ✓ */
-  --accent-gold: #D4AF37;          /* Metallic gold */
+  --accent-red: #5A1E1B;           /* HH-02: Primary Bordeaux */
+  --accent-wine: #5A1E1B;          /* HH-02: Primary Bordeaux */
+  --accent-gold: #D9C6A0;          /* HH-02: Secondary Champagne */
   
   /* Interactive States */
-  --interactive-primary: #8B4513;
-  --interactive-primary-hover: #7A3D0F;
-  --interactive-primary-pressed: #6B350D;
-  --interactive-secondary: rgba(139, 69, 19, 0.1);
-  --interactive-secondary-hover: rgba(139, 69, 19, 0.15);
-  --interactive-secondary-pressed: rgba(139, 69, 19, 0.2);
+  --interactive-primary: #5A1E1B;  /* HH-02: Primary Bordeaux */
+  --interactive-primary-hover: #4A1813;
+  --interactive-primary-pressed: #3A120F;
+  --interactive-secondary: rgba(217, 198, 160, 0.1);
+  --interactive-secondary-hover: rgba(217, 198, 160, 0.15);
+  --interactive-secondary-pressed: rgba(217, 198, 160, 0.2);
   
   /* Status Colors - WCAG AA Compliant */
   --status-success: #2E7D32;       /* Contrast: 5.1:1 ✓ */
@@ -76,20 +76,20 @@
 /* Dark Theme Variables - Red Wine Theme */
 :root.theme-dark {
   /* Primary Colors - Enhanced Contrast */
-  --primary-50: #0F0F0F;           /* Near-black for maximum contrast */
+  --primary-50: #141414;           /* HH-02: Dark bg = #141414 */
   --primary-100: #1A0F11;
   --primary-200: #2D1B1E;
   --primary-300: #3D252A;
   --primary-400: #4A2E35;
-  --primary-500: #5A1E1B;
+  --primary-500: #5A1E1B;          /* HH-02: Primary = Bordeaux #5A1E1B */
   --primary-600: #722F37;
   --primary-700: #8B4513;
   --primary-800: #A0522D;
-  --primary-900: #CD853F;
+  --primary-900: #D9C6A0;          /* HH-02: Secondary = Champagne #D9C6A0 */
   --primary-950: #F4E4BC;
 
   /* Semantic Colors - WCAG AA Compliant */
-  --background: #0F0F0F;           /* Near-black (contrast: ∞) */
+  --background: #141414;           /* HH-02: Dark bg = #141414 */
   --surface: #1A1A1A;              /* Dark surface */
   --surface-elevated: #262626;     /* Elevated surface */
   --surface-hover: rgba(255, 255, 255, 0.04);
@@ -99,33 +99,33 @@
   --text-primary: #F5F5F5;         /* Contrast: 15.8:1 ✓ */
   --text-secondary: #D1D1D1;       /* Contrast: 10.2:1 ✓ */
   --text-tertiary: #B0B0B0;        /* Contrast: 6.8:1 ✓ */
-  --text-inverse: #1A1A1A;         /* For light backgrounds */
+  --text-inverse: #141414;         /* HH-02: Dark bg for light backgrounds */
   --text-muted: #9E9E9E;           /* Contrast: 4.7:1 ✓ */
   
   /* Interactive Text Colors */
-  --text-link: #E6C875;            /* Contrast: 8.1:1 ✓ */
-  --text-link-hover: #F0D584;      /* Contrast: 9.2:1 ✓ */
-  --text-accent: #CD853F;          /* Contrast: 6.3:1 ✓ */
+  --text-link: #D9C6A0;            /* HH-02: Secondary Champagne */
+  --text-link-hover: #E6D4B7;      /* Lighter Champagne */
+  --text-accent: #D9C6A0;          /* HH-02: Secondary Champagne */
   
   /* Border Colors */
   --border-primary: rgba(245, 245, 245, 0.15);    /* Subtle but visible */
   --border-secondary: rgba(245, 245, 245, 0.08);  /* Very subtle */
-  --border-focus: #E6C875;         /* Gold focus ring */
+  --border-focus: #D9C6A0;         /* HH-02: Champagne focus ring */
   --border-error: #FF5252;         /* Contrast: 5.9:1 ✓ */
   --border-success: #4CAF50;       /* Contrast: 5.2:1 ✓ */
   
   /* Accent Colors - Enhanced Contrast */
-  --accent-red: #FF6B6B;           /* Light red - Contrast: 5.4:1 ✓ */
-  --accent-wine: #E57373;          /* Light wine - Contrast: 6.1:1 ✓ */
-  --accent-gold: #E6C875;          /* Light gold - Contrast: 8.1:1 ✓ */
+  --accent-red: #5A1E1B;           /* HH-02: Primary Bordeaux */
+  --accent-wine: #5A1E1B;          /* HH-02: Primary Bordeaux */
+  --accent-gold: #D9C6A0;          /* HH-02: Secondary Champagne */
   
   /* Interactive States */
-  --interactive-primary: #E6C875;
-  --interactive-primary-hover: #F0D584;
-  --interactive-primary-pressed: #DCC369;
-  --interactive-secondary: rgba(230, 200, 117, 0.1);
-  --interactive-secondary-hover: rgba(230, 200, 117, 0.15);
-  --interactive-secondary-pressed: rgba(230, 200, 117, 0.2);
+  --interactive-primary: #D9C6A0;  /* HH-02: Secondary Champagne for dark theme */
+  --interactive-primary-hover: #E6D4B7;
+  --interactive-primary-pressed: #C5B28A;
+  --interactive-secondary: rgba(90, 30, 27, 0.3);
+  --interactive-secondary-hover: rgba(90, 30, 27, 0.4);
+  --interactive-secondary-pressed: rgba(90, 30, 27, 0.5);
   
   /* Status Colors - WCAG AA Compliant */
   --status-success: #4CAF50;       /* Contrast: 5.2:1 ✓ */
@@ -140,9 +140,9 @@
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.7);
   
   /* Overlay Colors */
-  --overlay-light: rgba(230, 200, 117, 0.2);
+  --overlay-light: rgba(217, 198, 160, 0.2);
   --overlay-dark: rgba(0, 0, 0, 0.8);
-  --backdrop: rgba(15, 15, 15, 0.95);
+  --backdrop: rgba(20, 20, 20, 0.95);
 }
 
 /* Base element styling with theme variables */
