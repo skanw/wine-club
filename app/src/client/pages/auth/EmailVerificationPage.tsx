@@ -1,6 +1,6 @@
-import { Link as WaspRouterLink, routes } from 'wasp/client/router';
 import { VerifyEmailForm } from 'wasp/client/auth';
-import { AuthPageLayout } from '../AuthPageLayout';
+import { Link, routes } from 'wasp/client/router';
+import { AuthPageLayout } from '../../components/AuthPageLayout';
 
 export function EmailVerificationPage() {
   return (
@@ -8,7 +8,7 @@ export function EmailVerificationPage() {
       <VerifyEmailForm />
       <br />
       <span className='text-sm font-medium text-gray-900'>
-        If everything is okay, <WaspRouterLink to={routes.LoginRoute.to} className='underline'>go to login</WaspRouterLink>
+        If everything is okay, <Link to={routes.LoginRoute.to} className='underline'>go to login</Link>
       </span>
     </AuthPageLayout>
   );

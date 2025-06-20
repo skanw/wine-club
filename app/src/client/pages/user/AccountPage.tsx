@@ -1,8 +1,8 @@
 import type { User } from 'wasp/entities';
-import { SubscriptionStatus, prettyPaymentPlanName, parsePaymentPlanId } from '../payment/plans';
+import { SubscriptionStatus, prettyPaymentPlanName, parsePaymentPlanId } from '../../../shared/plans';
 import { getCustomerPortalUrl, useQuery } from 'wasp/client/operations';
 import { Link as WaspRouterLink, routes } from 'wasp/client/router';
-import { logout } from 'wasp/client/auth';
+import { useAuth, logout } from 'wasp/client/auth';
 
 export default function AccountPage({ user }: { user: User }) {
   return (

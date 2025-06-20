@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useScrollAnimation } from '../client/hooks/useScrollAnimation';
+import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import './premium-subscription.css';
 
 interface SubscriptionPlan {
