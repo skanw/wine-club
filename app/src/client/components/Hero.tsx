@@ -13,12 +13,12 @@ const Hero = () => {
   }, 150);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-luxury-xl">
-      {/* Full-Bleed 8K Vineyard Background with Parallax */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* HH-04: Full-Bleed Background pushed down 96px to clear navbar */}
+      <div className="absolute inset-0 z-0" style={{ top: '96px' }}>
         {/* Primary Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat object-cover w-full"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80')`,
             transform: 'scale(1.1)',
@@ -26,10 +26,10 @@ const Hero = () => {
           }}
         />
         
-        {/* Enhanced Overlay for Better Contrast */}
-        <div className="absolute inset-0 bg-gradient-to-br from-bordeaux-900/70 via-bordeaux-800/50 to-champagne-900/60" />
+        {/* HH-04: Semi-transparent Bordeaux overlay (#000, 0.35) behind headline for contrast */}
+        <div className="absolute inset-0" style={{ background: 'rgba(0, 0, 0, 0.35)' }} />
         
-        {/* Subtle Text Shadow Enhancement Layer */}
+        {/* Additional subtle gradient for enhanced readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
       </div>
 
@@ -51,23 +51,29 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Main Content - Centered 900px Max Width */}
+      {/* Main Content - Centered with proper spacing */}
       <div className="relative z-20 max-w-luxury-content mx-auto px-16 sm:px-20 lg:px-24 text-center">
         <div className="space-y-luxury-xl">
-          {/* Lightweight Translucent Panel for Headline */}
+          {/* HH-04: Replace heavy glass card with max-width 720px outline card */}
           <div 
             ref={heroReveals[0].ref} 
-            className="hero-reveal backdrop-blur-sm bg-white/5 dark:bg-black/10 rounded-xl p-8 sm:p-10 max-w-2xl mx-auto border border-white/10 shadow-lg"
+            className="hero-reveal mx-auto border border-champagne-500"
             style={{ 
-              willChange: 'transform',
-              maxWidth: '700px'
+              maxWidth: '720px',
+              backdropFilter: 'blur(3px)',
+              borderRadius: '12px',
+              border: '1px solid #D9C6A0', // Champagne border
+              background: 'rgba(255, 255, 255, 0.05)',
+              padding: '3rem 2rem'
             }}
           >
             {/* Main Headline with Enhanced Text Shadow */}
             <h1 
               className="luxury-h1 text-luxury-h1 md:text-luxury-h1-md sm:text-luxury-h1-sm font-luxury text-white leading-tight mb-6"
               style={{
-                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3)'
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3)',
+                maxWidth: '64ch', // HH-04: Text ≤64 ch width
+                margin: '0 auto 1.5rem auto'
               }}
             >
               Transform Your{' '}
@@ -84,9 +90,11 @@ const Hero = () => {
             {/* Wine Tasting Notes Style Subtitle with Text Shadow and Reveal */}
             <div 
               ref={heroReveals[1].ref}
-              className="hero-subtitle-reveal wine-tasting-notes text-white/95 max-w-2xl mx-auto mb-8 text-lg leading-relaxed"
+              className="hero-subtitle-reveal wine-tasting-notes text-white/95 mb-8 text-lg leading-relaxed"
               style={{
-                textShadow: '0 1px 4px rgba(0, 0, 0, 0.4)'
+                textShadow: '0 1px 4px rgba(0, 0, 0, 0.4)',
+                maxWidth: '64ch', // HH-04: Text ≤64 ch width
+                margin: '0 auto 2rem auto'
               }}
             >
               Launch your boutique wine subscription service with our all-in-one platform. 
@@ -103,7 +111,11 @@ const Hero = () => {
                 to="/signup"
                 className="btn-primary group"
                 style={{
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                  height: '52px', // HH-05: Equal height 52px
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '16px' // HH-05: 16px gap between buttons
                 }}
               >
                 <span className="text-xl group-hover:scale-110 transition-transform duration-200">🍷</span>
@@ -117,7 +129,10 @@ const Hero = () => {
                 to="/pricing"
                 className="btn-secondary group"
                 style={{
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                  height: '52px', // HH-05: Equal height 52px
+                  display: 'inline-flex',
+                  alignItems: 'center'
                 }}
               >
                 <span className="text-xl group-hover:scale-110 transition-transform duration-200">📊</span>
