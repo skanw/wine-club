@@ -22,6 +22,8 @@
     "strict": true,
     // Allow default imports.
     "esModuleInterop": true,
+    // Allow JSON module imports
+    "resolveJsonModule": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "allowJs": true,

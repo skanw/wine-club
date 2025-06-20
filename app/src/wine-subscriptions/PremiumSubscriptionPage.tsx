@@ -27,10 +27,10 @@ const PremiumSubscriptionPage: React.FC = () => {
   const [activeTheme, setActiveTheme] = useState<'red' | 'white'>('red');
   const [activeTab, setActiveTab] = useState<'red' | 'white'>('red');
 
-  const heroAnimation = useScrollAnimation({ animationClass: 'animate-wine-reveal' });
-  const whyJoinAnimation = useScrollAnimation({ animationClass: 'animate-fade-in-up', delay: 200 });
-  const bottlesAnimation = useScrollAnimation({ animationClass: 'animate-wine-pour', delay: 400 });
-  const plansAnimation = useScrollAnimation({ animationClass: 'animate-fade-in-up', delay: 600 });
+  const heroAnimation = useScrollAnimation({ animationType: 'fadeIn' });
+  const whyJoinAnimation = useScrollAnimation({ animationType: 'slideUp', delay: 200 });
+  const bottlesAnimation = useScrollAnimation({ animationType: 'scaleUp', delay: 400 });
+  const plansAnimation = useScrollAnimation({ animationType: 'slideUp', delay: 600 });
 
   useEffect(() => {
     document.body.className = `theme-${activeTheme}`;
@@ -150,8 +150,8 @@ const PremiumSubscriptionPage: React.FC = () => {
 
       {/* Hero Section */}
       <section 
-        ref={heroAnimation.elementRef}
-        className={`hero-section ${heroAnimation.className}`}
+        ref={heroAnimation.ref}
+        className={`hero-section ${heroAnimation.isVisible ? 'animate-visible' : ''}`}
       >
         <div className="hero-image">
           <div className="hero-overlay"></div>
@@ -171,8 +171,8 @@ const PremiumSubscriptionPage: React.FC = () => {
 
       {/* Why Join Section */}
       <section 
-        ref={whyJoinAnimation.elementRef}
-        className={`why-join-section ${whyJoinAnimation.className}`}
+        ref={whyJoinAnimation.ref}
+        className={`why-join-section ${whyJoinAnimation.isVisible ? 'animate-visible' : ''}`}
       >
         <div className="container">
           <h2 className="section-title">Why Join Our Cellar</h2>
@@ -198,8 +198,8 @@ const PremiumSubscriptionPage: React.FC = () => {
 
       {/* Featured Bottles */}
       <section 
-        ref={bottlesAnimation.elementRef}
-        className={`featured-bottles-section ${bottlesAnimation.className}`}
+        ref={bottlesAnimation.ref}
+        className={`featured-bottles-section ${bottlesAnimation.isVisible ? 'animate-visible' : ''}`}
       >
         <div className="container">
           <h2 className="section-title">This Month's Selection</h2>
@@ -225,21 +225,18 @@ const PremiumSubscriptionPage: React.FC = () => {
                   <img src={bottle.image} alt={bottle.name} />
                 </div>
                 <div className="bottle-info">
-                  <div className="bottle-header">
-                    <h3 className="bottle-name">{bottle.name}</h3>
-                    <p className="bottle-vineyard">{bottle.vineyard} • {bottle.year}</p>
-                    <div className="bottle-price">${bottle.price}</div>
-                  </div>
+                  <h3 className="bottle-name">{bottle.name}</h3>
+                  <p className="bottle-vineyard">{bottle.vineyard} • {bottle.year}</p>
+                  <p className="bottle-description">{bottle.description}</p>
                   <div className="tasting-notes">
                     <h4>Tasting Notes</h4>
                     <div className="notes-tags">
-                      {bottle.tastingNotes.map(note => (
-                        <span key={note} className="note-tag">{note}</span>
+                      {bottle.tastingNotes.map((note, i) => (
+                        <span key={i} className="note-tag">{note}</span>
                       ))}
                     </div>
                   </div>
-                  <p className="bottle-description">{bottle.description}</p>
-                  <button className="add-to-cart-btn">Add to Cart</button>
+                  <div className="bottle-price">${bottle.price}</div>
                 </div>
               </div>
             ))}
@@ -249,48 +246,53 @@ const PremiumSubscriptionPage: React.FC = () => {
 
       {/* Subscription Plans */}
       <section 
-        ref={plansAnimation.elementRef}
-        className={`plans-section ${plansAnimation.className}`}
+        ref={plansAnimation.ref}
+        className={`plans-section ${plansAnimation.isVisible ? 'animate-visible' : ''}`}
       >
         <div className="container">
           <h2 className="section-title">Choose Your Journey</h2>
           <div className="plans-grid">
-            {currentPlans.map(plan => (
+            {currentPlans.map((plan) => (
               <div key={plan.id} className="plan-card">
                 <div className="plan-header">
                   <h3 className="plan-name">{plan.name}</h3>
                   <div className="plan-price">
                     <span className="price-amount">${plan.price}</span>
-                    <span className="price-period">/{plan.frequency}</span>
+                    <span className="price-frequency">/{plan.frequency}</span>
                   </div>
                 </div>
-                <p className="plan-description">{plan.description}</p>
-                <div className="plan-bottles">{plan.bottles} bottles per shipment</div>
-                <ul className="plan-features">
-                  {plan.features.map(feature => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <button className="plan-cta">Select Plan</button>
+                <div className="plan-body">
+                  <p className="plan-description">{plan.description}</p>
+                  <div className="plan-bottles">
+                    <span className="bottles-count">{plan.bottles}</span>
+                    <span className="bottles-text">Premium Bottles</span>
+                  </div>
+                  <ul className="plan-features">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="feature-item">
+                        <span className="feature-check">✓</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="plan-footer">
+                  <button className="plan-cta">Subscribe Now</button>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Newsletter Footer */}
-      <footer className="premium-footer">
+      {/* Footer CTA */}
+      <section className="footer-cta">
         <div className="container">
-          <div className="footer-content">
-            <h3>Stay Connected</h3>
-            <p>Receive exclusive offers and wine insights</p>
-            <div className="newsletter-signup">
-              <input type="email" placeholder="Your email address" />
-              <button>Subscribe</button>
-            </div>
-          </div>
+          <h2>Ready to Begin Your Wine Journey?</h2>
+          <p>Join thousands of wine enthusiasts who trust us to deliver exceptional experiences.</p>
+          <button className="cta-button">Start Your Subscription</button>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };

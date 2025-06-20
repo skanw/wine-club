@@ -1,6 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import "./styles/wine-colors.css";
 @import "./styles/wine-transitions.css";
 @import "./styles/wine-scroll-animations.css";
@@ -10,6 +7,10 @@
 @import "./styles/luxury-typography.css";
 @import "./styles/luxury-colors.css";
 @import "./styles/luxury-cta.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer utilities {
   /* Chrome, Safari and Opera */
@@ -101,7 +102,7 @@
   @apply dark:!border-b-boxdark;
 }
 .flatpickr-calendar {
-  @apply dark:!bg-boxdark dark:!text-bodydark dark:!shadow-8 !p-6 2xsm:!w-auto;
+  @apply dark:!bg-boxdark dark:!text-bodydark dark:!shadow-lg !p-6 2xsm:!w-auto;
 }
 .flatpickr-day {
   @apply dark:!text-bodydark;
@@ -120,7 +121,7 @@ span.flatpickr-weekday,
   @apply dark:!text-white dark:!fill-white;
 }
 .flatpickr-day.inRange {
-  @apply dark:!bg-meta-4 dark:!border-meta-4 dark:!shadow-7;
+  @apply dark:!bg-meta-4 dark:!border-meta-4 dark:!shadow-md;
 }
 .flatpickr-day.selected, .flatpickr-day.startRange,
 .flatpickr-day.selected, .flatpickr-day.endRange {

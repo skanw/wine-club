@@ -107,7 +107,7 @@ describe('🌍 Wine Club i18n Configuration', () => {
 
     test('should update meta tags for SEO', async () => {
       const mockMeta = { setAttribute: jest.fn() };
-      documentMock.querySelector.mockReturnValue(mockMeta);
+      documentMock.querySelector.mockReturnValue(mockMeta as any);
       
       await changeLanguage('fr-FR');
       
@@ -115,9 +115,9 @@ describe('🌍 Wine Club i18n Configuration', () => {
     });
 
     test('should create meta tag if none exists', async () => {
-      documentMock.querySelector.mockReturnValue(null);
-      const mockMeta = { name: '', content: '' };
-      documentMock.createElement.mockReturnValue(mockMeta);
+      documentMock.querySelector.mockReturnValue(null as any);
+      const mockMeta = { name: '', content: '', setAttribute: jest.fn() };
+      documentMock.createElement.mockReturnValue(mockMeta as any);
       
       await changeLanguage('fr-FR');
       

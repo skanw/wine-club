@@ -55,7 +55,7 @@ class WineClubPerformanceMonitor {
 
       // FID Observer
       const fidObserver = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry) => {
+        list.getEntries().forEach((entry: any) => {
           this.metrics.fid = entry.processingStart - entry.startTime;
         });
       });
