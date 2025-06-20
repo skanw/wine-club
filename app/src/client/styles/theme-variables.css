@@ -18,6 +18,7 @@
 
   /* Semantic Colors - WCAG AA Compliant */
   --background: #FEFEFE;           /* Pure white (contrast: ∞) */
+  --bg-canvas: #FEFEFE;            /* HH-06: Canvas background for body */
   --surface: #FFFFFF;              /* Pure white */
   --surface-elevated: #FAFAFA;     /* Subtle elevation */
   --surface-hover: rgba(0, 0, 0, 0.04);
@@ -147,7 +148,7 @@
   --backdrop: rgba(20, 20, 20, 0.95);
 }
 
-/* Base element styling with theme variables */
+/* Base element styling with theme variables - HH-06: Remove dark gutters */
 html {
   background-color: var(--background);
   color: var(--text-primary);
@@ -155,8 +156,10 @@ html {
 }
 
 body {
-  background-color: var(--background);
+  background-color: var(--background); /* HH-06: Body background-color: var(--bg-canvas) */
   color: var(--text-primary);
+  margin: 0;
+  padding: 0;
 }
 
 /* Component base styles using theme variables */

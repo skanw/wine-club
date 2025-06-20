@@ -18,9 +18,12 @@ const Hero = () => {
       <div className="absolute inset-0 z-0" style={{ top: '96px' }}>
         {/* Primary Background Image */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat object-cover w-full"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80')`,
+            objectFit: 'cover',
+            width: '100vw',
+            height: '100vh',
             transform: 'scale(1.1)',
             willChange: 'transform'
           }}
