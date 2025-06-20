@@ -4,8 +4,8 @@ import { useAuth } from 'wasp/client/auth';
 import ThemeToggle from '../../components/ThemeToggle';
 import LanguageSwitcher from '../../components/LanguageSwitcher';
 import WineLogo from '../../components/WineLogo';
-import '../client/styles/wine-colors.css';
-import '../client/styles/wine-transitions.css';
+import '../../styles/wine-colors.css';
+import '../../styles/wine-transitions.css';
 
 export default function DemoAppPage() {
   const { t } = useTranslation();
