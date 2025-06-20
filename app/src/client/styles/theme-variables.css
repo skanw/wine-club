@@ -49,6 +49,7 @@
   
   /* Interactive States */
   --interactive-primary: #5A1E1B;  /* HH-02: Primary Bordeaux */
+  --interactive-primary-rgb: 90, 30, 27; /* RGB values for rgba() usage */
   --interactive-primary-hover: #4A1813;
   --interactive-primary-pressed: #3A120F;
   --interactive-secondary: rgba(217, 198, 160, 0.1);
@@ -121,6 +122,7 @@
   
   /* Interactive States */
   --interactive-primary: #D9C6A0;  /* HH-02: Secondary Champagne for dark theme */
+  --interactive-primary-rgb: 217, 198, 160; /* RGB values for rgba() usage */
   --interactive-primary-hover: #E6D4B7;
   --interactive-primary-pressed: #C5B28A;
   --interactive-secondary: rgba(90, 30, 27, 0.3);
@@ -192,19 +194,44 @@ body {
   border-color: var(--border-secondary);
 }
 
-/* Button styles with theme variables */
+/* Button styles with theme variables - HH-05 CTA Hierarchy */
 .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  height: 52px; /* HH-05: Equal height 52px */
+  padding: 0 2rem;
   background-color: var(--interactive-primary);
   color: var(--text-inverse);
-  border-color: var(--interactive-primary);
+  border: 2px solid var(--interactive-primary);
+  border-radius: 26px; /* Rounded for 52px height */
   font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
   transition: all 0.2s ease;
+  min-width: max-content;
+}
+
+/* HH-05: Primary = solid Bordeaux (dark theme) / solid Champagne (light theme) */
+:root.theme-light .btn-primary {
+  background-color: #D9C6A0; /* Champagne - light theme primary */
+  border-color: #D9C6A0;
+  color: #5A1E1B; /* Bordeaux text for contrast */
+}
+
+:root.theme-dark .btn-primary {
+  background-color: #5A1E1B; /* Bordeaux - dark theme primary */
+  border-color: #5A1E1B;
+  color: #D9C6A0; /* Champagne text for contrast */
 }
 
 .btn-primary:hover {
   background-color: var(--interactive-primary-hover);
   border-color: var(--interactive-primary-hover);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:active {
@@ -213,23 +240,82 @@ body {
   transform: translateY(0);
 }
 
+/* HH-05: Secondary = outline accent */
 .btn-secondary {
-  background-color: var(--interactive-secondary);
-  color: var(--text-primary);
-  border: 2px solid var(--border-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  height: 52px; /* HH-05: Equal height 52px */
+  padding: 0 2rem;
+  background-color: transparent;
+  color: var(--interactive-primary);
+  border: 2px solid var(--interactive-primary);
+  border-radius: 26px; /* Rounded for 52px height */
   font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
   transition: all 0.2s ease;
+  min-width: max-content;
 }
 
+/* HH-05: Hover fills 8% accent */
 .btn-secondary:hover {
-  background-color: var(--interactive-secondary-hover);
+  background-color: rgba(var(--interactive-primary-rgb), 0.08); /* 8% accent fill */
   border-color: var(--interactive-primary);
   color: var(--interactive-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+:root.theme-light .btn-secondary {
+  color: #5A1E1B; /* Bordeaux outline for light theme */
+  border-color: #5A1E1B;
+}
+
+:root.theme-light .btn-secondary:hover {
+  background-color: rgba(90, 30, 27, 0.08); /* 8% Bordeaux fill */
+  color: #5A1E1B;
+  border-color: #5A1E1B;
+}
+
+:root.theme-dark .btn-secondary {
+  color: #D9C6A0; /* Champagne outline for dark theme */
+  border-color: #D9C6A0;
+}
+
+:root.theme-dark .btn-secondary:hover {
+  background-color: rgba(217, 198, 160, 0.08); /* 8% Champagne fill */
+  color: #D9C6A0;
+  border-color: #D9C6A0;
 }
 
 .btn-secondary:active {
-  background-color: var(--interactive-secondary-pressed);
-  border-color: var(--interactive-primary-pressed);
+  background-color: rgba(var(--interactive-primary-rgb), 0.12);
+  transform: translateY(0);
+}
+
+/* HH-05: Button group spacing - 16px gap */
+.btn-group {
+  display: flex;
+  gap: 16px; /* HH-05: 16px gap between buttons */
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .btn-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    min-width: 280px;
+  }
 }
 
 /* Card and container styles */
