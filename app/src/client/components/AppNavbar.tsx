@@ -38,35 +38,35 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
         'shadow-sm border-b border-gray-100/10': !isLandingPage,
       })}
     >
-      {/* Consolidated Announcement Ribbon */}
-      {isLandingPage && !announcementDismissed && (
-        <div className='flex justify-center items-center gap-3 px-4 py-2 w-full bg-bordeaux-600 dark:bg-bordeaux-700 text-white text-sm font-medium'>
-          <div className='flex items-center gap-3'>
+      {/* HH-01: Consolidated Announcement Ribbon - 32px height, above navbar */}
+      {!announcementDismissed && (
+        <div className='flex justify-center items-center px-4 w-full h-8 bg-bordeaux-600 dark:bg-bordeaux-700 text-white text-sm font-medium'>
+          <div className='flex items-center gap-2 max-w-7xl w-full justify-center relative'>
             <span className='hidden sm:inline'>🍷</span>
-            <p className='text-center'>
+            <p className='text-center text-xs sm:text-sm'>
               <span className='hidden lg:inline'>{t('hero.subscribeNow')} - {t('hero.title')}!</span>
               <span className='lg:hidden'>{t('hero.subscribeNow')}!</span>
             </p>
             <button
               onClick={() => setAnnouncementDismissed(true)}
-              className='ml-2 p-1 hover:bg-white/10 rounded-full transition-colors'
+              className='absolute right-0 p-1 hover:bg-white/10 rounded-full transition-colors'
               aria-label="Dismiss announcement"
             >
-              <XMarkIcon className='h-4 w-4' />
+              <XMarkIcon className='h-3 w-3' />
             </button>
           </div>
         </div>
       )}
 
-      {/* Main Navigation */}
+      {/* HH-01: Main Navigation - Translucent Bordeaux (dark) or Champagne (light) at 80% opacity */}
       <nav 
-        className='flex items-center justify-between p-6 lg:px-8 bg-champagne-50 dark:bg-bordeaux-900 backdrop-blur-sm' 
+        className={cn(
+          'flex items-center justify-between p-6 lg:px-8 backdrop-blur-sm',
+          isLandingPage 
+            ? 'bg-bordeaux-900/80 dark:bg-bordeaux-900/80' // Translucent Bordeaux for landing page
+            : 'bg-champagne-50/80 dark:bg-bordeaux-900/80' // Translucent backgrounds for other pages
+        )}
         aria-label='Global'
-        style={{
-          backgroundColor: isLandingPage 
-            ? 'rgba(217, 198, 160, 0.95)' // Champagne with opacity
-            : 'var(--bg-canvas)',
-        }}
       >
         <div className='flex items-center lg:flex-1'>
           <WaspRouterLink
@@ -112,7 +112,7 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
       
       <Dialog as='div' className='lg:hidden' open={mobileMenuOpen} onClose={setMobileMenuOpen}>
         <div className='fixed inset-0 z-50' />
-        <Dialog.Panel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-champagne-50 dark:bg-bordeaux-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-bordeaux-200/20 dark:sm:ring-champagne-200/20'>
+        <Dialog.Panel className='fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-champagne-50/95 dark:bg-bordeaux-900/95 backdrop-blur-sm px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-bordeaux-200/20 dark:sm:ring-champagne-200/20'>
           <div className='flex items-center justify-between'>
             <WaspRouterLink to={routes.LandingPageRoute.to} className='-m-1.5 p-1.5'>
               <span className='sr-only'>Wine Club SaaS</span>
