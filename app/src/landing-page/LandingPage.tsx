@@ -8,15 +8,55 @@ import Footer from './components/Footer';
 
 export default function LandingPage() {
   return (
-    <div className='bg-white dark:text-white dark:bg-boxdark-2'>
-      <main className='isolate dark:bg-boxdark-2'>
-        <Hero />
-        <Clients />
-        <Features features={features} />
-        <Testimonials testimonials={testimonials} />
-        <FAQ faqs={faqs} />
-      </main>
-      <Footer footerNavigation={footerNavigation} />
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#1a1a1a', 
+      color: 'white', 
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      fontFamily: 'Arial, sans-serif'
+    }}>
+      <div style={{ textAlign: 'center', padding: '2rem' }}>
+        <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>
+          🍷 Wine Club SaaS
+        </h1>
+        <p style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>
+          Transform Your Wine Cave Into a Thriving Business
+        </p>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+          <a 
+            href="/signup"
+            style={{
+              backgroundColor: '#dc2626',
+              color: 'white',
+              padding: '1rem 2rem',
+              textDecoration: 'none',
+              borderRadius: '0.5rem',
+              fontSize: '1.1rem'
+            }}
+          >
+            Start Your Wine Business
+          </a>
+          <a 
+            href="/pricing"
+            style={{
+              backgroundColor: 'transparent',
+              color: 'white',
+              padding: '1rem 2rem',
+              textDecoration: 'none',
+              border: '2px solid white',
+              borderRadius: '0.5rem',
+              fontSize: '1.1rem'
+            }}
+          >
+            View Pricing
+          </a>
+        </div>
+        <div style={{ marginTop: '2rem', fontSize: '1rem', opacity: 0.8 }}>
+          ✅ No Setup Fees | ✅ Free 14-Day Trial | ✅ Cancel Anytime
+        </div>
+      </div>
     </div>
   );
 }
