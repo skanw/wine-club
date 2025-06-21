@@ -53,8 +53,8 @@ export default function Features({ features }: { features: Feature[] }) {
                 ref={featureReveals[index]?.ref}
                 className='card-reveal group relative'
               >
-                {/* Luxury Feature Card */}
-                <div className="relative p-8 rounded-2xl bg-white/80 dark:bg-neutral-charcoal/80 backdrop-blur-sm border border-champagne-200 dark:border-bordeaux-600 shadow-luxury hover:shadow-luxury-lg transition-all duration-400 hover:transform hover:scale-[1.02] hover:bg-white dark:hover:bg-neutral-charcoal">
+                {/* VP-04: Redesigned feature cards - Champagne bg (light) / deep charcoal (dark), 2px accent border on hover */}
+                <div className="relative p-8 rounded-2xl bg-champagne-100 dark:bg-neutral-charcoal backdrop-blur-sm border border-champagne-300 dark:border-bordeaux-700 shadow-luxury hover:shadow-luxury-lg transition-all duration-400 hover:transform hover:scale-[1.02] hover:border-bordeaux-500 dark:hover:border-champagne-400 hover:border-2">
                   
                   {/* Premium Icon Container */}
                   <div className='flex items-start space-x-6'>
