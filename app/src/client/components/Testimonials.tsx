@@ -17,15 +17,15 @@ export default function Testimonials({ testimonials }: { testimonials: Testimoni
           <div className='relative flex flex-wrap gap-6 w-full mt-6 z-10 justify-between lg:mx-0'>
             {testimonials.map((testimonial, idx) => (
               <figure key={idx} className='w-full lg:w-1/4 box-content flex flex-col justify-between p-8 rounded-xl bg-gray-500/5 '>
-                <blockquote className='text-lg text-white sm:text-md sm:leading-8'>
-                  <p>{testimonial.quote}</p>
+                <blockquote className='text-lg text-white/90 dark:text-white/90 sm:text-md sm:leading-8'>
+                  <p style={{ color: 'var(--text-primary)' }}>{testimonial.quote}</p>
                 </blockquote>
-                <figcaption className='mt-6 text-base text-white'>
+                <figcaption className='mt-6 text-base text-white/90 dark:text-white/90'>
                   <a href={testimonial.socialUrl} className='flex items-center gap-x-2'>
                     <img src={testimonial.avatarSrc} loading='lazy' className='h-12 w-12 rounded-full' />
                     <div>
-                      <div className='font-semibold hover:underline'>{testimonial.name}</div>
-                      <div className='mt-1'>{testimonial.role}</div>
+                      <div className='font-semibold hover:underline' style={{ color: 'var(--text-primary)' }}>{testimonial.name}</div>
+                      <div className='mt-1' style={{ color: 'var(--text-secondary)' }}>{testimonial.role}</div>
                     </div>
                   </a>
                 </figcaption>
