@@ -92,7 +92,7 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
         
         <div className='hidden lg:flex lg:flex-1 gap-3 justify-end items-center'>
           <LanguageSwitcher className="mr-2" variant="navbar" showLabels={false} />
-          <ThemeToggle className="mr-4" />
+          <ThemeToggle className="ml-6" />
           <WaspRouterLink to={routes.SubscriptionRoute.to} className="btn-primary">
             {t('subscription.subscribeButton')}
           </WaspRouterLink>
