@@ -38,9 +38,9 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
         'shadow-sm border-b border-gray-100/10': !isLandingPage,
       })}
     >
-      {/* HH-01: Consolidated Announcement Ribbon - 32px height, above navbar */}
+      {/* VP-06: Header consolidation - 32px slim ribbon merges into navbar, dismissible, navbar transparency 80% */}
       {!announcementDismissed && (
-        <div className='flex justify-center items-center px-4 w-full h-8 bg-bordeaux-600 dark:bg-bordeaux-700 text-white text-sm font-medium'>
+        <div className='flex justify-center items-center px-4 w-full h-8 bg-bordeaux-600/80 dark:bg-bordeaux-700/80 text-white text-sm font-medium backdrop-blur-sm'>
           <div className='flex items-center gap-2 max-w-7xl w-full justify-center relative'>
             <span className='hidden sm:inline'>🍷</span>
             <p className='text-center text-xs sm:text-sm'>
@@ -58,13 +58,13 @@ export default function AppNavbar({ navigationItems }: { navigationItems: Naviga
         </div>
       )}
 
-      {/* HH-01: Main Navigation - Translucent Bordeaux (dark) or Champagne (light) at 80% opacity */}
+      {/* VP-06: Main Navigation - Single layer, fixed height 72px, 80% transparency */}
       <nav 
         className={cn(
-          'flex items-center justify-between p-6 lg:px-8 backdrop-blur-sm',
+          'flex items-center justify-between p-6 lg:px-8 backdrop-blur-sm h-18', // h-18 = 72px
           isLandingPage 
-            ? 'bg-bordeaux-900/80 dark:bg-bordeaux-900/80' // Translucent Bordeaux for landing page
-            : 'bg-champagne-50/80 dark:bg-bordeaux-900/80' // Translucent backgrounds for other pages
+            ? 'bg-bordeaux-900/80 dark:bg-bordeaux-900/80' // 80% Bordeaux transparency
+            : 'bg-champagne-50/80 dark:bg-bordeaux-900/80' // 80% transparency for other pages
         )}
         aria-label='Global'
       >
