@@ -148,18 +148,20 @@
   --backdrop: rgba(20, 20, 20, 0.95);
 }
 
-/* Base element styling with theme variables - HH-06: Remove dark gutters */
+/* Base element styling with theme variables - VP-01: Remove dark gutters */
 html {
-  background-color: var(--background);
+  background-color: var(--bg-canvas);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
-  background-color: var(--background); /* HH-06: Body background-color: var(--bg-canvas) */
+  background-color: var(--bg-canvas); /* VP-01: Body background uses canvas color */
   color: var(--text-primary);
   margin: 0;
   padding: 0;
+  width: 100vw;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Component base styles using theme variables */

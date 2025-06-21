@@ -13,9 +13,9 @@ const Hero = () => {
   }, 150);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* HH-04: Full-Bleed Background pushed down 96px to clear navbar */}
-      <div className="absolute inset-0 z-0" style={{ top: '96px' }}>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ width: '100vw' }}>
+      {/* VP-01: Full-Bleed Background - no side gutters */}
+      <div className="absolute inset-0 z-0" style={{ top: '96px', left: 0, right: 0 }}>
         {/* Primary Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
