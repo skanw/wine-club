@@ -29,11 +29,11 @@ const Hero = () => {
           }}
         />
         
-        {/* HH-04: Semi-transparent Bordeaux overlay (#000, 0.35) behind headline for contrast */}
-        <div className="absolute inset-0" style={{ background: 'rgba(0, 0, 0, 0.35)' }} />
+        {/* VP-02: Enhanced contrast overlay (Bordeaux #5A1E1B with 0.5 opacity) for headline readability */}
+        <div className="absolute inset-0" style={{ background: 'rgba(90, 30, 27, 0.5)' }} />
         
-        {/* Additional subtle gradient for enhanced readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40" />
+        {/* Additional gradient overlay for enhanced text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
       </div>
 
       {/* Wine Bottle Decorative Elements */}
@@ -60,13 +60,13 @@ const Hero = () => {
           {/* HH-04: Replace heavy glass card with max-width 720px outline card */}
           <div 
             ref={heroReveals[0].ref} 
-            className="hero-reveal mx-auto border border-champagne-500"
+            className="hero-reveal mx-auto"
             style={{ 
               maxWidth: '720px',
               backdropFilter: 'blur(3px)',
               borderRadius: '12px',
               border: '1px solid #D9C6A0', // Champagne border
-              background: 'rgba(255, 255, 255, 0.05)',
+              background: 'rgba(255, 255, 255, 0.05)', // VP-03: Reduced opacity
               padding: '3rem 2rem'
             }}
           >
