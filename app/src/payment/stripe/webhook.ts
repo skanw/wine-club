@@ -26,26 +26,31 @@ export const stripeWebhook: PaymentsWebhook = async (request, response, context)
   }
   const prismaUserDelegate = context.entities.User;
   switch (event.type) {
-    case 'checkout.session.completed':
+    case 'checkout.session.completed': {
       const session = event.data.object as Stripe.Checkout.Session;
       await handleCheckoutSessionCompleted(session, prismaUserDelegate);
       break;
-    case 'invoice.paid':
+    }
+    case 'invoice.paid': {
       const invoice = event.data.object as Stripe.Invoice;
       await handleInvoicePaid(invoice, prismaUserDelegate);
       break;
-    case 'payment_intent.succeeded':
+    }
+    case 'payment_intent.succeeded': {
       const paymentIntent = event.data.object as Stripe.PaymentIntent;
       await handlePaymentIntentSucceeded(paymentIntent, prismaUserDelegate);
       break;
-    case 'customer.subscription.updated':
+    }
+    case 'customer.subscription.updated': {
       const updatedSubscription = event.data.object as Stripe.Subscription;
       await handleCustomerSubscriptionUpdated(updatedSubscription, prismaUserDelegate);
       break;
-    case 'customer.subscription.deleted':
+    }
+    case 'customer.subscription.deleted': {
       const deletedSubscription = event.data.object as Stripe.Subscription;
       await handleCustomerSubscriptionDeleted(deletedSubscription, prismaUserDelegate);
       break;
+    }
     default:
       // If you'd like to handle more events, you can add more cases above.
       // When deploying your app, you configure your webhook in the Stripe dashboard to only send the events that you're
@@ -100,7 +105,7 @@ export async function handlePaymentIntentSucceeded(
 ) {
   // We handle invoices in the invoice.paid webhook. Invoices exist for subscription payments,
   // but not for one-time payment/credits products which use the Stripe `payment` mode on checkout sessions.
-  if (paymentIntent.invoice) {
+  if ((paymentIntent as any).invoice) {
     return;
   }
 

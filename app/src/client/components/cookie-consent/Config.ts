@@ -63,17 +63,21 @@ const getConfig = () => {
                   throw new Error('Google Analytics ID is missing');
                 }
                 window.dataLayer = window.dataLayer || [];
-                function gtag(..._args: unknown[]) {
-                  (window.dataLayer as Array<any>).push(arguments);
-                }
-                gtag('js', new Date());
-                gtag('config', GA_ANALYTICS_ID);
-
+                
                 // Adding the script tag dynamically to the DOM.
                 const script = document.createElement('script');
                 script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ANALYTICS_ID}`;
                 script.async = true;
                 document.body.appendChild(script);
+                
+                // Initialize gtag after script loads
+                script.onload = () => {
+                  function gtag(..._args: unknown[]) {
+                    (window.dataLayer as Array<any>).push(arguments);
+                  }
+                  gtag('js', new Date());
+                  gtag('config', GA_ANALYTICS_ID);
+                };
               } catch (error) {
                 console.error(error);
               }

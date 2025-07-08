@@ -5,7 +5,7 @@ interface LemonSqueezyCheckoutSessionParams {
   variantId: string;
   userEmail: string;
   userId: string;
-};
+}
 
 export async function createLemonSqueezyCheckoutSession({ storeId, variantId, userEmail, userId }: LemonSqueezyCheckoutSessionParams) {
   const { data: session, error } = await createCheckout(storeId, variantId, {

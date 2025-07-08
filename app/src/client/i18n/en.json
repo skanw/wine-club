@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "Home",
+    "howItWorks": "How It Works",
+    "wines": "Wines",
+    "pricing": "Pricing",
+    "about": "About",
+    "contact": "Contact",
+    "joinNow": "Join Now"
+  },
+  "brand": {
+    "name": "WineClub"
+  },
+  "hero": {
+    "typing": {
+      "phrase1": "Handpicked French Wines.",
+      "phrase2": "Delivered Monthly.",
+      "phrase3": "Bespoke Cellar Selection.",
+      "phrase4": "Curated by Sommeliers."
+    },
+    "subtitle": "Discover exceptional wines from the finest French vineyards, delivered to your door with expert curation and personalized recommendations.",
+    "cta": {
+      "primary": "Start Your Journey",
+      "secondary": "Watch Video"
+    },
+    "trust": {
+      "organic": "100% Organic",
+      "curated": "Expert Curated",
+      "delivery": "Free Delivery"
+    }
+  },
+  "features": {
+    "title": "Why Choose WineClub",
+    "subtitle": "Experience the finest French wines with our premium subscription service, backed by expert sommeliers and exceptional service.",
+    "curated": {
+      "title": "Expert Curation",
+      "description": "Every wine is handpicked by our master sommeliers from the finest French vineyards."
+    },
+    "delivery": {
+      "title": "Free Delivery",
+      "description": "Enjoy complimentary shipping on all orders, delivered directly to your door."
+    },
+    "sommelier": {
+      "title": "Sommelier Support",
+      "description": "Get personalized recommendations and expert advice from our certified sommeliers."
+    },
+    "personalized": {
+      "title": "Personalized Experience",
+      "description": "Tailored wine selections based on your preferences and taste profile."
+    },
+    "premium": {
+      "title": "Premium Quality",
+      "description": "Only the highest quality wines from renowned French châteaux and estates."
+    },
+    "organic": {
+      "title": "Organic & Sustainable",
+      "description": "Supporting sustainable winemaking practices and organic vineyards."
+    },
+    "cta": {
+      "text": "Ready to discover your perfect wine?",
+      "button": "Get Started"
+    }
+  },
+  "wines": {
+    "title": "Featured Wines",
+    "subtitle": "Explore our carefully curated selection of exceptional French wines, from classic Bordeaux to elegant Champagne.",
+    "red": "Red",
+    "white": "White",
+    "scrollHint": "Scroll to explore more wines",
+    "viewAll": "View All Wines"
+  },
+  "pricing": {
+    "title": "Choose Your Plan",
+    "subtitle": "Select the perfect subscription plan that matches your wine journey and preferences.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "save": "Save 20%",
+    "mostPopular": "Most Popular",
+    "starter": {
+      "name": "Starter",
+      "description": "Perfect for wine enthusiasts beginning their journey.",
+      "feature1": "2 bottles per month",
+      "feature2": "Basic wine education",
+      "feature3": "Free delivery",
+      "feature4": "Email support"
+    },
+    "premium": {
+      "name": "Premium",
+      "description": "Ideal for connoisseurs seeking exceptional experiences.",
+      "feature1": "4 bottles per month",
+      "feature2": "Advanced wine education",
+      "feature3": "Priority delivery",
+      "feature4": "Sommelier consultation",
+      "feature5": "Exclusive events access"
+    },
+    "connoisseur": {
+      "name": "Connoisseur",
+      "description": "For true wine aficionados who demand the very best.",
+      "feature1": "6 bottles per month",
+      "feature2": "Master sommelier guidance",
+      "feature3": "Express delivery",
+      "feature4": "Private tastings",
+      "feature5": "Vintage wine access",
+      "feature6": "Cellar management"
+    },
+    "selectPlan": "Select Plan",
+    "cta": {
+      "text": "Questions about our plans?",
+      "button": "Contact Us"
+    }
+  },
+  "footer": {
+    "tagline": "Elevating your wine experience with exceptional French wines and expert curation.",
+    "quickLinks": "Quick Links",
+    "support": "Support",
+    "contact": "Contact",
+    "help": "Help Center",
+    "faq": "FAQ",
+    "shipping": "Shipping Info",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookie Policy"
+  }
+} 

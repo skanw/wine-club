@@ -7,6 +7,7 @@ interface ScrollRevealOptions {
   delay?: number;
   staggerDelay?: number;
   disabled?: boolean;
+  animationType?: 'fadeIn' | 'slideUp' | 'slideDown' | 'slideLeft' | 'slideRight' | 'scaleUp' | 'parallax';
 }
 
 interface ScrollRevealState {
@@ -15,11 +16,12 @@ interface ScrollRevealState {
 }
 
 /**
- * Optimized scroll reveal hook following HCI best practices
+ * Unified scroll reveal hook that handles both single and staggered animations
+ * Features:
  * - Uses Intersection Observer for performance
- * - Fires animations only once per page load
+ * - Supports staggered animations for multiple elements
  * - Respects prefers-reduced-motion
- * - Supports staggered animations
+ * - Handles cleanup and memory management
  */
 export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
   const {
@@ -28,10 +30,11 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
     triggerOnce = true,
     delay = 0,
     staggerDelay = 0,
-    disabled = false
+    disabled = false,
+    animationType = 'fadeIn'
   } = options;
 
-  const elementRef = useRef<any>(null);
+  const elementRef = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<ScrollRevealState>({
     isVisible: false,
     hasTriggered: false
@@ -46,7 +49,6 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
   // Apply reveal class with proper timing
   const applyRevealClass = useCallback((element: HTMLElement, shouldReveal: boolean) => {
     if (!element || disabled || prefersReducedMotion()) {
-      // If reduced motion is preferred, show content immediately
       if (element && !disabled) {
         element.classList.add('is-visible');
         element.style.opacity = '1';
@@ -57,6 +59,9 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
 
     if (shouldReveal) {
       const totalDelay = delay + staggerDelay;
+      
+      // Set animation type class
+      element.classList.add(`animate-${animationType}`);
       
       if (totalDelay > 0) {
         setTimeout(() => {
@@ -74,63 +79,38 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
       }
     } else if (!triggerOnce) {
       element.classList.remove('is-visible');
+      element.classList.remove(`animate-${animationType}`);
       element.style.willChange = 'opacity, transform';
     }
-  }, [delay, staggerDelay, disabled, triggerOnce, prefersReducedMotion]);
+  }, [delay, staggerDelay, disabled, triggerOnce, prefersReducedMotion, animationType]);
 
   useEffect(() => {
     const element = elementRef.current;
-    if (!element) return;
-
-    // Add base reveal class and initial styles
-    element.classList.add('reveal');
-    
-    // Skip observer if disabled or reduced motion
-    if (disabled || prefersReducedMotion()) {
-      applyRevealClass(element, true);
-      setState({ isVisible: true, hasTriggered: true });
-      return;
-    }
+    if (!element || disabled) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const isIntersecting = entry.isIntersecting;
-          
-          setState(prevState => {
-            // If already triggered and triggerOnce is true, don't update
-            if (prevState.hasTriggered && triggerOnce && !isIntersecting) {
-              return prevState;
-            }
-
-            const newState = {
-              isVisible: isIntersecting,
-              hasTriggered: prevState.hasTriggered || isIntersecting
-            };
-
-            // Apply reveal class based on intersection
-            applyRevealClass(element, isIntersecting);
-
-            return newState;
-          });
+      ([entry]) => {
+        const isIntersecting = entry.isIntersecting;
+        
+        setState(prev => {
+          if (triggerOnce && prev.hasTriggered) return prev;
+          return {
+            isVisible: isIntersecting,
+            hasTriggered: prev.hasTriggered || isIntersecting
+          };
         });
+
+        applyRevealClass(element, isIntersecting);
       },
-      {
-        threshold,
-        rootMargin
-      }
+      { threshold, rootMargin }
     );
 
     observer.observe(element);
 
     return () => {
-      observer.unobserve(element);
-      // Clean up will-change property
-      if (element.style.willChange) {
-        element.style.willChange = 'auto';
-      }
+      observer.disconnect();
     };
-  }, [threshold, rootMargin, triggerOnce, applyRevealClass]);
+  }, [threshold, rootMargin, triggerOnce, disabled, applyRevealClass]);
 
   return {
     ref: elementRef,
@@ -140,21 +120,64 @@ export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
 };
 
 /**
- * Hook for creating staggered scroll reveals
+ * Hook for creating staggered reveal animations for multiple elements
  */
-export const useStaggeredScrollReveal = (
-  count: number,
-  baseOptions: ScrollRevealOptions = {},
-  staggerInterval: number = 100
-) => {
-  const reveals = Array.from({ length: count }, (_, index) => 
-    useScrollReveal({
-      ...baseOptions,
-      staggerDelay: index * staggerInterval
-    })
-  );
+export const useStaggeredScrollReveal = (options: ScrollRevealOptions = {}) => {
+  const elements = useRef<HTMLDivElement[]>([]);
+  const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
 
-  return reveals;
+  const {
+    threshold = 0.15,
+    rootMargin = '0px 0px -50px 0px',
+    triggerOnce = true,
+    delay = 0,
+    staggerDelay = 100,
+    disabled = false,
+    animationType = 'fadeIn'
+  } = options;
+
+  useEffect(() => {
+    if (disabled || !elements.current.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const element = entry.target as HTMLDivElement;
+          const index = elements.current.indexOf(element);
+
+          if (entry.isIntersecting) {
+            setVisibleIndices(prev => {
+              if (triggerOnce && prev.includes(index)) return prev;
+              return [...prev, index];
+            });
+
+            setTimeout(() => {
+              element.classList.add('is-visible', `animate-${animationType}`);
+            }, delay + (staggerDelay * index));
+          } else if (!triggerOnce) {
+            setVisibleIndices(prev => prev.filter(i => i !== index));
+            element.classList.remove('is-visible', `animate-${animationType}`);
+          }
+        });
+      },
+      { threshold, rootMargin }
+    );
+
+    elements.current.forEach(element => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, [threshold, rootMargin, triggerOnce, delay, staggerDelay, disabled, animationType]);
+
+  const addElement = useCallback((element: HTMLDivElement | null) => {
+    if (element && !elements.current.includes(element)) {
+      elements.current.push(element);
+    }
+  }, []);
+
+  return {
+    addElement,
+    visibleIndices
+  };
 };
 
 /**
@@ -173,7 +196,7 @@ export const useBatchScrollReveal = (elements: string[], baseDelay: number = 0) 
     if (prefersReducedMotion) {
       // Show all elements immediately if reduced motion is preferred
       elements.forEach(selector => {
-        const element = document.querySelector(selector) as HTMLElement;
+        const element = document.querySelector(selector) as HTMLDivElement;
         if (element) {
           element.classList.add('is-visible');
           element.style.opacity = '1';
@@ -187,7 +210,7 @@ export const useBatchScrollReveal = (elements: string[], baseDelay: number = 0) 
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const element = entry.target as HTMLElement;
+            const element = entry.target as HTMLDivElement;
             const elementId = element.dataset.revealId;
             
             if (elementId && !revealedElements.has(elementId)) {
@@ -215,7 +238,7 @@ export const useBatchScrollReveal = (elements: string[], baseDelay: number = 0) 
 
     // Observe all elements
     elements.forEach((selector, index) => {
-      const element = document.querySelector(selector) as HTMLElement;
+      const element = document.querySelector(selector) as HTMLDivElement;
       if (element) {
         element.classList.add('reveal');
         element.dataset.revealId = selector;
@@ -226,11 +249,15 @@ export const useBatchScrollReveal = (elements: string[], baseDelay: number = 0) 
     observerRef.current = observer;
 
     return () => {
-      observer.disconnect();
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
     };
-  }, [elements, baseDelay, revealedElements]);
+  }, [elements, baseDelay]);
 
-  return { revealedElements };
+  return {
+    revealedElements
+  };
 };
 
 export default useScrollReveal; 

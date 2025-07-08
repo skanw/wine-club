@@ -1,14 +1,16 @@
-import type { NavigationItem } from '../client/components/AppNavbar';
+import { NavigationItem } from '../client/components/AppNavbar';
 import { routes } from 'wasp/client/router';
 import { DocsUrl, BlogUrl } from '../shared/common';
 import daBoiAvatar from '../client/static/da-boi.webp';
 import avatarPlaceholder from '../client/static/avatar-placeholder.webp';
 
 export const landingPageNavigationItems: NavigationItem[] = [
+  { name: 'About', to: routes.AboutRoute?.to || '/about' },
   { name: 'Features', to: '#features' },
+  { name: 'How It Works', to: routes.HowItWorksRoute?.to || '/how-it-works' },
   { name: 'Pricing', to: routes.PricingPageRoute.to },
-  { name: 'Wine Caves', to: '/wine-caves' },
-  { name: 'Subscriptions', to: '/wine-subscriptions' },
+  { name: 'Blog', to: routes.BlogRoute?.to || '/blog' },
+  { name: 'Contact', to: routes.ContactRoute?.to || '/contact' },
 ];
 
 export const features = [

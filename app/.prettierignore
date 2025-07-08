@@ -1,0 +1,10 @@
+node_modules/
+.wasp/
+dist/
+build/
+*.lock
+*.log
+public/
+.env*
+package-lock.json
+yarn.lock

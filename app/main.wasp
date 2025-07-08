@@ -43,6 +43,10 @@ app OpenSaaS {
         },
         userSignupFields: import { getEmailUserFields } from "@src/auth/userSignupFields",
       },
+      google: {
+        userSignupFields: import { getGoogleUserFields } from "@src/auth/userSignupFields",
+        configFn: import { getGoogleAuthConfig } from "@src/auth/userSignupFields",
+      },
     },
     onAuthFailedRedirectTo: "/login",
     onAuthSucceededRedirectTo: "/demo-app",
@@ -70,6 +74,26 @@ app OpenSaaS {
 route LandingPageRoute { path: "/", to: LandingPage }
 page LandingPage {
   component: import LandingPage from "@src/client/pages/LandingPage"
+}
+
+route HowItWorksRoute { path: "/how-it-works", to: HowItWorksPage }
+page HowItWorksPage {
+  component: import HowItWorksPage from "@src/client/pages/HowItWorksPage"
+}
+
+route ContactRoute { path: "/contact", to: ContactPage }
+page ContactPage {
+  component: import ContactPage from "@src/client/pages/ContactPage"
+}
+
+route BlogRoute { path: "/blog", to: BlogPage }
+page BlogPage {
+  component: import BlogPage from "@src/client/pages/BlogPage"
+}
+
+route AboutRoute { path: "/about", to: AboutPage }
+page AboutPage {
+  component: import AboutPage from "@src/client/pages/AboutPage"
 }
 
 //#region Auth Pages
@@ -292,134 +316,6 @@ route AdminMessagesRoute { path: "/admin/messages", to: AdminMessagesPage }
 page AdminMessagesPage {
   authRequired: true,
   component: import AdminMessages from "@src/client/pages/messages/MessagesPage"
-}
-//#endregion
-
-//#region Wine Cave Management
-route WineCaveDashboardRoute { path: "/wine-caves", to: WineCaveDashboardPage }
-page WineCaveDashboardPage {
-  authRequired: true,
-  component: import WineCaveDashboardPage from "@src/client/pages/wine-cave/WineCaveDashboardPage"
-}
-
-route CreateWineCaveRoute { path: "/wine-caves/create", to: CreateWineCavePage }
-page CreateWineCavePage {
-  authRequired: true,
-  component: import CreateWineCavePage from "@src/client/pages/wine-cave/CreateWineCavePage"
-}
-
-route WineCaveAnalyticsRoute { path: "/wine-cave-analytics", to: WineCaveAnalyticsPage }
-page WineCaveAnalyticsPage {
-  authRequired: true,
-  component: import AnalyticsDashboardPage from "@src/client/pages/wine-cave/AnalyticsDashboardPage"
-}
-
-query getWineCaves {
-  fn: import { getWineCaves } from "@src/wine-cave/operations",
-  entities: [User, WineCave, SubscriptionTier, Wine]
-}
-
-action createWineCave {
-  fn: import { createWineCave } from "@src/wine-cave/operations",
-  entities: [User, WineCave]
-}
-
-action updateWineCave {
-  fn: import { updateWineCave } from "@src/wine-cave/operations",
-  entities: [User, WineCave]
-}
-
-action deleteWineCave {
-  fn: import { deleteWineCave } from "@src/wine-cave/operations",
-  entities: [User, WineCave, WineSubscription]
-}
-
-action createSubscriptionTier {
-  fn: import { createSubscriptionTier } from "@src/wine-cave/operations",
-  entities: [User, WineCave, SubscriptionTier]
-}
-
-action createWine {
-  fn: import { createWine } from "@src/wine-cave/operations",
-  entities: [User, WineCave, Wine]
-}
-//#endregion
-
-//#region Wine Subscriptions
-route WineSubscriptionsRoute { path: "/subscriptions", to: WineSubscriptionsPage }
-page WineSubscriptionsPage {
-  authRequired: true,
-  component: import WineSubscriptions from "@src/client/pages/wine-subscriptions/WineSubscriptionsPage"
-}
-
-route MemberPortalRoute { path: "/member-portal", to: MemberPortalPage }
-page MemberPortalPage {
-  authRequired: true,
-  component: import MemberPortal from "@src/client/pages/wine-subscriptions/MemberPortalPage"
-}
-
-route SubscribeToWineCaveRoute { path: "/wine-caves/:id/subscribe", to: SubscribeToWineCavePage }
-page SubscribeToWineCavePage {
-  authRequired: true,
-  component: import SubscribeToWineCave from "@src/client/pages/wine-subscriptions/SubscribeToWineCavePage"
-}
-
-route PremiumSubscriptionRoute { path: "/premium-subscription", to: PremiumSubscriptionPage }
-page PremiumSubscriptionPage {
-  component: import PremiumSubscriptionPage from "@src/client/pages/wine-subscriptions/PremiumSubscriptionPage"
-}
-
-route SubscriptionRoute { path: "/subscription", to: SubscriptionPage }
-page SubscriptionPage {
-  component: import SubscriptionPage from "@src/client/pages/SubscriptionPage"
-}
-
-action createWineSubscription {
-  fn: import { createWineSubscription } from "@src/wine-subscriptions/operations",
-  entities: [User, WineCave, SubscriptionTier, WineSubscription]
-}
-
-action updateWineSubscription {
-  fn: import { updateWineSubscription } from "@src/wine-subscriptions/operations",
-  entities: [User, WineSubscription]
-}
-
-query getMyWineSubscriptions {
-  fn: import { getMyWineSubscriptions } from "@src/wine-subscriptions/operations",
-  entities: [User, WineSubscription, WineCave, SubscriptionTier]
-}
-
-query getPublicWineCaves {
-  fn: import { getPublicWineCaves } from "@src/wine-subscriptions/operations",
-  entities: [WineCave, SubscriptionTier, Wine]
-}
-//#endregion
-
-//#region Shipping Management
-route ShippingDashboardRoute { path: "/shipping", to: ShippingDashboardPage }
-page ShippingDashboardPage {
-  authRequired: true,
-  component: import ShippingDashboard from "@src/client/pages/shipping/ShippingDashboardPage"
-}
-
-action createShipment {
-  fn: import { createShipment } from "@src/shipping/operations",
-  entities: [User, WineSubscription, Shipment, ShipmentItem]
-}
-
-action generateShippingLabel {
-  fn: import { generateShippingLabel } from "@src/shipping/operations",
-  entities: [User, Shipment]
-}
-
-action updateShipment {
-  fn: import { updateShipment } from "@src/shipping/operations",
-  entities: [User, Shipment]
-}
-
-query trackShipment {
-  fn: import { trackShipment } from "@src/shipping/operations",
-  entities: [User, Shipment, WineSubscription]
 }
 //#endregion
 

@@ -133,7 +133,7 @@ export const calculateDailyStats: DailyStatsJob<never, void> = async (_args, con
 
 async function fetchTotalStripeRevenue() {
   let totalRevenue = 0;
-  let params: Stripe.BalanceTransactionListParams = {
+  const params: Stripe.BalanceTransactionListParams = {
     limit: 100,
     // created: {
     //   gte: startTimestamp,

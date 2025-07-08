@@ -14,7 +14,7 @@ export interface CreateCheckoutSessionArgs {
 export interface FetchCustomerPortalUrlArgs { 
   userId: string; 
   prismaUserDelegate: PrismaClient['user']; 
-};
+}
 
 export interface PaymentProcessor {
   id: 'stripe' | 'lemonsqueezy';

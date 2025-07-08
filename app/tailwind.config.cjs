@@ -14,9 +14,11 @@ module.exports = {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         luxury: ['Playfair Display', 'Times New Roman', 'serif'],
         body: ['Inter', 'system-ui', 'sans-serif'],
+        headline: ['Playfair Display', 'Times New Roman', 'serif'],
+        ui: ['Inter', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        // Original sizes
+        // Legacy sizes (keep for compatibility)
         'title-xxl': ['44px', '55px'],
         'title-xl': ['36px', '45px'],
         'title-xl2': ['33px', '45px'],
@@ -26,7 +28,27 @@ module.exports = {
         'title-sm': ['20px', '26px'],
         'title-xsm': ['18px', '24px'],
         
-        // Luxury typography scale
+        // New unified typography scale
+        'display-2xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.05em' }],
+        'display-xl': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        'display-lg': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        
+        'h1': ['2.25rem', { lineHeight: '1.25', letterSpacing: '-0.025em' }],
+        'h2': ['1.875rem', { lineHeight: '1.25', letterSpacing: '-0.025em' }],
+        'h3': ['1.5rem', { lineHeight: '1.25', letterSpacing: '0' }],
+        'h4': ['1.25rem', { lineHeight: '1.25', letterSpacing: '0' }],
+        'h5': ['1.125rem', { lineHeight: '1.25', letterSpacing: '0' }],
+        'h6': ['1rem', { lineHeight: '1.25', letterSpacing: '0' }],
+        
+        'body-lg': ['1.125rem', { lineHeight: '1.6', letterSpacing: '0' }],
+        'body-md': ['1rem', { lineHeight: '1.6', letterSpacing: '0' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.6', letterSpacing: '0' }],
+        
+        'label': ['0.875rem', { lineHeight: '1.5', letterSpacing: '0' }],
+        'caption': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.025em' }],
+        'overline': ['0.75rem', { lineHeight: '1.4', letterSpacing: '0.1em' }],
+        
+        // Legacy luxury sizes (keep for compatibility)
         'luxury-h1': ['4rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
         'luxury-h2': ['2.5rem', { lineHeight: '1.15', letterSpacing: '-0.02em' }],
         'luxury-h3': ['1.75rem', { lineHeight: '1.2', letterSpacing: '0' }],

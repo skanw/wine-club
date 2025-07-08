@@ -73,8 +73,8 @@ const PremiumSubscriptionPage: React.FC = () => {
       price: 329,
       frequency: 'quarterly',
       bottles: 6,
-      description: 'Luxury sparkling wines and champagnes',
-      features: ['6 Luxury Bottles', 'Vintage Selection', 'Limited Editions', 'White Glove Service']
+      description: 'Premium sparkling wines and champagnes',
+      features: ['6 Premium Bottles', 'Vintage Selection', 'Limited Editions', 'White Glove Service']
     }
   ];
 
@@ -130,24 +130,6 @@ const PremiumSubscriptionPage: React.FC = () => {
 
   return (
     <div className="premium-subscription">
-      {/* Theme Toggle */}
-      <div className="theme-toggle-bar">
-        <div className="theme-toggle">
-          <button
-            className={`theme-btn ${activeTheme === 'red' ? 'active' : ''}`}
-            onClick={() => setActiveTheme('red')}
-          >
-            Red Wine
-          </button>
-          <button
-            className={`theme-btn ${activeTheme === 'white' ? 'active' : ''}`}
-            onClick={() => setActiveTheme('white')}
-          >
-            White Wine
-          </button>
-        </div>
-      </div>
-
       {/* Hero Section */}
       <section 
         ref={heroAnimation.ref}

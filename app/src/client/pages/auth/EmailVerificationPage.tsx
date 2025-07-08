@@ -1,15 +1,11 @@
-import { VerifyEmailForm } from 'wasp/client/auth';
-import { Link, routes } from 'wasp/client/router';
-import { AuthPageLayout } from '../../components/AuthPageLayout';
+import React from 'react';
 
 export function EmailVerificationPage() {
   return (
-    <AuthPageLayout>
-      <VerifyEmailForm />
-      <br />
-      <span className='text-sm font-medium text-gray-900'>
-        If everything is okay, <Link to={routes.LoginRoute.to} className='underline'>go to login</Link>
-      </span>
-    </AuthPageLayout>
+    <div className="auth-page">
+      <h1>Email Verification</h1>
+      <p>Please check your email and click the verification link to activate your account.</p>
+      <a href="/login">Back to Login</a>
+    </div>
   );
 }

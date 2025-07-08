@@ -1,20 +1,16 @@
-import { Link, routes } from 'wasp/client/router';
-import { SignupForm } from 'wasp/client/auth';
-import { AuthPageLayout } from '../../components/AuthPageLayout';
+import React from 'react';
 
 export function Signup() {
   return (
-    <AuthPageLayout>
-      <SignupForm />
-      <br />
-      <span className='text-sm font-medium text-gray-900'>
-        I already have an account (
-        <Link to={routes.LoginRoute.to} className='underline'>
-          go to login
-        </Link>
-        ).
-      </span>
-      <br />
-    </AuthPageLayout>
+    <div className="auth-page">
+      <h1>Sign Up</h1>
+      {/* TODO: Implement signup form */}
+      <form>
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Sign Up</button>
+      </form>
+      <a href="/login">Already have an account? Login</a>
+    </div>
   );
 }

@@ -1,664 +1,339 @@
-/* Premium Wine Subscription - Haute Couture Design */
-
-/* CSS Variables for Theme Switching */
-:root {
-  /* Base Neutrals */
-  --bg-primary: #F9F7F1;
-  --bg-secondary: #FFFFFF;
-  --text-primary: #333333;
-  --text-secondary: #4A4A4A;
-  --text-muted: #7A7A7A;
-  
-  /* Typography */
-  --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Georgia', 'Times New Roman', serif;
-  --font-micro: 'Inter', sans-serif;
-}
-
-/* Red Wine Theme */
-.theme-red {
-  --accent-primary: #5A1E1B;
-  --accent-secondary: #8B2E2A;
-  --accent-light: rgba(90, 30, 27, 0.1);
-  --accent-text: #FFFFFF;
-  --hero-overlay: rgba(90, 30, 27, 0.2);
-  --hero-bg: linear-gradient(135deg, #5A1E1B 0%, #8B2E2A 100%);
-}
-
-/* White Wine Theme */
-.theme-white {
-  --accent-primary: #F3E9D2;
-  --accent-secondary: #E6D4B7;
-  --accent-light: rgba(243, 233, 210, 0.3);
-  --accent-text: #7A6651;
-  --hero-overlay: rgba(243, 233, 210, 0.3);
-  --hero-bg: linear-gradient(135deg, #F3E9D2 0%, #E6D4B7 100%);
-}
-
-/* Reset and Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: var(--font-body);
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  line-height: 1.6;
-  transition: all 0.4s ease;
-}
+/* ================================
+   WINE CLUB SAAS - PREMIUM SUBSCRIPTION
+   Single Champagne Theme
+   ================================ */
 
 .premium-subscription {
   min-height: 100vh;
-}
-
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* Typography */
-.section-title {
-  font-family: var(--font-headline);
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.1;
-  margin-bottom: 3rem;
-  text-align: center;
+  background: var(--bg-primary);
   color: var(--text-primary);
-  letter-spacing: -0.02em;
 }
 
-h3 {
-  font-family: var(--font-headline);
-  font-size: 1.5rem;
-  font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 1rem;
-}
+/* ================================
+   HERO SECTION
+   ================================ */
 
-p {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-}
-
-/* Theme Toggle Bar */
-.theme-toggle-bar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(249, 247, 241, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 1rem 0;
-}
-
-.theme-toggle {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  background: var(--bg-secondary);
-  border-radius: 50px;
-  padding: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.theme-btn {
-  padding: 0.75rem 2rem;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: var(--font-micro);
-  font-size: 0.875rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  border-radius: 46px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.theme-btn.active {
-  background: var(--accent-primary);
-  color: var(--accent-text);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px var(--accent-light);
-}
-
-/* Hero Section */
 .hero-section {
   position: relative;
-  height: 100vh;
-  min-height: 600px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--gradient-champagne);
   overflow: hidden;
 }
 
-.hero-image {
+.hero-background {
   position: absolute;
-  inset: 0;
-  background: var(--hero-bg);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/wine-background.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: var(--hero-overlay);
-  transition: background 0.4s ease;
+  opacity: 0.1;
+  z-index: 0;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 1;
+  max-width: 740px;
   text-align: center;
-  max-width: 700px;
-  padding: 3rem;
+  padding: 2rem;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .hero-title {
-  font-family: var(--font-headline);
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.1;
-  margin-bottom: 1rem;
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--weight-bold);
   color: var(--text-primary);
-  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
 }
 
 .hero-subtitle {
-  display: block;
-  font-size: 2rem;
-  font-weight: 300;
-  color: var(--accent-primary);
-  margin-top: 0.5rem;
-}
-
-.hero-description {
-  font-size: 1.25rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
   color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
 }
 
-.hero-cta {
-  padding: 1rem 2.5rem;
-  background: var(--accent-primary);
-  color: var(--accent-text);
-  border: none;
-  border-radius: 50px;
-  font-family: var(--font-headline);
-  font-size: 1.125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.hero-cta:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 30px var(--accent-light);
-}
+/* ================================
+   FEATURES SECTION
+   ================================ */
 
-/* Why Join Section */
-.why-join-section {
-  padding: 8rem 0;
+.features-section {
+  padding: var(--section-padding-lg) 0;
   background: var(--bg-secondary);
 }
 
-.benefits-grid {
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 3rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
 }
 
-.benefit-card {
-  text-align: center;
-  padding: 3rem 2rem;
+.feature-card {
   background: var(--bg-primary);
-  border-radius: 20px;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-primary);
   transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.benefit-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
-.benefit-icon {
-  font-size: 3rem;
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-bordeaux);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1.5rem;
-  filter: grayscale(0.3);
+  color: white;
+  font-size: 1.5rem;
 }
 
-.benefit-card h3 {
-  color: var(--accent-primary);
+.feature-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
   margin-bottom: 1rem;
 }
 
-/* Featured Bottles Section */
-.featured-bottles-section {
-  padding: 8rem 0;
-  background: var(--bg-primary);
-}
-
-.bottle-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  margin-bottom: 4rem;
-  background: var(--bg-secondary);
-  border-radius: 50px;
-  padding: 4px;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.tab-btn {
-  padding: 1rem 2rem;
-  border: none;
-  background: transparent;
+.feature-description {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
   color: var(--text-secondary);
-  font-family: var(--font-headline);
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 46px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  line-height: 1.6;
 }
 
-.tab-btn.active {
-  background: var(--accent-primary);
-  color: var(--accent-text);
-  transform: translateY(-1px);
+/* ================================
+   PRICING SECTION
+   ================================ */
+
+.pricing-section {
+  padding: var(--section-padding-lg) 0;
+  background: var(--bg-tertiary);
 }
 
-.bottles-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 6rem;
+.pricing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
 }
 
-.bottle-card {
+.pricing-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: center;
-  padding: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.pricing-card {
   background: var(--bg-secondary);
-  border-radius: 30px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.bottle-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-}
-
-.bottle-card.reverse {
-  grid-template-columns: 1.5fr 1fr;
-}
-
-.bottle-card.reverse .bottle-image {
-  order: 2;
-}
-
-.bottle-image {
-  position: relative;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 2px solid var(--border-primary);
   text-align: center;
-}
-
-.bottle-image img {
-  max-width: 200px;
-  height: auto;
-  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
   transition: all 0.3s ease;
+  position: relative;
 }
 
-.bottle-card:hover .bottle-image img {
+.pricing-card.featured {
+  border-color: var(--bordeaux-900);
   transform: scale(1.05);
 }
 
-.bottle-header {
-  margin-bottom: 2rem;
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
-.bottle-name {
-  font-family: var(--font-headline);
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--accent-primary);
+.pricing-card.featured:hover {
+  transform: scale(1.05) translateY(-8px);
+}
+
+.pricing-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.pricing-price {
+  font-family: var(--font-serif);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-bold);
+  color: var(--bordeaux-900);
   margin-bottom: 0.5rem;
 }
 
-.bottle-vineyard {
-  font-size: 1rem;
+.pricing-period {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
   color: var(--text-muted);
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.bottle-price {
-  font-family: var(--font-headline);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.tasting-notes {
   margin-bottom: 2rem;
 }
 
-.tasting-notes h4 {
-  font-family: var(--font-headline);
-  font-size: 1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.notes-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.note-tag {
-  padding: 0.5rem 1rem;
-  background: var(--accent-light);
-  color: var(--accent-primary);
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.bottle-description {
-  margin-bottom: 2rem;
-  font-style: italic;
-}
-
-.add-to-cart-btn {
-  padding: 0.875rem 2rem;
-  background: transparent;
-  color: var(--accent-primary);
-  border: 2px solid var(--accent-primary);
-  border-radius: 50px;
-  font-family: var(--font-headline);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.add-to-cart-btn:hover {
-  background: var(--accent-primary);
-  color: var(--accent-text);
-  transform: translateY(-2px);
-}
-
-/* Subscription Plans */
-.plans-section {
-  padding: 8rem 0;
-  background: var(--bg-secondary);
-}
-
-.plans-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 3rem;
-  margin-top: 4rem;
-}
-
-.plan-card {
-  padding: 3rem;
-  background: var(--bg-primary);
-  border-radius: 30px;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.plan-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--accent-primary);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.plan-card:hover::before {
-  transform: scaleX(1);
-}
-
-.plan-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-color: var(--accent-primary);
-}
-
-.plan-header {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.plan-name {
-  font-family: var(--font-headline);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--accent-primary);
-  margin-bottom: 1rem;
-}
-
-.plan-price {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.25rem;
-}
-
-.price-amount {
-  font-family: var(--font-headline);
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.price-period {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-}
-
-.plan-description {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  font-style: italic;
-}
-
-.plan-bottles {
-  text-align: center;
-  font-family: var(--font-headline);
-  font-weight: 600;
-  color: var(--accent-primary);
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.plan-features {
+.pricing-features {
   list-style: none;
-  margin-bottom: 3rem;
+  padding: 0;
+  margin-bottom: 2rem;
 }
 
-.plan-features li {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
-  padding-left: 2rem;
+.pricing-features li {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-secondary);
 }
 
-.plan-features li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--accent-primary);
-  font-weight: bold;
+.pricing-features li:last-child {
+  border-bottom: none;
 }
 
-.plan-cta {
+.pricing-button {
   width: 100%;
   padding: 1rem 2rem;
-  background: var(--accent-primary);
-  color: var(--accent-text);
-  border: none;
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
   border-radius: 50px;
-  font-family: var(--font-headline);
-  font-size: 1.125rem;
-  font-weight: 600;
+  border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
-.plan-cta:hover {
+.pricing-button.primary {
+  background: var(--gradient-bordeaux);
+  color: white;
+}
+
+.pricing-button.primary:hover {
+  background: linear-gradient(135deg, var(--bordeaux-800) 0%, var(--bordeaux-700) 100%);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px var(--accent-light);
 }
 
-/* Premium Footer */
-.premium-footer {
-  padding: 4rem 0;
-  background: var(--accent-primary);
-  color: var(--accent-text);
-  text-align: center;
+.pricing-button.secondary {
+  background: var(--champagne-200);
+  color: var(--text-primary);
+  border: 2px solid var(--champagne-300);
 }
 
-.footer-content h3 {
-  font-family: var(--font-headline);
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: var(--accent-text);
+.pricing-button.secondary:hover {
+  background: var(--champagne-300);
+  border-color: var(--champagne-400);
+  transform: translateY(-2px);
 }
 
-.footer-content p {
-  color: var(--accent-text);
-  opacity: 0.9;
-  margin-bottom: 2rem;
-}
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
 
-.newsletter-signup {
-  display: flex;
-  max-width: 400px;
-  margin: 0 auto;
-  gap: 0;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  padding: 4px;
-}
-
-.newsletter-signup input {
-  flex: 1;
-  padding: 1rem 1.5rem;
-  border: none;
-  background: transparent;
-  color: var(--accent-text);
-  font-size: 1rem;
-  border-radius: 46px;
-}
-
-.newsletter-signup input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.newsletter-signup button {
-  padding: 1rem 2rem;
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--accent-text);
-  border: none;
-  border-radius: 46px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.newsletter-signup button:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
-  .container {
-    padding: 0 1rem;
+  .hero-content {
+    margin: 1rem;
+    padding: 1.5rem;
   }
   
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.5rem;
-  }
-  
-  .bottle-card {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  
-  .bottle-card.reverse {
-    grid-template-columns: 1fr;
-  }
-  
-  .bottle-card.reverse .bottle-image {
-    order: 0;
-  }
-  
-  .plans-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .newsletter-signup {
+  .hero-buttons {
     flex-direction: column;
-    border-radius: 15px;
+    align-items: center;
   }
   
-  .newsletter-signup input,
-  .newsletter-signup button {
-    border-radius: 10px;
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .pricing-card.featured {
+    transform: none;
+  }
+  
+  .pricing-card.featured:hover {
+    transform: translateY(-8px);
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card,
+  .pricing-card,
+  .pricing-button {
+    transition: none;
+  }
+  
+  .feature-card:hover,
+  .pricing-card:hover,
+  .pricing-button:hover {
+    transform: none;
+  }
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+
+@media print {
+  .premium-subscription {
+    background: white;
+    color: black;
+  }
+  
+  .hero-section {
+    min-height: auto;
+    background: white;
+  }
+  
+  .hero-background {
+    display: none;
+  }
+  
+  .hero-content {
+    background: white;
+    box-shadow: none;
+  }
+  
+  .feature-card,
+  .pricing-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
   }
 } 

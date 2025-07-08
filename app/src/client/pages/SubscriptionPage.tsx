@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './SubscriptionPage.css';
 import { useCustomCursor, useEnhancedButton, useIntersectionAnimation, useMobileOptimizations } from '../hooks/useMicroInteractions';
-import ScrollSpyNavbar from '../components/ScrollSpyNavbar';
 
 interface SubscriptionPlan {
   id: string;
@@ -109,8 +108,8 @@ const SubscriptionPage: React.FC = () => {
       price: 329,
       frequency: 'quarterly',
       bottles: 6,
-      description: 'Luxury sparkling wines and champagnes',
-      features: ['6 Luxury Bottles', 'Vintage Selection', 'Limited Editions', 'White Glove Service']
+      description: 'Premium sparkling wines and champagnes',
+      features: ['6 Premium Bottles', 'Vintage Selection', 'Limited Editions', 'White Glove Service']
     }
   ];
 
@@ -164,19 +163,8 @@ const SubscriptionPage: React.FC = () => {
   const currentPlans = activeTab === 'red' ? redWinePlans : whiteWinePlans;
   const currentBottles = featuredBottles[activeTab];
 
-  // Navigation items for scroll-spy
-  const navItems = [
-    { id: 'hero', label: 'Welcome', href: '#hero' },
-    { id: 'why-join', label: 'Why Join', href: '#why-join' },
-    { id: 'bottles', label: 'Featured Bottles', href: '#bottles' },
-    { id: 'plans', label: 'Plans', href: '#plans' }
-  ];
-
   return (
     <div className="subscription-page">
-      {/* Scroll-Spy Navigation */}
-      <ScrollSpyNavbar items={navItems} />
-      
       {/* Hero Section */}
       <section 
         id="hero"

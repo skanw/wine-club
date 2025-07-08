@@ -1,11 +1,13 @@
-import { Link as WaspRouterLink, routes } from 'wasp/client/router';
+import { routes } from 'wasp/client/router';
+import Button from '../client/components/ui/Button';
 
 const MessageButton = () => {
   return (
     <li className='relative' x-data='{ dropdownOpen: false, notifying: true }'>
-      <WaspRouterLink
+      <Button
+        variant="ghost"
+        href={routes.AdminMessagesRoute.to}
         className='relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white'
-        to={routes.AdminMessagesRoute.to}
       >
         <span className='absolute -top-0.5 -right-0.5 z-1 h-2 w-2 rounded-full bg-meta-1'>
           {/* TODO: only animate if there are new messages */}
@@ -37,7 +39,7 @@ const MessageButton = () => {
             fill=''
           />
         </svg>
-      </WaspRouterLink>
+      </Button>
     </li>
   );
 };

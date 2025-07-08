@@ -3,7 +3,7 @@ import { generateCheckoutSession, getCustomerPortalUrl, useQuery } from 'wasp/cl
 import { PaymentPlanId, paymentPlans, prettyPaymentPlanName, SubscriptionStatus } from '../../shared/plans';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { cn } from '../cn';
 
 const bestDealPaymentPlanId: PaymentPlanId = PaymentPlanId.Pro;
@@ -98,115 +98,180 @@ const PricingPage = () => {
   };
 
   return (
-    <div className='py-10 lg:mt-10'>
-      <div className='mx-auto max-w-7xl px-6 lg:px-8'>
-        <div id='pricing' className='mx-auto max-w-4xl text-center'>
-          <h2 className='mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl dark:text-white'>
-            Choose Your <span className='text-yellow-500'>Wine Cave</span> Plan
-          </h2>
+    <div className="min-h-screen bg-gradient-to-br from-champagne-50 via-white to-bordeaux-50">
+      {/* Hero Section */}
+      <section className="py-20 text-center">
+        <div className="container-xl">
+          <h1 className="text-4xl md:text-6xl font-bold text-bordeaux-900 mb-6">
+            Choose Your Wine Journey
+          </h1>
+          <p className="text-xl text-bordeaux-700 max-w-3xl mx-auto mb-8">
+            Discover the perfect wine subscription plan that matches your taste and lifestyle
+          </p>
         </div>
-        <p className='mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600 dark:text-white'>
-          Scale your wine subscription business with the right plan for your needs. From boutique wine caves to established vineyards, we have you covered. <br />
-          <span className='px-2 py-1 bg-yellow-100 rounded-md text-yellow-800'>✨ Start with a 14-day free trial</span>
-        </p>
-        {errorMessage && (
-          <div className='mt-8 p-4 bg-red-100 text-red-600 rounded-md dark:bg-red-200 dark:text-red-800'>
-            {errorMessage}
-          </div>
-        )}
-        <div className='isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 lg:gap-x-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3'>
-          {Object.values(PaymentPlanId).map((planId) => (
-            <div
-              key={planId}
-              className={cn(
-                'relative flex flex-col grow justify-between rounded-3xl ring-gray-900/10 dark:ring-gray-100/10 overflow-hidden p-8 xl:p-10',
-                {
-                  'ring-2': planId === bestDealPaymentPlanId,
-                  'ring-1 lg:mt-8': planId !== bestDealPaymentPlanId,
-                }
-              )}
-            >
-              {planId === bestDealPaymentPlanId && (
-                <div
-                  className='absolute top-0 right-0 -z-10 w-full h-full transform-gpu blur-3xl'
-                  aria-hidden='true'
-                >
-                  <div
-                    className='absolute w-full h-full bg-gradient-to-br from-amber-400 to-purple-300 opacity-30 dark:opacity-50'
-                    style={{
-                      clipPath: 'circle(670% at 50% 50%)',
-                    }}
-                  />
-                </div>
-              )}
-              <div className='mb-8'>
-                <div className='flex items-center justify-between gap-x-4'>
-                  <h3 id={planId} className='text-gray-900 text-lg font-semibold leading-8 dark:text-white'>
+      </section>
+
+      {/* Pricing Cards */}
+      <section className="py-16">
+        <div className="container-xl">
+          <div className="grid md:grid-cols-3 gap-8">
+            {Object.values(PaymentPlanId).map((planId) => (
+              <div
+                key={planId}
+                className={`relative bg-white rounded-2xl p-8 shadow-xl ${
+                  planId === bestDealPaymentPlanId ? 'ring-2 ring-bordeaux-600 scale-105' : ''
+                }`}
+              >
+                {planId === bestDealPaymentPlanId && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-bordeaux-600 text-white px-4 py-2 rounded-full text-sm font-medium">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold text-bordeaux-900 mb-2">
                     {paymentPlanCards[planId].name}
                   </h3>
+                  <p className="text-bordeaux-700 mb-6">
+                    {paymentPlanCards[planId].description}
+                  </p>
+                  <div className="mb-6">
+                    <span className="text-4xl font-bold text-bordeaux-900">
+                      {paymentPlanCards[planId].price}
+                    </span>
+                    <span className="text-bordeaux-600">
+                      {paymentPlans[planId].effect.kind === 'subscription' && '/month'}
+                    </span>
+                  </div>
                 </div>
-                <p className='mt-4 text-sm leading-6 text-gray-600 dark:text-white'>
-                  {paymentPlanCards[planId].description}
-                </p>
-                <p className='mt-6 flex items-baseline gap-x-1 dark:text-white'>
-                  <span className='text-4xl font-bold tracking-tight text-gray-900 dark:text-white'>
-                    {paymentPlanCards[planId].price}
-                  </span>
-                  <span className='text-sm font-semibold leading-6 text-gray-600 dark:text-white'>
-                    {paymentPlans[planId].effect.kind === 'subscription' && '/month'}
-                  </span>
-                </p>
-                <ul role='list' className='mt-8 space-y-3 text-sm leading-6 text-gray-600 dark:text-white'>
-                  {paymentPlanCards[planId].features.map((feature) => (
-                    <li key={feature} className='flex gap-x-3'>
-                      <AiFillCheckCircle className='h-6 w-5 flex-none text-yellow-500' aria-hidden='true' />
-                      {feature}
+
+                <ul className="space-y-4 mb-8">
+                  {paymentPlanCards[planId].features.map((feature, index) => (
+                    <li key={index} className="flex items-center">
+                      <svg
+                        className="w-5 h-5 text-bordeaux-600 mr-3 flex-shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span className="text-bordeaux-700">{feature}</span>
                     </li>
                   ))}
                 </ul>
+
+                {isUserSubscribed ? (
+                  <button
+                    onClick={handleCustomerPortalClick}
+                    disabled={isCustomerPortalUrlLoading}
+                    aria-describedby='manage-subscription'
+                    className={cn(
+                      'w-full bg-bordeaux-600 text-white py-3 px-6 rounded-lg hover:bg-bordeaux-700 transition-colors duration-300 font-medium',
+                      {
+                        'ring-2': planId === bestDealPaymentPlanId,
+                        'ring-1': planId !== bestDealPaymentPlanId,
+                      }
+                    )}
+                  >
+                    Manage Subscription
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleBuyNowClick(planId)}
+                    aria-describedby={planId}
+                    className={cn(
+                      {
+                        'bg-bordeaux-600 text-white hover:bg-bordeaux-700':
+                          planId === bestDealPaymentPlanId,
+                        'text-gray-600  ring-1 ring-inset ring-purple-200 hover:ring-purple-400':
+                          planId !== bestDealPaymentPlanId,
+                      },
+                      {
+                        'opacity-50 cursor-wait': isPaymentLoading,
+                      },
+                      'w-full rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-yellow-400'
+                    )}
+                    disabled={isPaymentLoading}
+                  >
+                    {user ? 'Buy plan' : 'Log in to buy plan'}
+                  </button>
+                )}
               </div>
-              {isUserSubscribed ? (
-                <button
-                  onClick={handleCustomerPortalClick}
-                  disabled={isCustomerPortalUrlLoading}
-                  aria-describedby='manage-subscription'
-                  className={cn(
-                    'mt-8 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-yellow-400',
-                    {
-                      'bg-yellow-500 text-white hover:text-white shadow-sm hover:bg-yellow-400':
-                        planId === bestDealPaymentPlanId,
-                      'text-gray-600 ring-1 ring-inset ring-purple-200 hover:ring-purple-400':
-                        planId !== bestDealPaymentPlanId,
-                    }
-                  )}
-                >
-                  Manage Subscription
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleBuyNowClick(planId)}
-                  aria-describedby={planId}
-                  className={cn(
-                    {
-                      'bg-yellow-500 text-white hover:text-white shadow-sm hover:bg-yellow-400':
-                        planId === bestDealPaymentPlanId,
-                      'text-gray-600  ring-1 ring-inset ring-purple-200 hover:ring-purple-400':
-                        planId !== bestDealPaymentPlanId,
-                    },
-                    {
-                      'opacity-50 cursor-wait': isPaymentLoading,
-                    },
-                    'mt-8 block rounded-md py-2 px-3 text-center text-sm dark:text-white font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-yellow-400'
-                  )}
-                  disabled={isPaymentLoading}
-                >
-                  {!!user ? 'Buy plan' : 'Log in to buy plan'}
-                </button>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-white">
+        <div className="container-xl">
+          <h2 className="text-3xl font-bold text-bordeaux-900 text-center mb-12">
+            Frequently Asked Questions
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-bordeaux-900 mb-2">
+                  Can I cancel my subscription anytime?
+                </h3>
+                <p className="text-bordeaux-700">
+                  Yes, you can cancel your subscription at any time through your account dashboard. No long-term commitments required.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-bordeaux-900 mb-2">
+                  Do you ship to all states?
+                </h3>
+                <p className="text-bordeaux-700">
+                  We ship to most US states. Some restrictions apply due to local alcohol laws. Contact us to check availability in your area.
+                </p>
+              </div>
+            </div>
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-bordeaux-900 mb-2">
+                  Can I skip a month?
+                </h3>
+                <p className="text-bordeaux-700">
+                  Premium members can skip up to 2 months per year. Basic members can pause their subscription for up to 3 months.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-bordeaux-900 mb-2">
+                  What if I don't like a wine?
+                </h3>
+                <p className="text-bordeaux-700">
+                  We stand behind our selections. If you're not satisfied with any wine, we'll replace it or credit your account.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-bordeaux-900">
+        <div className="container-xl text-center">
+          <h2 className="text-3xl font-bold text-champagne-100 mb-4">
+            Ready to Start Your Wine Journey?
+          </h2>
+          <p className="text-champagne-200 mb-8 max-w-2xl mx-auto">
+            Join thousands of wine enthusiasts who have discovered their perfect wines through our curated selections.
+          </p>
+          <Link
+            to="/signup"
+            className="inline-block bg-champagne-500 text-bordeaux-900 px-8 py-4 rounded-lg hover:bg-champagne-400 transition-colors duration-300 font-medium text-lg"
+          >
+            Start Your Free Trial
+          </Link>
+        </div>
+      </section>
     </div>
   );
 };
