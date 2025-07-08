@@ -222,16 +222,29 @@ model Shipment {
   createdAt                 DateTime        @default(now())
   updatedAt                 DateTime        @updatedAt
 
-  shipmentDate              DateTime        @default(now())
-  trackingNumber            String?
-  carrier                   String?         // "FedEx", "UPS", etc.
-  status                    String          @default("pending") // "pending", "shipped", "delivered"
+  trackingNumber            String          @unique
+  carrier                   String
+  status                    String          @default("created")
   
-  subscription              WineSubscription @relation(fields: [subscriptionId], references: [id])
-  subscriptionId            String
+  origin                    Json            // French address
+  destination               Json            // French address
+  packages                  Json            // Package details
+  
+  insurance                 Boolean         @default(false)
+  signature                 Boolean         @default(false)
+  customerReference         String?
+  
+  estimatedDelivery         DateTime?
+  actualDelivery            DateTime?
+  
+  complianceData            Json?           // TVA and legal compliance
+  
+  // Relations
+  subscription              WineSubscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId            String?
 
-  wineCave                  WineCave        @relation(fields: [wineCaveId], references: [id])
-  wineCaveId                String
+  wineCave                  WineCave?       @relation(fields: [wineCaveId], references: [id])
+  wineCaveId                String?
 
   items                     ShipmentItem[]
 }
@@ -248,7 +261,7 @@ model ShipmentItem {
   quantity                  Int             @default(1)
 }
 
-// French Loyalty Models
+// Loyalty and referral system models
 model LoyaltyPoints {
   id                        String          @id @default(uuid())
   createdAt                 DateTime        @default(now())
@@ -410,6 +423,43 @@ model TrackingInfo {
   estimatedDelivery         DateTime?
   
   complianceData            Json?           // Legal compliance
+}
+
+// French Loyalty Models
+// Duplicate LoyaltyPoints and LoyaltyTransaction models removed - using the ones above
+
+model Referral {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+
+  referrerId                String
+  referredEmail             String
+  referredName              String
+  source                    String          // 'email', 'social', 'direct'
+  status                    String          @default("PENDING") // 'PENDING', 'COMPLETED', 'EXPIRED'
+  referralCode              String          @unique
+  
+  complianceData            Json?           // GDPR compliance data
+  
+  // Relations
+  referrer                  User?           @relation("ReferrerReferrals", fields: [referrerId], references: [id])
+  referee                   User?           @relation("RefereeReferrals", fields: [refereeId], references: [id])
+  refereeId                 String?
+}
+
+model ReferralReward {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  userId                    String
+  rewardType                String          // 'discount', 'free_shipping', 'free_bottle', 'vip_event'
+  pointsUsed                Int
+  value                     Float
+  status                    String          @default("ACTIVE") // 'ACTIVE', 'USED', 'EXPIRED'
+  expiresAt                 DateTime?
+  
+  complianceData            Json?           // Legal compliance data
 }
 
 // French AI Sommelier Models

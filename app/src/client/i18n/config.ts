@@ -1,228 +1,251 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
-// 🌍 Wine Club Internationalization Configuration
-
-// Language Resources - imported as ES Modules so they work in the browser
-import enUS from './locales/en-US.json';
-import frFR from './locales/fr-FR.json';
-
-export type SupportedLanguage = 'en-US' | 'fr-FR';
-export type LanguageCode = 'en' | 'fr';
-
-// Language mapping for clean URLs and detection
-const languageMap: Record<string, SupportedLanguage> = {
-  'en': 'en-US',
-  'en-US': 'en-US',
-  'en-GB': 'en-US',
-  'fr': 'fr-FR',
-  'fr-FR': 'fr-FR',
-  'fr-CA': 'fr-FR',
-};
-
-// 🍷 Custom Language Persistence Utilities
-export const getStoredLanguage = (): SupportedLanguage => {
-  if (typeof window === 'undefined') return 'en-US';
-  
-  try {
-    // 1. Try localStorage first
-    const stored = localStorage.getItem('i18nextLng') as SupportedLanguage | null;
-    if (stored && isValidLanguage(stored)) {
-      return stored;
-    }
-    
-    // 2. Fallback to cookie
-    const cookieLanguage = getCookieLanguage();
-    if (cookieLanguage) return cookieLanguage;
-    
-    // 3. Browser language detection
-    const browserLanguage = navigator.language || 'en-US';
-    const mappedLanguage = languageMap[browserLanguage] || languageMap[browserLanguage.split('-')[0]];
-    if (mappedLanguage) return mappedLanguage;
-    
-    // 4. Default fallback
-    return 'en-US';
-  } catch (error) {
-    console.warn('Failed to read language preference:', error);
-    return 'en-US';
-  }
-};
-
-export const setStoredLanguage = (language: SupportedLanguage): void => {
-  if (typeof window === 'undefined') return;
-  
-  try {
-    localStorage.setItem('i18nextLng', language);
-    // Also set cookie as fallback
-    setCookieLanguage(language);
-  } catch (error) {
-    console.warn('Failed to save language preference:', error);
-    // Fallback to cookie only
-    setCookieLanguage(language);
-  }
-};
-
-const isValidLanguage = (lang: string): lang is SupportedLanguage => {
-  return ['en-US', 'fr-FR'].includes(lang);
-};
-
-const getCookieLanguage = (): SupportedLanguage | null => {
-  const cookies = document.cookie.split(';');
-  const langCookie = cookies.find(cookie => cookie.trim().startsWith('i18nextLng='));
-  if (langCookie) {
-    const value = langCookie.split('=')[1] as SupportedLanguage;
-    return isValidLanguage(value) ? value : null;
-  }
-  return null;
-};
-
-const setCookieLanguage = (language: SupportedLanguage): void => {
-  const expires = new Date();
-  expires.setFullYear(expires.getFullYear() + 1); // 1 year expiry
-  document.cookie = `i18nextLng=${language}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
-};
-
-// 🎯 Language Change Handler
-export const changeLanguage = async (language: SupportedLanguage): Promise<void> => {
-  try {
-    await i18n.changeLanguage(language);
-    setStoredLanguage(language);
-    
-    // Update document language attribute
-    document.documentElement.lang = language;
-    
-    // Update meta tags for SEO
-    const metaLanguage = document.querySelector('meta[name="language"]');
-    if (metaLanguage) {
-      metaLanguage.setAttribute('content', language);
-    } else {
-      const newMeta = document.createElement('meta');
-      newMeta.name = 'language';
-      newMeta.content = language;
-      document.head.appendChild(newMeta);
-    }
-    
-    // Dispatch custom event for other components to listen
-    window.dispatchEvent(new CustomEvent('languageChange', { 
-      detail: { language, previousLanguage: i18n.language } 
-    }));
-    
-    console.log(`🌍 Language changed to: ${language}`);
-  } catch (error) {
-    console.error('Failed to change language:', error);
-  }
-};
-
-// 🚀 i18n Configuration
+// Initialize i18n
 i18n
-  // Language detection
-  .use(LanguageDetector)
-  // React integration
   .use(initReactI18next)
-  // Initialize
   .init({
-    // Language resources
     resources: {
-      'en-US': {
-        translation: enUS
-      },
       'fr-FR': {
-        translation: frFR
+        translation: {
+          // Navigation
+          'nav.home': 'Accueil',
+          'nav.discover': 'Découvrir',
+          'nav.dashboard': 'Tableau de bord',
+          'nav.subscriptions': 'Mes Abonnements',
+          'nav.wineCave': 'Ma Cave à Vin',
+          'nav.account': 'Mon Compte',
+          'nav.pricing': 'Tarifs',
+          'nav.about': 'À propos',
+          'nav.contact': 'Contact',
+          'nav.login': 'Connexion',
+          'nav.signup': 'Inscription',
+
+          // Common
+          'common.loading': 'Chargement...',
+          'common.error': 'Erreur',
+          'common.success': 'Succès',
+          'common.save': 'Enregistrer',
+          'common.cancel': 'Annuler',
+          'common.edit': 'Modifier',
+          'common.delete': 'Supprimer',
+          'common.add': 'Ajouter',
+          'common.search': 'Rechercher',
+          'common.filter': 'Filtrer',
+          'common.sort': 'Trier',
+          'common.view': 'Voir',
+          'common.back': 'Retour',
+          'common.next': 'Suivant',
+          'common.previous': 'Précédent',
+          'common.submit': 'Soumettre',
+          'common.confirm': 'Confirmer',
+          'common.yes': 'Oui',
+          'common.no': 'Non',
+
+          // Pricing
+          'pricing.monthly': 'par mois',
+          'pricing.yearly': 'par an',
+          'pricing.vatIncluded': 'TTC',
+          'pricing.vatExcluded': 'HT',
+          'pricing.startingFrom': 'À partir de',
+          'pricing.bottlesPerMonth': 'bouteilles/mois',
+          'pricing.subscribe': 'S\'abonner',
+          'pricing.currentPlan': 'Plan actuel',
+
+          // Wine Cave
+          'wineCave.create': 'Créer ma cave à vin',
+          'wineCave.manage': 'Gérer ma cave',
+          'wineCave.subscribers': 'Abonnés',
+          'wineCave.revenue': 'Revenus',
+          'wineCave.wines': 'Vins',
+          'wineCave.addWine': 'Ajouter un vin',
+          'wineCave.addTier': 'Ajouter un forfait',
+          'wineCave.editProfile': 'Modifier le profil',
+          'wineCave.location': 'Localisation',
+          'wineCave.website': 'Site web',
+          'wineCave.contact': 'Contact',
+
+          // Subscriptions
+          'subscription.active': 'Actif',
+          'subscription.cancelled': 'Annulé',
+          'subscription.paused': 'En pause',
+          'subscription.nextShipment': 'Prochain envoi',
+          'subscription.cancel': 'Annuler l\'abonnement',
+          'subscription.pause': 'Mettre en pause',
+          'subscription.resume': 'Reprendre',
+          'subscription.changePlan': 'Changer de forfait',
+
+          // Wine
+          'wine.name': 'Nom du vin',
+          'wine.varietal': 'Cépage',
+          'wine.vintage': 'Millésime',
+          'wine.description': 'Description',
+          'wine.price': 'Prix',
+          'wine.stock': 'Stock',
+          'wine.rating': 'Note',
+          'wine.reviews': 'Avis',
+
+          // Forms
+          'form.required': 'Champ obligatoire',
+          'form.invalidEmail': 'Email invalide',
+          'form.passwordTooShort': 'Mot de passe trop court',
+          'form.passwordsDoNotMatch': 'Les mots de passe ne correspondent pas',
+          'form.invalidPhone': 'Numéro de téléphone invalide',
+          'form.invalidPostalCode': 'Code postal invalide',
+
+          // Messages
+          'message.success': 'Opération réussie',
+          'message.error': 'Une erreur est survenue',
+          'message.warning': 'Attention',
+          'message.info': 'Information',
+          'message.confirmDelete': 'Êtes-vous sûr de vouloir supprimer cet élément ?',
+          'message.unsavedChanges': 'Vous avez des modifications non sauvegardées',
+
+          // Dates
+          'date.today': 'Aujourd\'hui',
+          'date.yesterday': 'Hier',
+          'date.tomorrow': 'Demain',
+          'date.thisWeek': 'Cette semaine',
+          'date.lastWeek': 'La semaine dernière',
+          'date.thisMonth': 'Ce mois',
+          'date.lastMonth': 'Le mois dernier',
+
+          // Currency
+          'currency.eur': 'EUR',
+          'currency.usd': 'USD',
+          'currency.format': '{amount} €',
+
+          // Legal
+          'legal.privacyPolicy': 'Politique de confidentialité',
+          'legal.termsOfService': 'Conditions d\'utilisation',
+          'legal.cookiePolicy': 'Politique des cookies',
+          'legal.gdpr': 'RGPD',
+          'legal.contact': 'Nous contacter',
+        }
+      },
+      'en-US': {
+        translation: {
+          // Navigation
+          'nav.home': 'Home',
+          'nav.discover': 'Discover',
+          'nav.dashboard': 'Dashboard',
+          'nav.subscriptions': 'My Subscriptions',
+          'nav.wineCave': 'My Wine Cave',
+          'nav.account': 'My Account',
+          'nav.pricing': 'Pricing',
+          'nav.about': 'About',
+          'nav.contact': 'Contact',
+          'nav.login': 'Login',
+          'nav.signup': 'Sign Up',
+
+          // Common
+          'common.loading': 'Loading...',
+          'common.error': 'Error',
+          'common.success': 'Success',
+          'common.save': 'Save',
+          'common.cancel': 'Cancel',
+          'common.edit': 'Edit',
+          'common.delete': 'Delete',
+          'common.add': 'Add',
+          'common.search': 'Search',
+          'common.filter': 'Filter',
+          'common.sort': 'Sort',
+          'common.view': 'View',
+          'common.back': 'Back',
+          'common.next': 'Next',
+          'common.previous': 'Previous',
+          'common.submit': 'Submit',
+          'common.confirm': 'Confirm',
+          'common.yes': 'Yes',
+          'common.no': 'No',
+
+          // Pricing
+          'pricing.monthly': 'per month',
+          'pricing.yearly': 'per year',
+          'pricing.vatIncluded': 'VAT included',
+          'pricing.vatExcluded': 'VAT excluded',
+          'pricing.startingFrom': 'Starting from',
+          'pricing.bottlesPerMonth': 'bottles/month',
+          'pricing.subscribe': 'Subscribe',
+          'pricing.currentPlan': 'Current plan',
+
+          // Wine Cave
+          'wineCave.create': 'Create my wine cave',
+          'wineCave.manage': 'Manage my cave',
+          'wineCave.subscribers': 'Subscribers',
+          'wineCave.revenue': 'Revenue',
+          'wineCave.wines': 'Wines',
+          'wineCave.addWine': 'Add wine',
+          'wineCave.addTier': 'Add tier',
+          'wineCave.editProfile': 'Edit profile',
+          'wineCave.location': 'Location',
+          'wineCave.website': 'Website',
+          'wineCave.contact': 'Contact',
+
+          // Subscriptions
+          'subscription.active': 'Active',
+          'subscription.cancelled': 'Cancelled',
+          'subscription.paused': 'Paused',
+          'subscription.nextShipment': 'Next shipment',
+          'subscription.cancel': 'Cancel subscription',
+          'subscription.pause': 'Pause',
+          'subscription.resume': 'Resume',
+          'subscription.changePlan': 'Change plan',
+
+          // Wine
+          'wine.name': 'Wine name',
+          'wine.varietal': 'Varietal',
+          'wine.vintage': 'Vintage',
+          'wine.description': 'Description',
+          'wine.price': 'Price',
+          'wine.stock': 'Stock',
+          'wine.rating': 'Rating',
+          'wine.reviews': 'Reviews',
+
+          // Forms
+          'form.required': 'Required field',
+          'form.invalidEmail': 'Invalid email',
+          'form.passwordTooShort': 'Password too short',
+          'form.passwordsDoNotMatch': 'Passwords do not match',
+          'form.invalidPhone': 'Invalid phone number',
+          'form.invalidPostalCode': 'Invalid postal code',
+
+          // Messages
+          'message.success': 'Operation successful',
+          'message.error': 'An error occurred',
+          'message.warning': 'Warning',
+          'message.info': 'Information',
+          'message.confirmDelete': 'Are you sure you want to delete this item?',
+          'message.unsavedChanges': 'You have unsaved changes',
+
+          // Dates
+          'date.today': 'Today',
+          'date.yesterday': 'Yesterday',
+          'date.tomorrow': 'Tomorrow',
+          'date.thisWeek': 'This week',
+          'date.lastWeek': 'Last week',
+          'date.thisMonth': 'This month',
+          'date.lastMonth': 'Last month',
+
+          // Currency
+          'currency.eur': 'EUR',
+          'currency.usd': 'USD',
+          'currency.format': '€{amount}',
+
+          // Legal
+          'legal.privacyPolicy': 'Privacy Policy',
+          'legal.termsOfService': 'Terms of Service',
+          'legal.cookiePolicy': 'Cookie Policy',
+          'legal.gdpr': 'GDPR',
+          'legal.contact': 'Contact Us',
+        }
       }
     },
-    
-    // Language settings
+    lng: 'fr-FR', // default language
     fallbackLng: 'en-US',
-    debug: process.env.NODE_ENV === 'development',
-    
-    // Language detection configuration
-    detection: {
-      order: ['localStorage', 'cookie', 'navigator', 'htmlTag'],
-      lookupLocalStorage: 'i18nextLng',
-      lookupCookie: 'i18nextLng',
-      caches: ['localStorage', 'cookie'],
-      excludeCacheFor: ['cimode'], // Don't cache in CI mode
-    },
-    
-    // Interpolation settings
     interpolation: {
-      escapeValue: false, // React already escapes
-      format: (value, format) => {
-        // Custom formatters
-        if (format === 'currency') {
-          const locale = i18n.language === 'fr-FR' ? 'fr-FR' : 'en-US';
-          const currency = i18n.language === 'fr-FR' ? 'EUR' : 'USD';
-          return new Intl.NumberFormat(locale, {
-            style: 'currency',
-            currency: currency
-          }).format(value);
-        }
-        if (format === 'date') {
-          const locale = i18n.language === 'fr-FR' ? 'fr-FR' : 'en-US';
-          return new Intl.DateTimeFormat(locale).format(new Date(value));
-        }
-        if (format === 'number') {
-          const locale = i18n.language === 'fr-FR' ? 'fr-FR' : 'en-US';
-          return new Intl.NumberFormat(locale).format(value);
-        }
-        return value;
-      }
-    },
-    
-    // Namespace settings
-    defaultNS: 'translation',
-    keySeparator: '.',
-    nsSeparator: ':',
-    
-    // React-specific settings
-    react: {
-      useSuspense: false, // Avoid Suspense for SSR compatibility
-      bindI18n: 'languageChanged',
-      bindI18nStore: '',
-      transEmptyNodeValue: '',
-      transSupportBasicHtmlNodes: true,
-      transKeepBasicHtmlNodesFor: ['br', 'strong', 'i', 'em', 'span'],
+      escapeValue: false, // React already escapes values
     },
   });
 
-// 🔧 Initialize language on app start
-export const initializeLanguage = (): void => {
-  const savedLanguage = getStoredLanguage();
-  
-  if (i18n.language !== savedLanguage) {
-    changeLanguage(savedLanguage);
-  }
-  
-  // Set document language
-  document.documentElement.lang = savedLanguage;
-};
-
-// 🎭 Helper Functions
-export const getCurrentLanguage = (): SupportedLanguage => {
-  return i18n.language as SupportedLanguage || 'en-US';
-};
-
-export const getLanguageCode = (language?: SupportedLanguage): LanguageCode => {
-  const lang = language || getCurrentLanguage();
-  return lang.split('-')[0] as LanguageCode;
-};
-
-export const getLanguageLabel = (language: SupportedLanguage): string => {
-  const labels = {
-    'en-US': 'English',
-    'fr-FR': 'Français'
-  };
-  return labels[language];
-};
-
-export const getLanguageFlag = (language: SupportedLanguage): string => {
-  const flags = {
-    'en-US': '🇺🇸',
-    'fr-FR': '🇫🇷'
-  };
-  return flags[language];
-};
-
-// 🌐 Export configured i18n instance
 export default i18n; 

@@ -1,5 +1,6 @@
 import { type AuthUser } from 'wasp/auth';
-import MessageButton from '../../messages/MessageButton';
+import { Bell, Settings, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import DropdownUser from '../../user/DropdownUser';
 import { cn } from '../../client/cn';
 
@@ -79,7 +80,6 @@ const Header = (props: {
           {/* <!-- Dark Mode Toggler --> */}
 
           {/* <!-- Chat Notification Area --> */}
-          <MessageButton />
           {/* <!-- Chat Notification Area --> */}
         </ul>
 

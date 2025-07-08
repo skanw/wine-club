@@ -1,7 +1,5 @@
 import './Main.css';
 import './i18n/config'; // Initialize i18n
-import './styles/wine-scroll-animations.css';
-import './styles/micro-interactions.css';
 import AppNavbar from './components/AppNavbar';
 import CookieConsentBanner from './components/cookie-consent/Banner';
 import { useMemo, useEffect } from 'react';
@@ -10,7 +8,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from 'wasp/client/auth';
 import { useIsLandingPage } from './hooks/useIsLandingPage';
 import { I18nextProvider } from 'react-i18next';
-import i18n, { initializeLanguage } from './i18n/config';
+import i18n from './i18n/config';
 
 /**
  * use this component to wrap all child components
@@ -31,8 +29,7 @@ export default function App() {
 
   // Initialize theme and i18n before any render (CRITICAL: runs before component mounts)
   useEffect(() => {
-    // Initialize i18n language
-    initializeLanguage();
+    // i18n is already initialized in the config file
   }, []);
 
   useEffect(() => {

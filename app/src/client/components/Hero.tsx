@@ -2,6 +2,15 @@ import { Link } from 'wasp/client/router';
 import { useAuth } from 'wasp/client/auth';
 import { useScrollReveal } from '../../client/hooks/useScrollReveal';
 import Button from './ui/Button';
+import { 
+  BarChart3, 
+  Users, 
+  Shield, 
+  Zap, 
+  CheckCircle,
+  Star,
+  TrendingUp
+} from 'lucide-react';
 
 const Hero = () => {
   const { data: user } = useAuth();
@@ -25,181 +34,208 @@ const Hero = () => {
     delay: 300
   });
 
-  const trustReveal = useScrollReveal({ 
+  const statsReveal = useScrollReveal({ 
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px',
     delay: 450
   });
 
+  const featuresReveal = useScrollReveal({ 
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px',
+    delay: 600
+  });
+
   return (
     <section className="hero-responsive full-bleed relative overflow-hidden gpu-accelerated">
-      {/* VP-01: Simple Minimalist Background - no images */}
+      {/* Background */}
       <div className="absolute inset-0 z-0">
-        {/* Simple gradient background */}
         <div 
           className="responsive-image absolute inset-0"
           style={{
-            background: 'var(--gradient-light)',
+            background: 'linear-gradient(135deg, var(--champagne-50) 0%, var(--champagne-100) 100%)',
             width: '100vw',
             height: '100vh',
             willChange: 'transform'
           }}
         />
-        
-        {/* Subtle overlay for text contrast */}
         <div className="absolute inset-0 bg-black/5" />
       </div>
 
-      {/* Wine Bottle Decorative Elements - Hidden on mobile for performance */}
-      <div className="desktop-only absolute inset-0 overflow-hidden pointer-events-none z-10">
-        <div className="wine-bottle-decoration absolute top-20 left-10 opacity-5 animate-wine-pour">
-          <svg width="50" height="140" viewBox="0 0 50 140" className="text-champagne-500 drop-shadow-lg">
-            <rect x="20" y="0" width="10" height="25" fill="currentColor" />
-            <rect x="15" y="25" width="20" height="90" fill="currentColor" rx="2" />
-            <ellipse cx="25" cy="125" rx="12" ry="10" fill="currentColor" />
-          </svg>
-        </div>
-        <div className="wine-bottle-decoration absolute top-40 right-20 opacity-5 transform rotate-12 animate-champagne-bubble">
-          <svg width="50" height="140" viewBox="0 0 50 140" className="text-bordeaux-400 drop-shadow-lg">
-            <rect x="20" y="0" width="10" height="25" fill="currentColor" />
-            <rect x="15" y="25" width="20" height="90" fill="currentColor" rx="2" />
-            <ellipse cx="25" cy="125" rx="12" ry="10" fill="currentColor" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Main Content - Using responsive container system */}
-      <div className="relative z-20 responsive-container-narrow flex items-center justify-center h-full">
-        <div className="space-responsive-xl text-center">
-          {/* HH-04: Clean minimalist card */}
-          <div 
-            ref={titleReveal.ref} 
-            className="hero-reveal p-responsive-md"
-            style={{ 
-              borderRadius: '12px',
-              border: '1px solid var(--border-primary)',
-              background: 'var(--bg-backdrop)',
-              backdropFilter: 'blur(10px)',
-              boxShadow: 'var(--shadow-md)'
-            }}
-          >
-            {/* Main Headline with Clean Typography */}
-            <h1 
-              className="responsive-heading-1 font-luxury text-text-primary leading-tight mb-6"
-              style={{
-                maxWidth: '64ch',
-                margin: '0 auto 1.5rem auto'
+      {/* Defensive container wrapper for main content */}
+      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+        <div className="relative z-20 responsive-container-narrow flex items-center justify-center h-full">
+          <div className="space-responsive-xl text-center">
+            {/* Main Content Card */}
+            <div 
+              ref={titleReveal.ref} 
+              className="hero-reveal p-responsive-md"
+              style={{ 
+                borderRadius: '16px',
+                border: '1px solid var(--border-primary)',
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
               }}
             >
-              Transform Your{' '}
-              <span className="text-bordeaux-600">
-                Wine Cave
-              </span>
-              <br />
-              Into a Thriving{' '}
-              <span className="text-bordeaux-700">
-                Business
-              </span>
-            </h1>
+              {/* Badge */}
+              <div className="inline-flex items-center px-4 py-2 bg-bordeaux-50 text-bordeaux-700 rounded-full text-sm font-medium mb-6">
+                <Star className="h-4 w-4 mr-2" />
+                Trusted by 500+ Wine Clubs
+              </div>
 
-            {/* Clean Subtitle */}
-            <div 
-              ref={subtitleReveal.ref}
-              className="hero-subtitle-reveal text-text-secondary mb-8 responsive-text leading-relaxed"
-              style={{
-                maxWidth: '64ch',
-                margin: '0 auto 2rem auto'
-              }}
-            >
-              Launch your boutique wine subscription service with our all-in-one platform. 
-              From inventory management to customer loyalty programs, we handle the technology 
-              so you can focus on crafting exceptional wine experiences that delight your members.
-            </div>
-
-            {/* Clean CTA Buttons */}
-            <div 
-              ref={ctaReveal.ref}
-              className="cta-bar-reveal flex-responsive justify-center items-center"
-            >
-              <Button
-                to="/signup"
-                variant="primary"
-                size="md"
-                leftIcon={<span className="text-xl">🍷</span>}
-                rightIcon={
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                }
-                className="group touch-optimized"
+              {/* Main Headline */}
+              <h1 
+                className="responsive-heading-1 font-luxury text-text-primary leading-tight mb-6"
+                style={{
+                  maxWidth: '64ch',
+                  margin: '0 auto 1.5rem auto'
+                }}
               >
-                Start Your Wine Business
-              </Button>
-              
-              <Button
-                to="/pricing"
-                variant="secondary"
-                size="md"
-                leftIcon={<span className="text-xl">📊</span>}
-                className="group touch-optimized"
+                The Complete Platform for
+                <span className="text-bordeaux-600"> Professional Wine Clubs</span>
+              </h1>
+
+              {/* Subtitle */}
+              <div 
+                ref={subtitleReveal.ref}
+                className="hero-subtitle-reveal text-text-secondary mb-8 responsive-text leading-relaxed"
+                style={{
+                  maxWidth: '64ch',
+                  margin: '0 auto 2rem auto'
+                }}
               >
-                View Live Demo
-              </Button>
+                Streamline your wine club operations with our all-in-one platform. 
+                Manage members, inventory, shipping, and analytics in one place. 
+                Scale your business with enterprise-grade tools designed for wine professionals.
+              </div>
+
+              {/* CTA Buttons */}
+              <div 
+                ref={ctaReveal.ref}
+                className="cta-bar-reveal flex-responsive justify-center items-center space-x-4"
+              >
+                <Button
+                  to={user ? "/dashboard" : "/signup"}
+                  variant="primary"
+                  size="lg"
+                  leftIcon={<Zap className="w-5 h-5" />}
+                  className="group touch-optimized"
+                >
+                  {user ? "Go to Dashboard" : "Start Free Trial"}
+                </Button>
+                
+                <Button
+                  to="/pricing"
+                  variant="secondary"
+                  size="lg"
+                  leftIcon={<BarChart3 className="w-5 h-5" />}
+                  className="group touch-optimized"
+                >
+                  View Pricing
+                </Button>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="mt-8 flex flex-wrap justify-center items-center space-x-6 text-sm text-gray-600">
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  No setup fees
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  14-day free trial
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
+                  Cancel anytime
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Trust Indicators - Clean Design */}
-          <div ref={trustReveal.ref} className="trust-indicator">
-            <div className="responsive-grid-3 bg-white/80 backdrop-blur-sm rounded-2xl p-responsive-md border border-gray-200 shadow-sm">
-              <div className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+            {/* Stats Section */}
+            <div ref={statsReveal.ref} className="mt-12">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-bordeaux-900 mb-2">500+</div>
+                  <div className="text-gray-600">Wine Clubs</div>
                 </div>
-                <span className="font-medium">No Setup Fees</span>
-              </div>
-              
-              <div className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-bordeaux-900 mb-2">50K+</div>
+                  <div className="text-gray-600">Members Managed</div>
                 </div>
-                <span className="font-medium">Free 14-Day Trial</span>
-              </div>
-              
-              <div className="flex items-center space-x-3 text-gray-700 hover:text-gray-900 transition-colors duration-300">
-                <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-bordeaux-900 mb-2">$2M+</div>
+                  <div className="text-gray-600">Revenue Generated</div>
                 </div>
-                <span className="font-medium">Cancel Anytime</span>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
 
-      {/* Floating Wine Glass Animation - Enhanced, desktop only */}
-      <div className="desktop-only absolute bottom-16 right-16 wine-glass-float pointer-events-none opacity-10 animate-champagne-bubble">
-        <svg width="80" height="100" viewBox="0 0 80 100" className="text-champagne-400 drop-shadow-champagne">
-          <ellipse cx="40" cy="30" rx="25" ry="20" fill="currentColor" opacity="0.4" />
-          <rect x="37" y="50" width="6" height="35" fill="currentColor" />
-          <ellipse cx="40" cy="88" rx="18" ry="6" fill="currentColor" />
-          <circle cx="35" cy="25" r="2" fill="currentColor" opacity="0.6" />
-          <circle cx="45" cy="20" r="1.5" fill="currentColor" opacity="0.8" />
-          <circle cx="40" cy="35" r="1" fill="currentColor" opacity="0.7" />
-        </svg>
-      </div>
-
-      {/* Simple Scroll Indicator */}
-      <div className="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2 mobile-landscape-optimize">
-        <div className="flex flex-col items-center space-y-3 text-gray-500 hover:text-gray-700 transition-colors duration-300 group">
-          <span className="text-sm mobile-only:text-xs">Discover More</span>
-          <div className="w-6 h-10 border-2 border-gray-300 rounded-full flex justify-center group-hover:border-gray-500 transition-colors duration-300">
-            <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-bounce group-hover:bg-gray-600 transition-colors duration-300"></div>
+            {/* Features Grid */}
+            <div ref={featuresReveal.ref} className="mt-16">
+              <h2 className="text-2xl font-bold text-gray-900 mb-8">Everything you need to succeed</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
+                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
+                    <Users className="h-6 w-6 text-bordeaux-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Member Management</h3>
+                  <p className="text-gray-600 text-sm">
+                    Complete member profiles, subscription management, and automated communications.
+                  </p>
+                </div>
+                
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
+                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
+                    <BarChart3 className="h-6 w-6 text-bordeaux-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Analytics & Insights</h3>
+                  <p className="text-gray-600 text-sm">
+                    Powerful analytics to understand member behavior and optimize your business.
+                  </p>
+                </div>
+                
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
+                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
+                    <Shield className="h-6 w-6 text-bordeaux-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Enterprise Security</h3>
+                  <p className="text-gray-600 text-sm">
+                    Bank-level security with SOC 2 compliance and data encryption.
+                  </p>
+                </div>
+                
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
+                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
+                    <TrendingUp className="h-6 w-6 text-bordeaux-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Inventory Management</h3>
+                  <p className="text-gray-600 text-sm">
+                    Track wine inventory, manage suppliers, and automate reordering.
+                  </p>
+                </div>
+                
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
+                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
+                    <Zap className="h-6 w-6 text-bordeaux-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">Automated Shipping</h3>
+                  <p className="text-gray-600 text-sm">
+                    Automated shipping labels, tracking, and delivery notifications.
+                  </p>
+                </div>
+                
+                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
+                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
+                    <CheckCircle className="h-6 w-6 text-bordeaux-600" />
+                  </div>
+                  <h3 className="font-semibold text-gray-900 mb-2">24/7 Support</h3>
+                  <p className="text-gray-600 text-sm">
+                    Dedicated support team with phone, email, and live chat options.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

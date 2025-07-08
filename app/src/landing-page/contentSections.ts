@@ -7,69 +7,98 @@ import avatarPlaceholder from '../client/static/avatar-placeholder.webp';
 export const landingPageNavigationItems: NavigationItem[] = [
   { name: 'About', to: routes.AboutRoute?.to || '/about' },
   { name: 'Features', to: '#features' },
-  { name: 'How It Works', to: routes.HowItWorksRoute?.to || '/how-it-works' },
-  { name: 'Pricing', to: routes.PricingPageRoute.to },
   { name: 'Blog', to: routes.BlogRoute?.to || '/blog' },
   { name: 'Contact', to: routes.ContactRoute?.to || '/contact' },
 ];
 
+export const heroSection = {
+  title: "Premium Wine Subscriptions",
+  subtitle: "Discover exceptional French wines curated by expert sommeliers",
+  ctaText: "Start Your Journey",
+  ctaLink: routes.SignupRoute,
+  secondaryCtaText: "Learn More",
+  secondaryCtaLink: routes.AboutRoute,
+};
+
+export const featuresSection = {
+  title: "Why Choose WineClub Pro?",
+  subtitle: "Experience the finest French wines with our premium subscription service",
+  features: [
+    {
+      title: "Expert Curation",
+      description: "Each wine is carefully selected by certified sommeliers",
+      icon: "🍷"
+    },
+    {
+      title: "Premium Quality",
+      description: "Only the finest French wines from renowned regions",
+      icon: "⭐"
+    },
+    {
+      title: "Flexible Plans",
+      description: "Choose the subscription that fits your taste and budget",
+      icon: "📦"
+    }
+  ]
+};
+
 export const features = [
   {
-    name: 'Wine Cave Management',
-    description: 'Create and manage your wine cave with inventory, tiers, and member management tools.',
+    name: 'Coming Soon',
+    description: 'Wine cave management features coming soon.',
     icon: '🍷',
-    href: '/wine-caves',
+    href: '/dashboard',
   },
   {
-    name: 'Subscription Platform',
-    description: 'Launch wine subscription services with automated billing and member portals.',
+    name: 'Coming Soon',
+    description: 'Subscription platform features coming soon.',
     icon: '📦',
-    href: '/wine-subscriptions',
+    href: '/dashboard',
   },
   {
-    name: 'Member Analytics',
-    description: 'Track member preferences, subscription trends, and business performance.',
+    name: 'Coming Soon',
+    description: 'Member analytics features coming soon.',
     icon: '📊',
-    href: '/wine-cave-analytics',
+    href: '/dashboard',
   },
   {
-    name: 'Automated Shipping',
-    description: 'Integrated shipping with FedEx and UPS for seamless wine delivery.',
+    name: 'Coming Soon',
+    description: 'Automated shipping features coming soon.',
     icon: '🚚',
-    href: '/shipping-dashboard',
+    href: '/dashboard',
   },
   {
-    name: 'Loyalty Program',
-    description: 'Reward your best customers with points, referrals, and exclusive offers.',
+    name: 'Coming Soon',
+    description: 'Loyalty program features coming soon.',
     icon: '⭐',
-    href: '/loyalty-dashboard',
+    href: '/dashboard',
   },
   {
-    name: 'Personalized Recommendations',
-    description: 'AI-powered wine recommendations based on member preferences and ratings.',
+    name: 'Coming Soon',
+    description: 'AI recommendations coming soon.',
     icon: '🤖',
-    href: '/recommendations',
+    href: '/dashboard',
   },
 ];
 
 export const testimonials = [
   {
     name: 'Sarah Martinez',
-    role: 'Owner @ Sunset Vineyard',
+    role: 'Wine Enthusiast',
     avatarSrc: avatarPlaceholder,
-    socialUrl: 'https://twitter.com/sunsetvineyard',
-    quote: "This platform transformed our small vineyard into a thriving subscription business. We've grown from 50 to 500 members in just 6 months!",
+    socialUrl: 'https://twitter.com/sarahmartinez',
+    quote: "I love discovering new wines through my subscription. The personalized recommendations are spot-on every time!",
   },
   {
     name: 'Michael Chen',
-    role: 'Founder @ Napa Wine Cave',
+    role: 'Wine Collector',
     avatarSrc: avatarPlaceholder,
     socialUrl: '',
-    quote: 'The automated shipping and member management features saved us 20 hours a week. Now we can focus on what we love - making great wine.',
+    quote: 'The quality of wines and the convenience of delivery make this service exceptional.',
   },
   {
     name: 'Elena Rodriguez',
-    role: 'Wine Enthusiast & Subscriber',
+    role: 'Wine Enthusiast',
     avatarSrc: avatarPlaceholder,
     socialUrl: '#',
     quote: 'I love discovering new wines through my subscription. The personalized recommendations are spot-on every time!',
@@ -79,41 +108,39 @@ export const testimonials = [
 export const faqs = [
   {
     id: 1,
-    question: 'How do I get started with my wine subscription business?',
-    answer: 'Simply sign up, create your wine cave profile, add your wines and subscription tiers, and start accepting members. We provide step-by-step onboarding.',
-    href: '/onboarding-wizard',
+    question: 'How do I get started with my wine subscription?',
+    answer: 'Simply sign up and choose your preferred subscription plan. We\'ll guide you through the process step by step.',
+    href: '/dashboard',
   },
   {
     id: 2,
-    question: 'What shipping carriers do you support?',
-    answer: 'We integrate with FedEx and UPS for automated label printing and tracking. More carriers are being added regularly.',
-    href: '/shipping-dashboard',
+    question: 'What types of wines do you offer?',
+    answer: 'We focus on premium French wines from renowned regions, carefully curated by expert sommeliers.',
+    href: '/dashboard',
   },
   {
     id: 3,
-    question: 'Can I customize my subscription tiers?',
-    answer: 'Yes! Create unlimited subscription tiers with custom pricing, wine selections, and delivery frequencies to match your business model.',
-    href: '/wine-caves/create',
+    question: 'Can I customize my subscription?',
+    answer: 'Yes! You can choose from different subscription tiers and customize your preferences.',
+    href: '/dashboard',
   },
   {
     id: 4,
-    question: 'How does the loyalty program work?',
-    answer: 'Members earn points for purchases, referrals, and reviews. They can redeem points for discounts, exclusive wines, or special experiences.',
-    href: '/loyalty-dashboard',
+    question: 'How does shipping work?',
+    answer: 'We offer secure shipping with tracking to ensure your wines arrive safely and on time.',
+    href: '/dashboard',
   },
 ];
 
 export const footerNavigation = {
   app: [
-    { name: 'Wine Caves', href: '/wine-caves' },
-    { name: 'Subscriptions', href: '/wine-subscriptions' },
-    { name: 'Analytics', href: '/wine-cave-analytics' },
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Account', href: '/account' },
     { name: 'Documentation', href: DocsUrl },
   ],
   company: [
-    { name: 'About', href: 'https://wasp.sh' },
+    { name: 'About', href: '/about' },
     { name: 'Privacy', href: '#' },
     { name: 'Terms of Service', href: '#' },
-    { name: 'Wine Industry Compliance', href: '#' },
   ],
 };

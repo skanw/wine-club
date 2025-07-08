@@ -153,6 +153,20 @@ module.exports = {
           950: '#756432',  // Ultra Dark Champagne
         },
         
+        'warm-taupe': {
+          50: '#FDFCFA',
+          100: '#FAF7F2',
+          200: '#F5EFE6',
+          300: '#EDE4D4',
+          400: '#E2D5C0',
+          500: '#D4C4A8',
+          600: '#C2B08F',
+          700: '#A99A76',
+          800: '#8B7E62',
+          900: '#726752',
+          950: '#5A5242',
+        },
+        
         // Semantic colors with proper contrast
         accent: {
           red: '#8B4513',     // Light theme red

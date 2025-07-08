@@ -35,8 +35,11 @@ export default function AppNavbar() {
             <div className="w-full flex justify-center items-center text-xs tracking-wide text-bordeaux-700 mb-1">
               <span className="font-bold text-lg">🍷</span>
             </div>
-            <span className="text-xl font-bold text-bordeaux-900">WineClub</span>
+            <span className="text-xl font-bold text-bordeaux-900">WineClub Pro</span>
           </Link>
+
+          {/* Spacer to center nav links */}
+          <div className="flex-1" />
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
@@ -49,20 +52,56 @@ export default function AppNavbar() {
               Home
             </Link>
             <Link
+              to="/discover"
+              className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
+                isActive('/discover') ? 'font-semibold' : ''
+              }`}
+            >
+              Discover Wines
+            </Link>
+            {user && (
+              <>
+                <Link
+                  to="/dashboard"
+                  className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
+                    isActive('/dashboard') ? 'font-semibold' : ''
+                  }`}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="/member-portal"
+                  className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
+                    isActive('/member-portal') ? 'font-semibold' : ''
+                  }`}
+                >
+                  My Subscriptions
+                </Link>
+                <Link
+                  to="/wine-cave"
+                  className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
+                    isActive('/wine-cave') ? 'font-semibold' : ''
+                  }`}
+                >
+                  My Wine Cave
+                </Link>
+              </>
+            )}
+            <Link
+              to="/pricing"
+              className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
+                isActive('/pricing') ? 'font-semibold' : ''
+              }`}
+            >
+              Pricing
+            </Link>
+            <Link
               to="/about"
               className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
                 isActive('/about') ? 'font-semibold' : ''
               }`}
             >
               About
-            </Link>
-            <Link
-              to="/blog"
-              className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
-                isActive('/blog') ? 'font-semibold' : ''
-              }`}
-            >
-              Blog
             </Link>
             <Link
               to="/contact"
@@ -72,20 +111,20 @@ export default function AppNavbar() {
             >
               Contact
             </Link>
-            <Link
-              to="/pricing"
-              className={`flex items-center duration-300 ease-in-out text-bordeaux-900 hover:text-bordeaux-700 ${
-                isActive('/pricing') ? 'font-semibold' : ''
-              }`}
-            >
-              Pricing
-            </Link>
           </div>
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
             {user ? (
-              <DropdownUser user={user} />
+              <div className="flex items-center space-x-4">
+                <Link
+                  to="/account"
+                  className="text-bordeaux-900 hover:text-bordeaux-700 font-medium"
+                >
+                  Account
+                </Link>
+                <DropdownUser user={user} />
+              </div>
             ) : (
               <div className="flex items-center space-x-4">
                 <Link
@@ -98,7 +137,7 @@ export default function AppNavbar() {
                   to="/signup"
                   className="bg-bordeaux-600 text-white px-4 py-2 rounded-lg hover:bg-bordeaux-700 transition-colors duration-300"
                 >
-                  Get Started
+                  Start Free Trial
                 </Link>
               </div>
             )}

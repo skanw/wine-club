@@ -4,7 +4,20 @@ import type { PrismaClient } from '@prisma/client';
 import { sanitizeAndSerializeProviderData } from 'wasp/auth/utils';
 import { getSubscriptionPaymentPlanIds, SubscriptionStatus } from '../../shared/plans';
 
-type MockUserData = Omit<User, 'id' | 'loyaltyPointsHistory' | 'referralsSent' | 'referralsReceived' | 'preferences' | 'wineRatings'>;
+// Define MockUserData explicitly to avoid type issues
+type MockUserData = {
+  email: string;
+  username: string;
+  createdAt: Date;
+  isAdmin: boolean;
+  credits: number;
+  loyaltyPoints: number;
+  subscriptionStatus: SubscriptionStatus | null;
+  lemonSqueezyCustomerPortalUrl: string | null;
+  paymentProcessorUserId: string | null;
+  datePaid: Date | null;
+  subscriptionPlan: string | null;
+};
 
 /**
  * This function, which we've imported in `app.db.seeds` in the `main.wasp` file,

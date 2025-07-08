@@ -1,0 +1,67 @@
+/* Design Tokens - Champagne Theme */
+
+:root {
+  /* Colors */
+  --color-champagne-50: #fefcf8;
+  --color-champagne-100: #fdf8f0;
+  --color-champagne-200: #faf0d8;
+  --color-champagne-300: #f5e4b8;
+  --color-champagne-400: #eed494;
+  --color-champagne-500: #e6c06a;
+  --color-champagne-600: #dba83c;
+  --color-champagne-700: #c08a2a;
+  --color-champagne-800: #9a6e25;
+  --color-champagne-900: #7d5a22;
+
+  --color-bordeaux-50: #fdf2f2;
+  --color-bordeaux-100: #fce7e7;
+  --color-bordeaux-200: #f9d3d3;
+  --color-bordeaux-300: #f4b3b3;
+  --color-bordeaux-400: #ec8585;
+  --color-bordeaux-500: #e05c5c;
+  --color-bordeaux-600: #d13a3a;
+  --color-bordeaux-700: #b02d2d;
+  --color-bordeaux-800: #922929;
+  --color-bordeaux-900: #7a2727;
+
+  --color-warm-taupe-50: #faf9f7;
+  --color-warm-taupe-100: #f3f1ed;
+  --color-warm-taupe-200: #e8e3db;
+  --color-warm-taupe-300: #d7cec2;
+  --color-warm-taupe-400: #c1b4a3;
+  --color-warm-taupe-500: #a99a85;
+  --color-warm-taupe-600: #8f7f6a;
+  --color-warm-taupe-700: #756757;
+  --color-warm-taupe-800: #615549;
+  --color-warm-taupe-900: #52473e;
+
+  /* Typography */
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+} 

@@ -1,29 +1,19 @@
-import { createCheckout } from '@lemonsqueezy/lemonsqueezy.js';
-
-interface LemonSqueezyCheckoutSessionParams {
-  storeId: string;
-  variantId: string;
-  userEmail: string;
-  userId: string;
+// Lemon Squeezy checkout utilities
+export interface LemonSqueezyCheckoutOptions {
+  variantId: string
+  successUrl: string
+  cancelUrl: string
+  customerEmail?: string
 }
 
-export async function createLemonSqueezyCheckoutSession({ storeId, variantId, userEmail, userId }: LemonSqueezyCheckoutSessionParams) {
-  const { data: session, error } = await createCheckout(storeId, variantId, {
-    checkoutData: {
-      email: userEmail,
-      custom: {
-        user_id: userId // You app's unique user ID is sent on checkout, and it's returned in the webhook so we can easily identify the user.
-      }
-    }
-  });
-  if (error) {
-    throw error;
-  }
-  if (!session) {
-    throw new Error('Checkout not found');
-  }
+export function createLemonSqueezyCheckoutSession(options: LemonSqueezyCheckoutOptions) {
+  // Placeholder implementation
   return {
-    url: session.data.attributes.url,
-    id: session.data.id,
-  };
+    sessionId: 'ls_' + Math.random().toString(36).substr(2, 9),
+    url: 'https://app.lemonsqueezy.com/checkout/buy/' + options.variantId
+  }
 }
+
+export function getLemonSqueezyCustomerPortalUrl(customerId: string) {
+  return `https://app.lemonsqueezy.com/customer/${customerId}`
+} 
