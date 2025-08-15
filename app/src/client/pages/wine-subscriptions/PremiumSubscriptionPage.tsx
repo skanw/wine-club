@@ -24,8 +24,8 @@ interface FeaturedBottle {
 }
 
 const PremiumSubscriptionPage: React.FC = () => {
-  const [activeTheme, _setActiveTheme] = useState('red');
-  const [activeTab, setActiveTab] = useState<'red' | 'white'>('red');
+  const [activeTheme, _setActiveTheme] = useState('white');
+  const [activeTab, setActiveTab] = useState<'red' | 'white'>('white');
 
   const heroAnimation = useScrollAnimation({ animationType: 'fadeIn' });
   const whyJoinAnimation = useScrollAnimation({ animationType: 'slideUp', delay: 200 });
@@ -33,7 +33,7 @@ const PremiumSubscriptionPage: React.FC = () => {
   const plansAnimation = useScrollAnimation({ animationType: 'slideUp', delay: 600 });
 
   useEffect(() => {
-    document.body.className = `theme-${activeTheme}`;
+    document.body.className = `theme-white`;
   }, [activeTheme]);
 
   const redWinePlans: SubscriptionPlan[] = [

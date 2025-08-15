@@ -117,15 +117,15 @@ const PricingPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-champagne-50 to-bordeaux-50">
+    <div className="min-h-screen bg-gradient-to-br from-ivory via-shell to-porcelain">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
+      <div className="bg-shell shadow-wc border-b border-porcelain">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl font-bold text-cave mb-4">
               Choose Your Wine Club Plan
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-grape-seed max-w-3xl mx-auto">
               Scale your wine club business with our comprehensive platform. 
               Start free and upgrade as you grow.
             </p>
@@ -136,13 +136,13 @@ const PricingPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Billing Toggle */}
         <div className="flex justify-center mb-12">
-          <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-200">
+          <div className="bg-shell rounded-card p-1 shadow-wc border border-porcelain">
             <button
               onClick={() => setIsAnnual(false)}
               className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
                 !isAnnual
-                  ? 'bg-bordeaux-600 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-champagne text-cave'
+                  : 'text-grape-seed hover:text-cave'
               }`}
             >
               Monthly
@@ -151,12 +151,12 @@ const PricingPage: React.FC = () => {
               onClick={() => setIsAnnual(true)}
               className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
                 isAnnual
-                  ? 'bg-bordeaux-600 text-white'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-champagne text-cave'
+                  : 'text-grape-seed hover:text-cave'
               }`}
             >
               Annual
-              <span className="ml-1 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+              <span className="ml-1 bg-chablis text-cave text-xs px-2 py-1 rounded-full">
                 Save 25%
               </span>
             </button>
@@ -168,15 +168,15 @@ const PricingPage: React.FC = () => {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative bg-white rounded-2xl shadow-lg border-2 p-8 ${
+              className={`relative bg-shell rounded-card shadow-wc border-2 p-8 ${
                 plan.popular
-                  ? 'border-bordeaux-500 scale-105'
-                  : 'border-gray-200 hover:border-gray-300'
+                  ? 'border-champagne scale-105'
+                  : 'border-porcelain hover:border-champagne'
               }`}
             >
               {plan.popular && (
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-bordeaux-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-champagne text-cave px-4 py-1 rounded-full text-sm font-medium shadow-wc">
                     Most Popular
                   </span>
                 </div>
@@ -184,36 +184,31 @@ const PricingPage: React.FC = () => {
 
               <div className="text-center mb-8">
                 <div className="flex justify-center mb-4">
-                  <div className="p-3 rounded-full bg-bordeaux-100">
-                    <plan.icon className="h-8 w-8 text-bordeaux-600" />
+                  <div className="p-3 rounded-full bg-champagne/20">
+                    <plan.icon className="h-8 w-8 text-champagne" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <p className="text-gray-600 mb-6">{plan.description}</p>
+                <h3 className="text-2xl font-bold text-cave mb-2">{plan.name}</h3>
+                <p className="text-grape-seed mb-6">{plan.description}</p>
                 
                 <div className="mb-6">
                   <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-gray-900">${plan.price}</span>
-                    <span className="text-gray-500 ml-2">/month</span>
+                    <span className="text-4xl font-bold text-cave">${plan.price}</span>
+                    <span className="text-grape-seed ml-2">/month</span>
                   </div>
                   {isAnnual && (
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-grape-seed mt-1">
                       Billed annually (${plan.price * 12})
                     </p>
                   )}
                 </div>
 
-                {/* The original code had Link components here, but Link is not imported.
-                    Assuming the intent was to use a regular anchor tag or a placeholder
-                    for a future import, or that the user intended to remove the Link
-                    components as they are not used. For now, I'm removing the Link
-                    components as they are not imported. */}
                 <a
                   href={plan.name === 'Enterprise' ? '/contact' : '/signup'}
                   className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
                     plan.popular
-                      ? 'bg-bordeaux-600 text-white hover:bg-bordeaux-700'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                      ? 'bg-champagne text-cave hover:bg-chablis'
+                      : 'bg-ivory text-cave hover:bg-champagne hover:text-cave'
                   }`}
                 >
                   {plan.cta}
@@ -221,24 +216,24 @@ const PricingPage: React.FC = () => {
               </div>
 
               <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">What's included:</h4>
+                <h4 className="font-semibold text-cave">What's included:</h4>
                 <ul className="space-y-3">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center">
-                      <Check className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
+                      <Check className="h-5 w-5 text-champagne mr-3 flex-shrink-0" />
+                      <span className="text-grape-seed">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 
                 {plan.notIncluded.length > 0 && (
                   <>
-                    <h4 className="font-semibold text-gray-900 mt-6">Not included:</h4>
+                    <h4 className="font-semibold text-cave mt-6">Not included:</h4>
                     <ul className="space-y-3">
                       {plan.notIncluded.map((feature) => (
                         <li key={feature} className="flex items-center">
-                          <X className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
-                          <span className="text-gray-500">{feature}</span>
+                          <X className="h-5 w-5 text-porcelain mr-3 flex-shrink-0" />
+                          <span className="text-grape-seed opacity-60">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -250,52 +245,52 @@ const PricingPage: React.FC = () => {
         </div>
 
         {/* Feature Comparison */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-          <div className="px-8 py-6 border-b border-gray-200">
-            <h2 className="text-2xl font-bold text-gray-900">Feature Comparison</h2>
-            <p className="text-gray-600 mt-2">Compare all features across our plans</p>
+        <div className="bg-shell rounded-card shadow-wc border border-porcelain overflow-hidden">
+          <div className="px-8 py-6 border-b border-porcelain">
+            <h2 className="text-2xl font-bold text-cave">Feature Comparison</h2>
+            <p className="text-grape-seed mt-2">Compare all features across our plans</p>
           </div>
           
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-ivory">
                 <tr>
-                  <th className="px-8 py-4 text-left text-sm font-medium text-gray-900">Feature</th>
-                  <th className="px-8 py-4 text-center text-sm font-medium text-gray-900">Starter</th>
-                  <th className="px-8 py-4 text-center text-sm font-medium text-gray-900">Professional</th>
-                  <th className="px-8 py-4 text-center text-sm font-medium text-gray-900">Enterprise</th>
+                  <th className="px-8 py-4 text-left text-sm font-medium text-cave">Feature</th>
+                  <th className="px-8 py-4 text-center text-sm font-medium text-cave">Starter</th>
+                  <th className="px-8 py-4 text-center text-sm font-medium text-cave">Professional</th>
+                  <th className="px-8 py-4 text-center text-sm font-medium text-cave">Enterprise</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-porcelain">
                 {features.map((category) => (
                   <React.Fragment key={category.category}>
-                    <tr className="bg-gray-50">
+                    <tr className="bg-ivory">
                       <td colSpan={4} className="px-8 py-3">
-                        <h3 className="font-semibold text-gray-900">{category.category}</h3>
+                        <h3 className="font-semibold text-cave">{category.category}</h3>
                       </td>
                     </tr>
                     {category.items.map((item) => (
-                      <tr key={item.name} className="hover:bg-gray-50">
-                        <td className="px-8 py-4 text-sm text-gray-900">{item.name}</td>
+                      <tr key={item.name} className="hover:bg-ivory/50">
+                        <td className="px-8 py-4 text-sm text-cave">{item.name}</td>
                         <td className="px-8 py-4 text-center">
                           {item.starter ? (
-                            <Check className="h-5 w-5 text-green-500 mx-auto" />
+                            <Check className="h-5 w-5 text-champagne mx-auto" />
                           ) : (
-                            <X className="h-5 w-5 text-gray-400 mx-auto" />
+                            <X className="h-5 w-5 text-porcelain mx-auto" />
                           )}
                         </td>
                         <td className="px-8 py-4 text-center">
                           {item.pro ? (
-                            <Check className="h-5 w-5 text-green-500 mx-auto" />
+                            <Check className="h-5 w-5 text-champagne mx-auto" />
                           ) : (
-                            <X className="h-5 w-5 text-gray-400 mx-auto" />
+                            <X className="h-5 w-5 text-porcelain mx-auto" />
                           )}
                         </td>
                         <td className="px-8 py-4 text-center">
                           {item.enterprise ? (
-                            <Check className="h-5 w-5 text-green-500 mx-auto" />
+                            <Check className="h-5 w-5 text-champagne mx-auto" />
                           ) : (
-                            <X className="h-5 w-5 text-gray-400 mx-auto" />
+                            <X className="h-5 w-5 text-porcelain mx-auto" />
                           )}
                         </td>
                       </tr>
@@ -309,39 +304,39 @@ const PricingPage: React.FC = () => {
 
         {/* FAQ Section */}
         <div className="mt-16">
-          <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+          <h2 className="text-3xl font-bold text-cave text-center mb-12">
             Frequently Asked Questions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-cave mb-2">
                 Can I change plans anytime?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grape-seed">
                 Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-cave mb-2">
                 Is there a free trial?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grape-seed">
                 All plans come with a 14-day free trial. No credit card required to start.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-cave mb-2">
                 What payment methods do you accept?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grape-seed">
                 We accept all major credit cards, PayPal, and bank transfers for annual plans.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-cave mb-2">
                 Do you offer custom pricing?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-grape-seed">
                 Yes, we offer custom pricing for enterprise customers with specific requirements.
               </p>
             </div>
@@ -350,21 +345,21 @@ const PricingPage: React.FC = () => {
 
         {/* CTA Section */}
         <div className="mt-16 text-center">
-          <div className="bg-gradient-to-r from-bordeaux-600 to-bordeaux-700 rounded-2xl p-12 text-white">
+          <div className="bg-gradient-to-r from-cave to-grape-seed rounded-card p-12 text-ivory shadow-wc">
             <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Wine Club?</h2>
-            <p className="text-xl mb-8 opacity-90">
+            <p className="text-xl mb-8 text-champagne">
               Join thousands of wine clubs already using our platform
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="/signup"
-                className="bg-white text-bordeaux-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+                className="bg-champagne text-cave px-8 py-3 rounded-lg font-semibold hover:bg-chablis transition-colors shadow-wc"
               >
                 Start Free Trial
               </a>
               <a
                 href="/contact"
-                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-bordeaux-600 transition-colors"
+                className="border-2 border-champagne text-champagne px-8 py-3 rounded-lg font-semibold hover:bg-champagne hover:text-cave transition-colors"
               >
                 Schedule Demo
               </a>

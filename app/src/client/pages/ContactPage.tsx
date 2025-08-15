@@ -102,24 +102,24 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-bordeaux-50 via-champagne-50 to-bordeaux-100">
+    <div className="min-h-screen bg-gradient-to-br from-ivory via-shell to-porcelain">
       {/* Background Blurred Shapes */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-bordeaux-200 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-champagne-300 rounded-full blur-3xl opacity-20"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-bordeaux-300 rounded-full blur-3xl opacity-10"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-champagne rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-chablis rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-grape-seed rounded-full blur-3xl opacity-10"></div>
       </div>
 
       <div className="relative z-10">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-bordeaux-900/20 to-champagne-900/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-champagne/20 to-chablis/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-bordeaux-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-cave mb-6">
               {tFallback('contact.hero.title', 'Get in Touch')}
             </h1>
-            <p className="text-xl text-bordeaux-700 max-w-3xl mx-auto">
+            <p className="text-xl text-grape-seed max-w-3xl mx-auto">
               {tFallback('contact.hero.subtitle', 'We\'re here to help with any questions about our wine club')}
             </p>
           </div>
@@ -131,14 +131,14 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl p-8 shadow-xl">
-              <h2 className="text-2xl font-bold text-bordeaux-900 mb-6">
+            <div className="bg-shell rounded-card p-8 shadow-wc border border-porcelain">
+              <h2 className="text-2xl font-bold text-cave mb-6">
                 {tFallback('contact.form.title', 'Send us a Message')}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-bordeaux-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-grape-seed mb-2">
                       {tFallback('contact.form.name', 'Full Name')}
                     </label>
                     <input
@@ -148,11 +148,11 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-bordeaux-200 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-transparent bg-white text-bordeaux-900"
+                      className="w-full px-4 py-3 border border-porcelain rounded-lg focus:ring-2 focus:ring-champagne focus:border-transparent bg-ivory text-cave"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-bordeaux-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-grape-seed mb-2">
                       {tFallback('contact.form.email', 'Email Address')}
                     </label>
                     <input
@@ -162,12 +162,12 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-bordeaux-200 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-transparent bg-white text-bordeaux-900"
+                      className="w-full px-4 py-3 border border-porcelain rounded-lg focus:ring-2 focus:ring-champagne focus:border-transparent bg-ivory text-cave"
                     />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-bordeaux-700 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-medium text-grape-seed mb-2">
                     {tFallback('contact.form.subject', 'Subject')}
                   </label>
                   <select
@@ -176,7 +176,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-bordeaux-200 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-transparent bg-white text-bordeaux-900"
+                    className="w-full px-4 py-3 border border-porcelain rounded-lg focus:ring-2 focus:ring-champagne focus:border-transparent bg-ivory text-cave"
                   >
                     <option value="">{tFallback('contact.form.selectSubject', 'Select a subject')}</option>
                     {subjects.map((subject) => (
@@ -187,7 +187,7 @@ export default function ContactPage() {
                   </select>
                 </div>
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-bordeaux-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-medium text-grape-seed mb-2">
                     {tFallback('contact.form.message', 'Message')}
                   </label>
                   <textarea
@@ -197,7 +197,7 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-bordeaux-200 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-transparent bg-white text-bordeaux-900 resize-none"
+                    className="w-full px-4 py-3 border border-porcelain rounded-lg focus:ring-2 focus:ring-champagne focus:border-transparent bg-ivory text-cave resize-none"
                   />
                 </div>
                 <Button type="submit" variant="primary" size="lg" className="w-full">
@@ -209,10 +209,10 @@ export default function ContactPage() {
             {/* Contact Information */}
             <div className="space-y-8">
               <div>
-                <h2 className="text-2xl font-bold text-bordeaux-900 mb-6">
+                <h2 className="text-2xl font-bold text-cave mb-6">
                   {tFallback('contact.info.title', 'Contact Information')}
                 </h2>
-                <p className="text-bordeaux-700 mb-8">
+                <p className="text-grape-seed mb-8">
                   {tFallback('contact.info.subtitle', 'We\'re here to help with any questions')}
                 </p>
               </div>
@@ -220,22 +220,22 @@ export default function ContactPage() {
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-bordeaux-600 rounded-lg flex items-center justify-center text-white">
+                    <div className="flex-shrink-0 w-12 h-12 bg-champagne rounded-lg flex items-center justify-center text-cave shadow-wc">
                       {info.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-bordeaux-900 mb-1">
+                      <h3 className="text-lg font-semibold text-cave mb-1">
                         {info.title}
                       </h3>
                       {info.link ? (
                         <a
                           href={info.link}
-                          className="text-bordeaux-700 hover:text-bordeaux-600 transition-colors duration-300"
+                          className="text-grape-seed hover:text-champagne transition-colors duration-300"
                         >
                           {info.value}
                         </a>
                       ) : (
-                        <p className="text-bordeaux-700">
+                        <p className="text-grape-seed">
                           {info.value}
                         </p>
                       )}
@@ -246,7 +246,7 @@ export default function ContactPage() {
 
               {/* Social Links */}
               <div>
-                <h3 className="text-xl font-semibold text-bordeaux-900 mb-4">
+                <h3 className="text-xl font-semibold text-cave mb-4">
                   {tFallback('contact.social.title', 'Follow Us')}
                 </h3>
                 <div className="flex space-x-4">
@@ -254,7 +254,7 @@ export default function ContactPage() {
                     <a
                       key={index}
                       href={social.href}
-                      className="w-12 h-12 bg-bordeaux-600 rounded-lg flex items-center justify-center text-white hover:bg-bordeaux-700 transition-colors duration-300"
+                      className="w-12 h-12 bg-champagne rounded-lg flex items-center justify-center text-cave hover:bg-chablis transition-colors duration-300 shadow-wc"
                       aria-label={social.label}
                     >
                       {social.icon}
@@ -268,24 +268,24 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-shell">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-bordeaux-900 mb-4">
+            <h2 className="text-3xl font-bold text-cave mb-4">
               {tFallback('contact.faq.title', 'Frequently Asked Questions')}
             </h2>
-            <p className="text-lg text-bordeaux-700">
+            <p className="text-lg text-grape-seed">
               {tFallback('contact.faq.subtitle', 'Find answers to common questions')}
             </p>
           </div>
 
           <div className="space-y-6">
             {faqs.map((faq, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-lg">
-                <h3 className="text-lg font-semibold text-bordeaux-900 mb-3">
+              <div key={index} className="bg-ivory rounded-card p-6 shadow-wc border border-porcelain">
+                <h3 className="text-lg font-semibold text-cave mb-3">
                   {faq.question}
                 </h3>
-                <p className="text-bordeaux-700">
+                <p className="text-grape-seed">
                   {faq.answer}
                 </p>
               </div>
