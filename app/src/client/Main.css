@@ -36,15 +36,70 @@
   }
 
   .btn-primary {
-    @apply bg-champagne hover:bg-chablis text-cave font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 focus:ring-champagne;
+    background-color: #E9D9A6;
+    color: #2C2A24;
+    font-weight: 600;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transform: translateY(0);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-primary:hover {
+    background-color: #DCCB8A;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+  
+  .btn-primary:focus {
+    outline: none;
+    ring: 2px solid #E9D9A6;
   }
   
   .btn-secondary {
-    @apply bg-white hover:bg-shell text-cave font-semibold border-2 border-porcelain hover:border-champagne shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus:ring-champagne;
+    background-color: white;
+    color: #2C2A24;
+    font-weight: 600;
+    border: 2px solid #EEE9DF;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transform: translateY(0);
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #F7F4EE;
+    border-color: #E9D9A6;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .btn-secondary:active {
+    transform: translateY(0);
+  }
+  
+  .btn-secondary:focus {
+    outline: none;
+    ring: 2px solid #E9D9A6;
   }
 
   .btn-ghost {
-    @apply bg-transparent hover:bg-shell text-grape-seed hover:text-cave font-medium focus:ring-champagne;
+    background-color: transparent;
+    color: #6E664C;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .btn-ghost:hover {
+    background-color: #F7F4EE;
+    color: #2C2A24;
+  }
+  
+  .btn-ghost:focus {
+    outline: none;
+    ring: 2px solid #E9D9A6;
   }
 
   /* Button Sizes */
