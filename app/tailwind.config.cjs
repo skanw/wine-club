@@ -127,13 +127,13 @@ module.exports = {
         },
         
         // White-wine luxury palette
-        ivory: 'var(--wc-ivory)',
-        shell: 'var(--wc-shell)', 
-        porcelain: 'var(--wc-porcelain)',
-        champagne: 'var(--wc-champagne)',
-        chablis: 'var(--wc-chablis)',
-        'grape-seed': 'var(--wc-grape-seed)',
-        cave: 'var(--wc-cave)',
+        ivory: '#FBFAF7',
+        shell: '#F7F4EE', 
+        porcelain: '#EEE9DF',
+        champagne: '#E9D9A6',
+        chablis: '#DCCB8A',
+        'grape-seed': '#6E664C',
+        cave: '#2C2A24',
 
         // Luxury color palette additions
         bordeaux: {
@@ -366,8 +366,8 @@ module.exports = {
         'micro': 'ease-out',
       },
       borderRadius: {
-        'card': 'var(--wc-r-card)',
-        'hero': 'var(--wc-r-hero)',
+        'card': '28px',
+        'hero': '36px',
       },
       animation: {
         'luxury-fade': 'luxury-fade 0.6s ease-out forwards',
@@ -394,7 +394,7 @@ module.exports = {
         },
       },
       boxShadow: {
-        'wc': 'var(--wc-shadow)',
+        'wc': '0 8px 30px rgba(0,0,0,.07)',
         'luxury': '0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05)',
         'luxury-lg': '0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05)',
         'luxury-xl': '0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1)',
