@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { cn } from '../../cn';
 
 // Button variant types
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'default';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 // Base button props

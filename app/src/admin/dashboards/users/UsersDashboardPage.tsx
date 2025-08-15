@@ -7,7 +7,7 @@ const Users = ({ user }: { user: AuthUser }) => {
   useRedirectHomeUnlessUserIsAdmin({user})
 
   return (
-    <DefaultLayout user={user}>
+    <DefaultLayout _user={user}>
       <Breadcrumb pageName='Users' />
       <div className='flex flex-col gap-10'>
         <div className='text-gray-500 text-center py-12'>

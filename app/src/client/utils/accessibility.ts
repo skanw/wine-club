@@ -185,7 +185,11 @@ export const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
     '[tabindex]:not([tabindex="-1"])',
   ].join(',');
 
-  return Array.from(container.querySelectorAll(focusableSelectors));
+  return Array.from(container.querySelectorAll(focusableSelectors)).filter((_element, _index) => {
+    // Filter out hidden elements
+    const style = window.getComputedStyle(_element);
+    return style.display !== 'none' && style.visibility !== 'hidden';
+  }) as HTMLElement[];
 };
 
 /**

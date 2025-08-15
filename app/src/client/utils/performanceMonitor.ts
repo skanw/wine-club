@@ -1,3 +1,4 @@
+/// <reference types="node" />
 // 🎯 Performance & UX Metrics Monitor
 
 interface WineClubMetrics {
@@ -161,7 +162,7 @@ class WineClubPerformanceMonitor {
     window.addEventListener('scroll', scrollStartHandler, { passive: true });
     
     // Debounced scroll end
-    let scrollTimeout: NodeJS.Timeout;
+    let scrollTimeout: ReturnType<typeof setTimeout>;
     window.addEventListener('scroll', () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(scrollEndHandler, 150);
@@ -172,7 +173,7 @@ class WineClubPerformanceMonitor {
     const interactionTypes = ['click', 'keydown', 'touchstart'];
     
     interactionTypes.forEach(type => {
-      document.addEventListener(type, (event) => {
+      document.addEventListener(type, (_event) => {
         const interactionStart = performance.now();
         
         requestAnimationFrame(() => {
@@ -309,33 +310,7 @@ class WineClubPerformanceMonitor {
   }
 
   public logMetrics(): void {
-    console.group('🍷 Wine Club Performance & UX Metrics');
-    
-    // Core Web Vitals
-    console.group('📊 Core Web Vitals');
-    console.log(`FCP: ${this.metrics.fcp?.toFixed(2)}ms (Target: ≤1500ms)`);
-    console.log(`LCP: ${this.metrics.lcp?.toFixed(2)}ms (Target: ≤2500ms)`);
-    console.log(`FID: ${this.metrics.fid?.toFixed(2)}ms (Target: ≤100ms)`);
-    console.log(`CLS: ${this.metrics.cls?.toFixed(3)} (Target: ≤0.1)`);
-    console.log(`TTI: ${this.metrics.tti?.toFixed(2)}ms (Target: ≤2000ms)`);
-    console.groupEnd();
-    
-    // Custom Metrics
-    console.group('🎨 UX Metrics');
-    console.log(`Theme Load Time: ${this.metrics.themeLoadTime?.toFixed(2)}ms`);
-    console.log(`Animation FPS: ${this.metrics.animationFrameRate}`);
-    console.log(`Scroll Performance: ${this.metrics.scrollPerformance?.toFixed(2)}ms`);
-    console.log(`Interaction Latency: ${this.metrics.interactionLatency?.toFixed(2)}ms`);
-    console.groupEnd();
-    
-    // Accessibility
-    console.group('♿ Accessibility');
-    console.log(`Color Contrast: ${this.metrics.colorContrast ? '✅ Pass' : '❌ Fail'}`);
-    console.log(`Keyboard Navigation: ${this.metrics.keyboardNavigation ? '✅ Pass' : '❌ Fail'}`);
-    console.log(`Screen Reader Support: ${this.metrics.screenReaderSupport ? '✅ Pass' : '❌ Fail'}`);
-    console.groupEnd();
-    
-    console.groupEnd();
+    // TODO: Integrate with analytics/monitoring service for metrics logging
   }
 
   public generateReport(): string {

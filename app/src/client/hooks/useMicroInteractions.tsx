@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import React, { useEffect, useCallback, useRef, useState } from 'react';
 
 // 💫 Ripple Effect Hook
@@ -45,7 +46,7 @@ export const useCustomCursor = (targetSelector: string = '.wine-cursor-area') =>
     cursorRef.current = cursor;
 
     const targetElements = document.querySelectorAll(targetSelector);
-    let isHovering = false;
+    let _isHovering = false;
 
     // Mouse move handler
     const handleMouseMove = (e: MouseEvent) => {
@@ -57,7 +58,7 @@ export const useCustomCursor = (targetSelector: string = '.wine-cursor-area') =>
 
     // Mouse enter handler for target elements
     const handleMouseEnter = () => {
-      isHovering = true;
+      _isHovering = true;
       if (cursorRef.current) {
         cursorRef.current.classList.add('hover');
       }
@@ -65,8 +66,8 @@ export const useCustomCursor = (targetSelector: string = '.wine-cursor-area') =>
     };
 
     // Mouse leave handler for target elements
-    const handleMouseLeave = () => {
-      isHovering = false;
+    const handleMouseLeave = (_event: Event) => {
+      _isHovering = false;
       if (cursorRef.current) {
         cursorRef.current.classList.remove('hover');
       }
@@ -148,7 +149,7 @@ export const useLoadingState = (initialState: boolean = false) => {
 
 // 🌊 Intersection Observer Animation Hook
 export const useIntersectionAnimation = (
-  options: IntersectionObserverInit = {
+  options: { root?: Element | null; rootMargin?: string; threshold?: number | number[] } = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
   }
@@ -215,9 +216,9 @@ export const useEnhancedButton = () => {
         // Remove pressed state
         event.currentTarget.style.transform = '';
       },
-      onMouseLeave: (event: React.MouseEvent<HTMLButtonElement>) => {
+      onMouseLeave: (_event: React.MouseEvent<HTMLButtonElement>) => {
         // Ensure pressed state is removed
-        event.currentTarget.style.transform = '';
+        _event.currentTarget.style.transform = '';
       }
     };
   }, [createRipple, isLoading, withLoading]);

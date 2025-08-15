@@ -75,6 +75,11 @@ page LandingPage {
   component: import LandingPage from "@src/client/pages/LandingPage"
 }
 
+route ModernLandingPageRoute { path: "/modern", to: ModernLandingPage }
+page ModernLandingPage {
+  component: import ModernLandingPage from "@src/client/pages/ModernLandingPage"
+}
+
 route AboutRoute { path: "/about", to: AboutPage }
 page AboutPage {
   component: import AboutPage from "@src/client/pages/AboutPage"
@@ -133,6 +138,12 @@ page AccountPage {
   component: import Account from "@src/client/pages/user/AccountPage"
 }
 
+route MemberPortalRoute { path: "/member-portal", to: MemberPortalPage }
+page MemberPortalPage {
+  authRequired: true,
+  component: import MemberPortalPage from "@src/client/pages/user/MemberPortalPage"
+}
+
 route DashboardRoute { path: "/dashboard", to: DashboardPage }
 page DashboardPage {
   authRequired: true,
@@ -170,6 +181,13 @@ page DemoAppPage {
   component: import DemoAppPage from "@src/client/pages/demo/DemoAppPage"
 }
 
+// Demo Wine Cave Platform
+route DemoWineCaveRoute { path: "/demo-wine-cave", to: DemoWineCavePage }
+page DemoWineCavePage {
+  authRequired: false,
+  component: import DemoWineCavePage from "@src/client/pages/demo/DemoWineCavePage"
+}
+
 action generateGptResponse {
   fn: import { generateGptResponse } from "@src/demo-ai-app/operations",
   entities: [User, Task, GptResponse]
@@ -201,10 +219,6 @@ query getAllTasksByUser {
 }
 
 // Analytics
-query getDailyStats {
-  fn: import { getDailyStats } from "@src/analytics/operations",
-  entities: [User, DailyStats]
-}
 
 job dailyStatsJob {
   executor: PgBoss,
@@ -221,4 +235,297 @@ job dailyStatsJob {
 route NotFoundRoute { path: "*", to: NotFoundPage }
 page NotFoundPage {
   component: import { NotFoundPage } from "@src/client/components/NotFoundPage"
+} 
+
+// Wine Cave Operations
+action createWineCave {
+  fn: import { createWineCave } from "@src/wine-cave/operations",
+  entities: [WineCave, SubscriptionTier, Notification]
+}
+
+query getWineCave {
+  fn: import { getWineCave } from "@src/wine-cave/operations",
+  entities: [WineCave, SubscriptionTier, Wine, WineRating, User, WineSubscription]
+}
+
+action updateWineCave {
+  fn: import { updateWineCave } from "@src/wine-cave/operations",
+  entities: [WineCave]
+}
+
+query getWineCaveAnalytics {
+  fn: import { getWineCaveAnalytics } from "@src/wine-cave/operations",
+  entities: [WineCave, User, WineSubscription, Wine, WineRating]
+}
+
+// Wine Cave Routes
+route WineCaveOnboardingRoute { path: "/onboarding", to: WineCaveOnboardingPage }
+page WineCaveOnboardingPage {
+  authRequired: true,
+  component: import WineCaveOnboarding from "@src/client/components/onboarding/WineCaveOnboarding"
+}
+
+route CreateWineCaveRoute { path: "/wine-cave/create", to: CreateWineCavePage }
+page CreateWineCavePage {
+  authRequired: true,
+  component: import CreateWineCavePage from "@src/client/pages/wine-cave/CreateWineCavePage"
+}
+
+route WineCaveDashboardRoute { path: "/wine-cave/:wineCaveId/dashboard", to: WineCaveDashboardPage }
+page WineCaveDashboardPage {
+  authRequired: true,
+  component: import WineCaveDashboardPage from "@src/client/pages/wine-cave/WineCaveDashboardPage"
+}
+
+route PublicWineCaveRoute { path: "/wine-cave/:wineCaveId", to: PublicWineCavePage }
+page PublicWineCavePage {
+  component: import PublicWineCavePage from "@src/client/pages/wine-cave/PublicWineCavePage"
+}
+
+// Wine Cave Discovery
+route WineCaveDiscoveryRoute { path: "/wine-caves", to: WineCaveDiscoveryPage }
+page WineCaveDiscoveryPage {
+  component: import WineCaveDiscoveryPage from "@src/client/pages/wine-cave/WineCaveDiscoveryPage"
+} 
+
+
+
+// Payment Operations
+action createStripeSubscription {
+  fn: import { createStripeSubscription } from "@src/payment/operations",
+  entities: [User, WineSubscription, SubscriptionTier]
+}
+
+action cancelStripeSubscription {
+  fn: import { cancelStripeSubscription } from "@src/payment/operations",
+  entities: [WineSubscription]
+}
+
+action createCheckoutSession {
+  fn: import { createCheckoutSession } from "@src/payment/operations",
+  entities: [SubscriptionTier, WineCave]
+}
+
+// Analytics Operations
+query getComprehensiveAnalytics {
+  fn: import { getComprehensiveAnalytics } from "@src/analytics/operations",
+  entities: [WineSubscription, WineCave, SubscriptionTier, WineRating, Wine, Shipment, TrackingInfo]
+}
+
+query getDashboardMetrics {
+  fn: import { getDashboardMetrics } from "@src/analytics/operations",
+  entities: [WineSubscription, Wine, WineRating, Shipment]
+}
+
+// Shipping Operations
+action createShipment {
+  fn: import { createShipment } from "@src/shipping/operations",
+  entities: [Shipment, WineSubscription, Wine, ShipmentItem]
+}
+
+action updateShipment {
+  fn: import { updateShipment } from "@src/shipping/operations",
+  entities: [Shipment]
+}
+
+action generateShippingLabel {
+  fn: import { generateShippingLabel } from "@src/shipping/operations",
+  entities: [Shipment, WineSubscription, WineCave, User, ShipmentItem, TrackingInfo]
+}
+
+query getShipments {
+  fn: import { getShipments } from "@src/shipping/operations",
+  entities: [Shipment, WineSubscription, User, WineCave, SubscriptionTier, ShipmentItem, Wine]
+}
+
+query trackShipment {
+  fn: import { trackShipment } from "@src/shipping/operations",
+  entities: [TrackingInfo, Shipment, WineSubscription, User, WineCave]
+}
+
+query getShippingRates {
+  fn: import { getShippingRates } from "@src/shipping/operations",
+  entities: []
+}
+
+// Shipping Routes
+route ShippingManagementRoute { path: "/shipping/:subscriptionId", to: ShippingManagementPage }
+page ShippingManagementPage {
+  authRequired: true,
+  component: import ShippingManagementPage from "@src/client/pages/shipping/ShippingManagementPage"
+}
+
+// Test Routes
+route WineCaveCRUDTestRoute { path: "/test/wine-cave-crud", to: WineCaveCRUDTests }
+page WineCaveCRUDTests {
+  authRequired: true,
+  component: import WineCaveCRUDTests from "@src/test/WineCaveCRUDTests"
+}
+
+route UIComponentsTestRoute { path: "/test/ui-components", to: UIComponentsTestPage }
+route NavbarTestRoute { path: "/test/navbar", to: NavbarTestPage }
+page UIComponentsTestPage {
+  component: import UIComponentsTestPage from "@src/client/pages/test/UIComponentsTestPage"
+}
+page NavbarTestPage {
+  component: import NavbarTestPage from "@src/client/pages/NavbarTestPage"
+} 
+
+// Wine Subscription Operations
+query getUserSubscriptions {
+  fn: import { getUserSubscriptions } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription, WineCave, SubscriptionTier]
+}
+
+query getSubscriptionDetails {
+  fn: import { getSubscriptionDetails } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription, WineCave, SubscriptionTier]
+}
+
+query getSubscriptionAnalytics {
+  fn: import { getSubscriptionAnalytics } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription, Shipment, LoyaltyPoints]
+}
+
+action createWineSubscription {
+  fn: import { createSubscription } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription, User, WineCave, SubscriptionTier]
+}
+
+action updateWineSubscription {
+  fn: import { updateSubscription } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription]
+}
+
+action cancelWineSubscription {
+  fn: import { cancelSubscription } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription]
+}
+
+action reactivateWineSubscription {
+  fn: import { reactivateSubscription } from "@src/wine-subscriptions/operations",
+  entities: [WineSubscription]
+}
+
+action getBillingPortalUrl {
+  fn: import { getBillingPortalUrl } from "@src/wine-subscriptions/operations",
+  entities: [User]
+}
+
+action updateMemberPreferences {
+  fn: import { updateMemberPreferences } from "@src/wine-subscriptions/operations",
+  entities: [MemberPreferences]
+} 
+
+// AI Engine Operations
+query generateWineRecommendations {
+  fn: import { generateWineRecommendations } from "@src/ai-engine/operations",
+  entities: [WineProfile, WineRating, Wine, WineCave]
+}
+
+
+
+action generateTastingNotes {
+  fn: import { generateTastingNotes } from "@src/ai-engine/operations",
+  entities: [Wine, WineProfile]
+}
+
+ 
+
+// Notification Operations
+action createNotification {
+  fn: import { createNotification } from "@src/notifications/operations",
+  entities: [Notification]
+}
+
+action markNotificationAsRead {
+  fn: import { markNotificationAsRead } from "@src/notifications/operations",
+  entities: [Notification]
+}
+
+action sendTemplateNotification {
+  fn: import { sendTemplateNotification } from "@src/notifications/operations",
+  entities: [Notification]
+}
+
+action sendBulkNotifications {
+  fn: import { sendBulkNotifications } from "@src/notifications/operations",
+  entities: [Notification]
+}
+
+query getUserNotifications {
+  fn: import { getUserNotifications } from "@src/notifications/operations",
+  entities: [Notification]
+}
+
+query getUnreadNotificationCount {
+  fn: import { getUnreadNotificationCount } from "@src/notifications/operations",
+  entities: [Notification]
+} 
+
+// GDPR Compliance Operations
+action submitDataSubjectRequest {
+  fn: import { submitDataSubjectRequest } from "@src/compliance/gdpr",
+  entities: [DataSubjectRequest, User, Logs]
+}
+
+action recordUserConsent {
+  fn: import { recordUserConsent } from "@src/compliance/gdpr",
+  entities: [ConsentRecord, User]
+}
+
+action updateDataSubjectRequest {
+  fn: import { updateDataSubjectRequest } from "@src/compliance/gdpr",
+  entities: [DataSubjectRequest, Logs]
+}
+
+query getUserPersonalData {
+  fn: import { getUserPersonalData } from "@src/compliance/gdpr",
+  entities: [User, WineSubscription, WineCave, SubscriptionTier, WineRating, Wine, ConsentRecord, LoyaltyPoints, Referral, WineProfile, MemberPreferences]
+}
+
+query getUserConsentStatus {
+  fn: import { getUserConsentStatus } from "@src/compliance/gdpr",
+  entities: [ConsentRecord]
+}
+
+query getDataSubjectRequests {
+  fn: import { getDataSubjectRequests } from "@src/compliance/gdpr",
+  entities: [DataSubjectRequest, User]
+}
+
+// Loyalty & Referral Operations
+action createReferral {
+  fn: import { createReferral } from "@src/loyalty/operations",
+  entities: [Referral, User]
+}
+
+action completeReferral {
+  fn: import { completeReferral } from "@src/loyalty/operations",
+  entities: [Referral, User, LoyaltyPoints]
+}
+
+action awardLoyaltyPoints {
+  fn: import { awardLoyaltyPoints } from "@src/loyalty/operations",
+  entities: [LoyaltyPoints, User]
+}
+
+action redeemLoyaltyPoints {
+  fn: import { redeemLoyaltyPoints } from "@src/loyalty/operations",
+  entities: [LoyaltyTransaction, User]
+}
+
+query getUserLoyaltyHistory {
+  fn: import { getUserLoyaltyHistory } from "@src/loyalty/operations",
+  entities: [LoyaltyPoints]
+}
+
+query getReferralHistory {
+  fn: import { getReferralHistory } from "@src/loyalty/operations",
+  entities: [Referral, User, WineCave]
+}
+
+query getLoyaltyRewards {
+  fn: import { getLoyaltyRewards } from "@src/loyalty/operations",
+  entities: [User]
 } 

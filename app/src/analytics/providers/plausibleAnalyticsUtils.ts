@@ -63,12 +63,13 @@ async function getPrevDayViewsChangePercent() {
   const pageViewsYesterday = await getPageviewsForDate(yesterday);
   const pageViewsDayBeforeYesterday = await getPageviewsForDate(dayBeforeYesterday);
 
-  console.table({
-    pageViewsYesterday,
-    pageViewsDayBeforeYesterday,
-    typeY: typeof pageViewsYesterday,
-    typeDBY: typeof pageViewsDayBeforeYesterday,
-  });
+  // TODO: Integrate with production logging service
+  // console.table({
+  //   pageViewsYesterday,
+  //   pageViewsDayBeforeYesterday,
+  //   typeY: typeof pageViewsYesterday,
+  //   typeDBY: typeof pageViewsDayBeforeYesterday,
+  // });
 
   let change = 0;
   if (pageViewsYesterday === 0 || pageViewsDayBeforeYesterday === 0) {

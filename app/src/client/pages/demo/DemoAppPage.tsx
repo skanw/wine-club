@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from 'wasp/client/auth';
 // CSS imports are now handled in Main.css
 
 export default function DemoAppPage() {
-  const { t } = useTranslation();
+  const { t: _t } = useTranslation();
   const [activeDemo, setActiveDemo] = useState('overview');
 
   return (
@@ -71,7 +70,7 @@ export default function DemoAppPage() {
 }
 
 function OverviewDemo() {
-  const { t } = useTranslation();
+  const { t: _t } = useTranslation();
   
   return (
     <div className="p-6">
@@ -196,7 +195,7 @@ function ThemeDemo() {
 }
 
 function I18nDemo() {
-  const { t, i18n } = useTranslation();
+  const { t: _t, i18n } = useTranslation();
   
   return (
     <div className="p-6">

@@ -237,7 +237,7 @@ export const useBatchScrollReveal = (elements: string[], baseDelay: number = 0) 
     );
 
     // Observe all elements
-    elements.forEach((selector, index) => {
+    elements.forEach((selector, _index) => {
       const element = document.querySelector(selector) as HTMLDivElement;
       if (element) {
         element.classList.add('reveal');

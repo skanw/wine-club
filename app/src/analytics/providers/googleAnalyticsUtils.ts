@@ -130,8 +130,7 @@ async function getPrevDayViewsChangePercent() {
       if (viewsFromYesterday === 0 || viewsFromDayBeforeYesterday === 0) {
         return '0';
       }
-      console.table({ viewsFromYesterday, viewsFromDayBeforeYesterday });
-
+      // TODO: Integrate with production logging service
       const change = ((viewsFromYesterday - viewsFromDayBeforeYesterday) / viewsFromDayBeforeYesterday) * 100;
       return change.toFixed(0);
     }

@@ -4,11 +4,11 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 
 interface Props {
-  user: AuthUser;
+  _user: AuthUser;
   children?: ReactNode;
 }
 
-const DefaultLayout: FC<Props> = ({ children, user }) => {
+const DefaultLayout: FC<Props> = ({ children, _user }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ const DefaultLayout: FC<Props> = ({ children, user }) => {
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className='relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden'>
           {/* <!-- ===== Header Start ===== --> */}
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} user={user} />
+          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}

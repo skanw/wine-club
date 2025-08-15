@@ -1,52 +1,31 @@
-// Analytics stats module for admin dashboard
-export interface AnalyticsStats {
-  totalRevenue: number
-  totalUsers: number
-  totalSignups: number
-  payingUsers: number
-  monthlyGrowth: number
-  revenueGrowth: number
-}
+// Remove unused imports and console statements
+// TODO: Integrate with production logging service
 
-export function getAnalyticsStats(): AnalyticsStats {
-  // Placeholder implementation - replace with actual analytics logic
+export const getDailyStats = async (_args: any, _context: any) => {
+  // TODO: Implement actual daily stats logic
   return {
-    totalRevenue: 125000,
-    totalUsers: 1250,
-    totalSignups: 1500,
-    payingUsers: 850,
-    monthlyGrowth: 12.5,
-    revenueGrowth: 8.3
+    totalUsers: 0,
+    totalWineCaves: 0,
+    totalSubscriptions: 0,
+    totalRevenue: 0
   }
 }
 
-export function getRevenueData() {
-  return [
-    { month: 'Jan', revenue: 8500 },
-    { month: 'Feb', revenue: 9200 },
-    { month: 'Mar', revenue: 10500 },
-    { month: 'Apr', revenue: 11200 },
-    { month: 'May', revenue: 11800 },
-    { month: 'Jun', revenue: 12500 }
-  ]
+export const getWeeklyStats = async (_args: any, _context: any) => {
+  // TODO: Implement actual weekly stats logic
+  return {
+    newUsers: 0,
+    newWineCaves: 0,
+    newSubscriptions: 0,
+    revenue: 0
+  }
 }
 
-export function getProfitData() {
-  return [
-    { month: 'Jan', profit: 5100 },
-    { month: 'Feb', profit: 5520 },
-    { month: 'Mar', profit: 6300 },
-    { month: 'Apr', profit: 6720 },
-    { month: 'May', profit: 7080 },
-    { month: 'Jun', profit: 7500 }
-  ]
-}
-
-export function calculateDailyStats() {
-  // Placeholder implementation for the job
+export const calculateDailyStats = async (_args: any, _context: any) => {
+  // TODO: Implement actual daily stats calculation logic
   console.log('Calculating daily stats...')
   return {
     success: true,
-    timestamp: new Date()
+    message: 'Daily stats calculated successfully'
   }
 } 

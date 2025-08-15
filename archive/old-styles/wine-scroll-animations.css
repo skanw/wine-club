@@ -1,0 +1,196 @@
+/* Wine Scroll Animations */
+/* Smooth scroll behavior for wine-themed interactions */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Wine pour scroll animation */
+@keyframes wine-pour-scroll {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Wine swirl scroll animation */
+@keyframes wine-swirl-scroll {
+  0% {
+    transform: rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Scroll-triggered animations */
+.scroll-animate-pour {
+  animation: wine-pour-scroll 0.8s ease-out;
+}
+
+.scroll-animate-swirl {
+  animation: wine-swirl-scroll 1.2s ease-in-out;
+}
+
+/* Intersection Observer animations */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.fade-in-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Wine bottle reveal animation */
+.wine-bottle-reveal {
+  opacity: 0;
+  transform: scale(0.8) rotate(-5deg);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wine-bottle-reveal.visible {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Grape cluster animation */
+.grape-cluster-animation {
+  opacity: 0;
+  transform: translateY(50px) scale(0.9);
+  transition: all 0.7s ease-out;
+}
+
+.grape-cluster-animation.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Wine glass fill animation */
+.wine-glass-fill {
+    opacity: 0;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.wine-glass-fill.visible {
+    opacity: 1;
+  transform: scaleY(1);
+}
+
+/* Scroll progress wine theme */
+.scroll-progress-wine {
+  background: linear-gradient(90deg, 
+    var(--bordeaux-600) 0%, 
+    var(--champagne-400) 50%, 
+    var(--bordeaux-800) 100%
+  );
+  height: 3px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* Parallax wine elements */
+.wine-parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Smooth scroll for wine sections */
+.wine-section {
+  scroll-margin-top: 80px;
+}
+
+/* Wine-themed scroll indicators */
+.scroll-indicator-wine {
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-indicator-wine::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--bordeaux-600) 50%, 
+    transparent 100%
+  );
+  transform: scaleX(0);
+  transition: transform 0.3s ease-out;
+}
+
+.scroll-indicator-wine.in-view::after {
+  transform: scaleX(1);
+}
+
+/* Wine cork animation */
+.wine-cork-animation {
+  opacity: 0;
+  transform: translateY(-20px) rotate(5deg);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.wine-cork-animation.visible {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg);
+}
+
+/* Wine label reveal */
+.wine-label-reveal {
+  opacity: 0;
+  transform: scale(0.9) rotateY(15deg);
+  transition: all 0.8s ease-out;
+}
+
+.wine-label-reveal.visible {
+  opacity: 1;
+  transform: scale(1) rotateY(0deg);
+}
+
+/* Responsive scroll animations */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-animate-pour,
+  .scroll-animate-swirl,
+  .fade-in-on-scroll,
+  .wine-bottle-reveal,
+  .grape-cluster-animation,
+  .wine-glass-fill,
+  .wine-cork-animation,
+  .wine-label-reveal {
+    animation: none;
+    transition: opacity 0.3s ease-out;
+  }
+  
+  .fade-in-on-scroll.visible,
+  .wine-bottle-reveal.visible,
+  .grape-cluster-animation.visible,
+  .wine-glass-fill.visible,
+  .wine-cork-animation.visible,
+  .wine-label-reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+} 

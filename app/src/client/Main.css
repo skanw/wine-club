@@ -9,8 +9,7 @@
 
 /* Import design system */
 @import './styles/tokens.css';
-@import './styles/typography.css';
-@import './styles/container-system.css';
+@import './styles/ui-principles.css';
 
 /* Global styles */
 @layer base {
@@ -24,20 +23,68 @@
 }
 
 @layer components {
+  /* Enhanced Button System */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden;
+  }
+
   .btn-primary {
-    @apply bg-bordeaux-600 hover:bg-bordeaux-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5;
+    @apply bg-gradient-to-r from-bordeaux-600 to-bordeaux-700 hover:from-bordeaux-700 hover:to-bordeaux-800 text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 focus:ring-bordeaux-500;
   }
   
   .btn-secondary {
-    @apply bg-warm-taupe-200 hover:bg-warm-taupe-300 text-bordeaux-900 font-medium py-3 px-6 rounded-lg transition-all duration-200;
+    @apply bg-white hover:bg-champagne-50 text-bordeaux-900 font-semibold border-2 border-bordeaux-200 hover:border-bordeaux-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 focus:ring-bordeaux-500;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent hover:bg-bordeaux-50 text-bordeaux-700 hover:text-bordeaux-900 font-medium focus:ring-bordeaux-500;
+  }
+
+  /* Button Sizes */
+  .btn-sm {
+    @apply py-2 px-4 text-sm;
+  }
+
+  .btn-md {
+    @apply py-3 px-6 text-base;
+  }
+
+  .btn-lg {
+    @apply py-4 px-8 text-lg;
+  }
+
+  /* Button Icons */
+  .btn-icon {
+    @apply flex items-center justify-center;
+  }
+
+  .btn-icon-scale {
+    @apply mr-2;
+  }
+
+  /* Loading State */
+  .btn-loading {
+    @apply relative text-transparent;
+  }
+
+  .btn-loading::after {
+    content: '';
+    @apply absolute inset-0 flex items-center justify-center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24'%3E%3Cpath stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'%3E%3C/path%3E%3C/svg%3E");
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-lg p-6 border border-warm-taupe-100;
+    @apply bg-white rounded-xl shadow-lg p-6 border border-gray-100;
   }
   
   .input-field {
-    @apply w-full px-4 py-3 border border-warm-taupe-200 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-transparent transition-all duration-200;
+    @apply w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-transparent transition-all duration-200;
   }
 }
 
@@ -66,6 +113,19 @@
   .shadow-strong {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
+
+  /* Enhanced hover effects */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  .hover-glow {
+    @apply transition-shadow duration-300 hover:shadow-lg;
+  }
 }
 
 /* Accessibility */
@@ -89,4 +149,114 @@
   .no-print {
     display: none !important;
   }
+}
+
+/* Custom Wasp Auth Form Styling */
+.auth-form {
+  @apply space-y-4;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"],
+.auth-form input[type="text"] {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-bordeaux-500 focus:border-bordeaux-500 transition-colors duration-200 bg-white/80 backdrop-blur-sm placeholder-gray-500;
+}
+
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus,
+.auth-form input[type="text"]:focus {
+  @apply outline-none ring-2 ring-bordeaux-500 border-bordeaux-500 bg-white;
+}
+
+.auth-form button[type="submit"] {
+  @apply w-full bg-gradient-to-r from-bordeaux-600 to-bordeaux-700 hover:from-bordeaux-700 hover:to-bordeaux-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl;
+}
+
+.auth-form button[type="submit"]:hover {
+  @apply transform -translate-y-0.5;
+}
+
+.auth-form button[type="submit"]:disabled {
+  @apply opacity-50 cursor-not-allowed transform-none;
+}
+
+.auth-form .error-message {
+  @apply text-red-600 text-sm mt-1 font-medium;
+}
+
+.auth-form .success-message {
+  @apply text-green-600 text-sm mt-1 font-medium;
+}
+
+/* Google OAuth Button Styling */
+.auth-form .google-auth-button {
+  @apply w-full border border-gray-300 hover:border-bordeaux-300 bg-white hover:bg-bordeaux-50 text-gray-700 font-medium py-3 px-6 rounded-lg transition-all duration-200 flex items-center justify-center gap-3;
+}
+
+/* Form Labels */
+.auth-form label {
+  @apply block text-sm font-medium text-bordeaux-900 mb-2;
+}
+
+/* Form Groups */
+.auth-form .form-group {
+  @apply space-y-2;
+}
+
+/* Divider */
+.auth-form .divider {
+  @apply relative flex items-center justify-center py-4;
+}
+
+.auth-form .divider::before {
+  @apply absolute inset-0 flex items-center w-full border-t border-gray-300;
+  content: '';
+}
+
+.auth-form .divider span {
+  @apply bg-white px-4 text-sm text-gray-500 relative z-10;
+}
+
+/* Global Page Centering and Layout Consistency */
+.page-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.page-section {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16;
+}
+
+.page-hero {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center;
+}
+
+/* Ensure all containers are properly centered */
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-2xl {
+  @apply mx-auto;
+}
+
+/* Page layout utilities for consistent spacing and centering */
+.section-wrapper {
+  @apply py-16;
+}
+
+.section-wrapper-large {
+  @apply py-20;
+}
+
+.content-center {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.text-content-center {
+  @apply max-w-3xl mx-auto;
+}
+
+.narrow-content-center {
+  @apply max-w-2xl mx-auto;
 }

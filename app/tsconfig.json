@@ -25,12 +25,10 @@
     // Allow JSON module imports
     "resolveJsonModule": true,
     "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["node", "jest"],
+    "typeRoots": ["node_modules/@testing-library", "node_modules/@types"],
     "skipLibCheck": true,
     "allowJs": true,
-    "typeRoots": [
-      "node_modules/@testing-library",
-      "node_modules/@types"
-    ],
     "outDir": ".wasp/out/user"
   },
   "include": ["src"]

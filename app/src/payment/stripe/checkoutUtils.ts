@@ -6,7 +6,7 @@ export interface StripeCheckoutOptions {
   customerEmail?: string
 }
 
-export function createStripeCheckoutSession(options: StripeCheckoutOptions) {
+export const createStripeCheckoutSession = async (_lineItems: any[], _options?: any) => {
   // Placeholder implementation
   return {
     sessionId: 'cs_test_' + Math.random().toString(36).substr(2, 9),

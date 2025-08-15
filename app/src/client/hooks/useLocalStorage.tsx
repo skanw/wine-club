@@ -1,43 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react'
 
-type SetValue<T> = T | ((val: T) => T);
-
-function useLocalStorage<T>(
-  key: string,
-  initialValue: T
-): [T, (value: SetValue<T>) => void] {
-  // State to store our value
-  // Pass  initial state function to useState so logic is only executed once
+export function useLocalStorage<T>(key: string, initialValue: T) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      // Get from local storage by key
-      const item = window.localStorage.getItem(key);
-      // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : initialValue;
+      const item = window.localStorage.getItem(key)
+      return item ? JSON.parse(item) : initialValue
     } catch (error) {
-      // If error also return initialValue
-      console.log(error);
-      return initialValue;
+      return initialValue
     }
-  });
+  })
 
-  // useEffect to update local storage when the state changes
-  useEffect(() => {
+  const setValue = (_value: T | ((_val: T) => T)) => {
     try {
-      // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        typeof storedValue === 'function'
-          ? storedValue(storedValue)
-          : storedValue;
-      // Save state
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      const valueToStore = _value instanceof Function ? _value(storedValue) : _value
+      setStoredValue(valueToStore)
+      window.localStorage.setItem(key, JSON.stringify(valueToStore))
     } catch (error) {
-      // A more advanced implementation would handle the error case
-      console.log(error);
+      // TODO: Handle localStorage error
     }
-  }, [key, storedValue]);
+  }
 
-  return [storedValue, setStoredValue];
+  return [storedValue, setValue]
 }
-
-export default useLocalStorage;

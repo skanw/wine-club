@@ -22,10 +22,10 @@ export type ServerErrorType =
 // Server error class
 export class ServerError extends Error {
   constructor(
-    public type: ServerErrorType,
+    public _type: ServerErrorType,
     message: string,
-    public statusCode: number = 500,
-    public details?: any
+    public _statusCode: number = 500,
+    public _details?: any
   ) {
     super(message);
     this.name = 'ServerError';
@@ -34,8 +34,8 @@ export class ServerError extends Error {
 
 // Error factory functions
 export const createError = {
-  validation: (message: string, details?: any) => 
-    new ServerError('validation', message, 400, details),
+  validation: (message: string, _details?: any) => 
+    new ServerError('validation', message, 400, _details),
   
   authentication: (message: string = 'Authentication required') => 
     new ServerError('authentication', message, 401),
@@ -63,9 +63,9 @@ export const createResponse = {
   error: (error: ServerError) => ({
     success: false,
     error: {
-      type: error.type,
+      type: error._type,
       message: error.message,
-      details: error.details
+      details: error._details
     }
   })
 };

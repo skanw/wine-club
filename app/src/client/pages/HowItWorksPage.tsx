@@ -1,23 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { routes } from 'wasp/client/router';
-import { 
-  FaWineBottle, 
-  FaShippingFast, 
-  FaUserFriends, 
-  FaStar,
-  FaCalendarAlt,
-  FaCreditCard,
-  FaHeadset,
-  FaGift,
-  FaTruck,
-  FaHeart,
-  FaUsers,
-  FaShieldAlt,
-  FaArrowRight
-} from 'react-icons/fa';
-import Button from '../components/ui/Button';
+import _Button from '../components/ui/Button'
 
 export default function HowItWorksPage() {
   const { t: tFallback } = useTranslation();
@@ -70,7 +53,7 @@ export default function HowItWorksPage() {
     <div className="min-h-screen bg-gradient-to-br from-champagne-50 via-white to-bordeaux-50">
       {/* Hero Section */}
       <section className="py-20 text-center">
-        <div className="container-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-6xl font-bold text-bordeaux-900 mb-6">
             {tFallback('howitworks.hero.title', 'How It Works')}
           </h1>
@@ -82,7 +65,7 @@ export default function HowItWorksPage() {
 
       {/* Steps Section */}
       <section className="py-16">
-        <div className="container-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-bordeaux-900 mb-4 text-center">
             {tFallback('howitworks.steps.title', 'Simple 3-Step Process')}
           </h2>
@@ -113,7 +96,7 @@ export default function HowItWorksPage() {
 
       {/* Features Section */}
       <section className="py-20 bg-white">
-        <div className="container-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-bordeaux-900 mb-4 text-center">
             {tFallback('howitworks.features.title', 'Why Choose Our Wine Club?')}
           </h2>
@@ -141,7 +124,7 @@ export default function HowItWorksPage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-bordeaux-900">
-        <div className="container-xl text-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-champagne-100 mb-4">
             {tFallback('howitworks.cta.title', 'Ready to Start Your Wine Journey?')}
           </h2>

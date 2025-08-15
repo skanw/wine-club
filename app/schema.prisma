@@ -42,6 +42,10 @@ model User {
   // French compliance relations
   consentRecords            ConsentRecord[]
   wineProfile               WineProfile?
+  
+  // Notification and GDPR relations
+  notifications             Notification[]
+  dataSubjectRequests       DataSubjectRequest[]
 }
 
 model GptResponse {
@@ -402,14 +406,34 @@ model ShippingRate {
 model TrackingInfo {
   id                        String          @id @default(uuid())
   createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
 
-  trackingNumber            String
-  carrier                   String
-  status                    String
-  events                    Json            // Tracking events
+  trackingNumber            String          @unique
+  carrier                   String          // "DHL", "FedEx", "UPS"
+  status                    String          @default("pending") // "pending", "in_transit", "delivered", "failed"
+  events                    Json            @default("[]") // Array of tracking events
   estimatedDelivery         DateTime?
-  
-  complianceData            Json?           // Legal compliance
+  complianceData            Json            @default("{}") // Alcohol shipping compliance data
+
+  shipment                  Shipment?       @relation(fields: [shipmentId], references: [id])
+  shipmentId                String?         @unique
+}
+
+model ShippingInfo {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+
+  subscriptionId            String
+  trackingNumber            String          @unique
+  carrier                   String          // "DHL_EXPRESS", "FedEx", "UPS"
+  status                    String          @default("PENDING") // "PENDING", "IN_TRANSIT", "OUT_FOR_DELIVERY", "DELIVERED"
+  events                    Json            @default("[]") // Array of tracking events
+  estimatedDelivery         DateTime?
+  complianceData            Json            @default("{}") // Alcohol shipping compliance data
+  stripeSubscriptionId      String?         // Link to Stripe subscription
+
+  subscription              WineSubscription @relation(fields: [subscriptionId], references: [id])
 }
 
 // French AI Sommelier Models
@@ -460,4 +484,39 @@ model WineProfile {
   lastUpdated               DateTime        @updatedAt
   
   complianceData            Json?           // GDPR compliance data
+}
+
+// Notification System
+model Notification {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+
+  userId                    String
+  type                      String          // 'subscription', 'shipping', 'wine', 'loyalty', 'system'
+  title                     String
+  message                   String
+  data                      Json?           // Additional notification data
+  isRead                    Boolean         @default(false)
+  expiresAt                 DateTime?
+  
+  // Relations
+  user                      User            @relation(fields: [userId], references: [id])
+}
+
+// GDPR Data Subject Requests
+model DataSubjectRequest {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+
+  userId                    String
+  requestType               String          // 'access', 'rectification', 'erasure', 'portability', 'restriction'
+  description               String
+  status                    String          @default("pending") // 'pending', 'processing', 'completed', 'rejected'
+  notes                     String?
+  completedAt               DateTime?
+  
+  // Relations
+  user                      User            @relation(fields: [userId], references: [id])
 }

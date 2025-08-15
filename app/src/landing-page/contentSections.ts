@@ -1,7 +1,6 @@
 import { NavigationItem } from '../client/components/AppNavbar';
 import { routes } from 'wasp/client/router';
 import { DocsUrl, BlogUrl } from '../shared/common';
-import daBoiAvatar from '../client/static/da-boi.webp';
 import avatarPlaceholder from '../client/static/avatar-placeholder.webp';
 
 export const landingPageNavigationItems: NavigationItem[] = [
@@ -12,12 +11,37 @@ export const landingPageNavigationItems: NavigationItem[] = [
 ];
 
 export const heroSection = {
-  title: "Premium Wine Subscriptions",
-  subtitle: "Discover exceptional French wines curated by expert sommeliers",
-  ctaText: "Start Your Journey",
-  ctaLink: routes.SignupRoute,
-  secondaryCtaText: "Learn More",
-  secondaryCtaLink: routes.AboutRoute,
+  title: "Découvrez l'Art du Vin Français",
+  subtitle: "Abonnements premium de vins français sélectionnés par des sommeliers experts",
+  ctaText: "Commencer l'Expérience",
+  ctaLink: routes.LandingPageRoute.to,
+  features: [
+    "Sélection exclusive de vins français",
+    "Livraison automatisée mensuelle",
+    "Conseils de sommeliers experts",
+    "Programme de fidélité premium"
+  ]
+};
+
+export const howItWorksSection = {
+  title: "Comment ça marche",
+  steps: [
+    {
+      title: "Choisissez votre cave",
+      description: "Sélectionnez parmi nos caves partenaires expertes",
+      link: routes.LandingPageRoute.to
+    },
+    {
+      title: "Personnalisez votre abonnement",
+      description: "Adaptez votre sélection selon vos préférences",
+      link: routes.LandingPageRoute.to
+    },
+    {
+      title: "Recevez vos vins",
+      description: "Livraison automatique à domicile chaque mois",
+      link: routes.LandingPageRoute.to
+    }
+  ]
 };
 
 export const featuresSection = {
@@ -44,38 +68,38 @@ export const featuresSection = {
 
 export const features = [
   {
-    name: 'Coming Soon',
-    description: 'Wine cave management features coming soon.',
-    icon: '🍷',
-    href: '/dashboard',
+    name: 'Wine Cave Management',
+    description: 'Create and manage your wine cave profile with detailed information and branding.',
+    icon: '🏰',
+    href: '/wine-cave/create',
   },
   {
-    name: 'Coming Soon',
-    description: 'Subscription platform features coming soon.',
+    name: 'Subscription Platform',
+    description: 'Offer flexible subscription tiers with different pricing and bottle quantities.',
     icon: '📦',
-    href: '/dashboard',
+    href: '/wine-caves',
   },
   {
-    name: 'Coming Soon',
-    description: 'Member analytics features coming soon.',
+    name: 'Member Analytics',
+    description: 'Track subscription performance, revenue, and member engagement metrics.',
     icon: '📊',
     href: '/dashboard',
   },
   {
-    name: 'Coming Soon',
-    description: 'Automated shipping features coming soon.',
+    name: 'Automated Shipping',
+    description: 'Streamlined shipping and fulfillment with tracking and delivery management.',
     icon: '🚚',
     href: '/dashboard',
   },
   {
-    name: 'Coming Soon',
-    description: 'Loyalty program features coming soon.',
+    name: 'Loyalty Program',
+    description: 'Reward loyal customers with points, referrals, and exclusive benefits.',
     icon: '⭐',
     href: '/dashboard',
   },
   {
-    name: 'Coming Soon',
-    description: 'AI recommendations coming soon.',
+    name: 'AI Recommendations',
+    description: 'Personalized wine recommendations based on preferences and ratings.',
     icon: '🤖',
     href: '/dashboard',
   },

@@ -1,21 +1,10 @@
-import { Link } from 'wasp/client/router';
-import { useAuth } from 'wasp/client/auth';
-import { useScrollReveal } from '../../client/hooks/useScrollReveal';
+import React from 'react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 import Button from './ui/Button';
-import { 
-  BarChart3, 
-  Users, 
-  Shield, 
-  Zap, 
-  CheckCircle,
-  Star,
-  TrendingUp
-} from 'lucide-react';
+import OptimizedImage from './OptimizedImage';
+import { preloadImages } from '../utils/cdn';
 
-const Hero = () => {
-  const { data: user } = useAuth();
-  
-  // Use scroll reveals for hero elements
+export default function Hero() {
   const titleReveal = useScrollReveal({ 
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px',
@@ -25,19 +14,13 @@ const Hero = () => {
   const subtitleReveal = useScrollReveal({ 
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px',
-    delay: 150
+    delay: 200
   });
 
   const ctaReveal = useScrollReveal({ 
     threshold: 0.1,
     rootMargin: '0px 0px -100px 0px',
-    delay: 300
-  });
-
-  const statsReveal = useScrollReveal({ 
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px',
-    delay: 450
+    delay: 400
   });
 
   const featuresReveal = useScrollReveal({ 
@@ -46,201 +29,166 @@ const Hero = () => {
     delay: 600
   });
 
+  const statsReveal = useScrollReveal({ 
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px',
+    delay: 800
+  });
+
+  // Preload critical images
+  React.useEffect(() => {
+    preloadImages([
+      '/static/logo.webp'
+    ]);
+  }, []);
+
   return (
-    <section className="hero-responsive full-bleed relative overflow-hidden gpu-accelerated">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="responsive-image absolute inset-0"
-          style={{
-            background: 'linear-gradient(135deg, var(--champagne-50) 0%, var(--champagne-100) 100%)',
-            width: '100vw',
-            height: '100vh',
-            willChange: 'transform'
-          }}
-        />
-        <div className="absolute inset-0 bg-black/5" />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-bordeaux-50 via-white to-champagne-50">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bordeaux-600' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
       </div>
 
-      {/* Defensive container wrapper for main content */}
-      <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-        <div className="relative z-20 responsive-container-narrow flex items-center justify-center h-full">
-          <div className="space-responsive-xl text-center">
-            {/* Main Content Card */}
-            <div 
-              ref={titleReveal.ref} 
-              className="hero-reveal p-responsive-md"
-              style={{ 
-                borderRadius: '16px',
-                border: '1px solid var(--border-primary)',
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(20px)',
-                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
-              }}
+
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20">
+        <div className="text-center">
+          {/* Enhanced Title */}
+          <div 
+            ref={titleReveal.ref}
+            className="mb-8"
+          >
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-bordeaux-900 mb-6 font-serif leading-tight">
+              <span className="block">Transform Your</span>
+              <span className="block bg-gradient-to-r from-bordeaux-600 via-bordeaux-700 to-bordeaux-800 bg-clip-text text-transparent">
+                Wine Club
+              </span>
+              <span className="block">Experience</span>
+            </h1>
+          </div>
+
+          {/* Enhanced Subtitle */}
+          <div 
+            ref={subtitleReveal.ref}
+            className="mb-12"
+          >
+            <p className="text-xl md:text-2xl text-taupe-700 max-w-3xl mx-auto leading-relaxed font-light">
+              The complete SaaS platform for boutique wine clubs. 
+              <span className="font-semibold text-bordeaux-700"> Manage members, automate shipping, and grow your business</span> 
+              with enterprise-grade tools designed for wine professionals.
+            </p>
+          </div>
+
+          {/* Enhanced CTA Buttons */}
+          <div 
+            ref={ctaReveal.ref}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16"
+          >
+            <Button
+              to="/signup"
+              variant="primary"
+              size="lg"
+              rightIcon="ArrowRight"
+              className="group hover:scale-105 transition-transform duration-300 shadow-xl hover:shadow-2xl text-lg px-8 py-4"
             >
-              {/* Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-bordeaux-50 text-bordeaux-700 rounded-full text-sm font-medium mb-6">
-                <Star className="h-4 w-4 mr-2" />
-                Trusted by 500+ Wine Clubs
-              </div>
+              Start Free Trial
+              <span className="text-sm font-normal opacity-90 ml-2">
+                No credit card required
+              </span>
+            </Button>
+            
+            <Button
+              to="/demo"
+              variant="secondary"
+              size="lg"
+              rightIcon="Play"
+              className="group hover:scale-105 transition-transform duration-300 text-lg px-8 py-4"
+            >
+              Watch Demo
+              <span className="text-sm font-normal opacity-90 ml-2">
+                2 min video
+              </span>
+            </Button>
+          </div>
 
-              {/* Main Headline */}
-              <h1 
-                className="responsive-heading-1 font-luxury text-text-primary leading-tight mb-6"
-                style={{
-                  maxWidth: '64ch',
-                  margin: '0 auto 1.5rem auto'
-                }}
-              >
-                The Complete Platform for
-                <span className="text-bordeaux-600"> Professional Wine Clubs</span>
-              </h1>
-
-              {/* Subtitle */}
-              <div 
-                ref={subtitleReveal.ref}
-                className="hero-subtitle-reveal text-text-secondary mb-8 responsive-text leading-relaxed"
-                style={{
-                  maxWidth: '64ch',
-                  margin: '0 auto 2rem auto'
-                }}
-              >
-                Streamline your wine club operations with our all-in-one platform. 
-                Manage members, inventory, shipping, and analytics in one place. 
-                Scale your business with enterprise-grade tools designed for wine professionals.
+          {/* Enhanced Feature Cards */}
+          <div 
+            ref={featuresReveal.ref}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto"
+          >
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-bordeaux-100 hover:border-bordeaux-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+              <div className="w-16 h-16 bg-gradient-to-br from-bordeaux-100 to-bordeaux-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <span className="text-2xl">👥</span>
               </div>
-
-              {/* CTA Buttons */}
-              <div 
-                ref={ctaReveal.ref}
-                className="cta-bar-reveal flex-responsive justify-center items-center space-x-4"
-              >
-                <Button
-                  to={user ? "/dashboard" : "/signup"}
-                  variant="primary"
-                  size="lg"
-                  leftIcon={<Zap className="w-5 h-5" />}
-                  className="group touch-optimized"
-                >
-                  {user ? "Go to Dashboard" : "Start Free Trial"}
-                </Button>
-                
-                <Button
-                  to="/pricing"
-                  variant="secondary"
-                  size="lg"
-                  leftIcon={<BarChart3 className="w-5 h-5" />}
-                  className="group touch-optimized"
-                >
-                  View Pricing
-                </Button>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="mt-8 flex flex-wrap justify-center items-center space-x-6 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  No setup fees
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  14-day free trial
-                </div>
-                <div className="flex items-center">
-                  <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                  Cancel anytime
-                </div>
-              </div>
+              <h3 className="text-xl font-bold text-bordeaux-900 mb-4">Member Management</h3>
+              <p className="text-taupe-600 leading-relaxed">
+                Seamlessly manage your wine club members with automated onboarding, preferences tracking, and communication tools.
+              </p>
             </div>
 
-            {/* Stats Section */}
-            <div ref={statsReveal.ref} className="mt-12">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-bordeaux-900 mb-2">500+</div>
-                  <div className="text-gray-600">Wine Clubs</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-bordeaux-900 mb-2">50K+</div>
-                  <div className="text-gray-600">Members Managed</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-bordeaux-900 mb-2">$2M+</div>
-                  <div className="text-gray-600">Revenue Generated</div>
-                </div>
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-bordeaux-100 hover:border-bordeaux-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+              <div className="w-16 h-16 bg-gradient-to-br from-bordeaux-100 to-bordeaux-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <span className="text-2xl">📦</span>
               </div>
+              <h3 className="text-xl font-bold text-bordeaux-900 mb-4">Automated Shipping</h3>
+              <p className="text-taupe-600 leading-relaxed">
+                Streamline your shipping process with automated label generation, tracking notifications, and inventory management.
+              </p>
             </div>
 
-            {/* Features Grid */}
-            <div ref={featuresReveal.ref} className="mt-16">
-              <h2 className="text-2xl font-bold text-gray-900 mb-8">Everything you need to succeed</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
-                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
-                    <Users className="h-6 w-6 text-bordeaux-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Member Management</h3>
-                  <p className="text-gray-600 text-sm">
-                    Complete member profiles, subscription management, and automated communications.
-                  </p>
-                </div>
-                
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
-                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
-                    <BarChart3 className="h-6 w-6 text-bordeaux-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Analytics & Insights</h3>
-                  <p className="text-gray-600 text-sm">
-                    Powerful analytics to understand member behavior and optimize your business.
-                  </p>
-                </div>
-                
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
-                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
-                    <Shield className="h-6 w-6 text-bordeaux-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Enterprise Security</h3>
-                  <p className="text-gray-600 text-sm">
-                    Bank-level security with SOC 2 compliance and data encryption.
-                  </p>
-                </div>
-                
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
-                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
-                    <TrendingUp className="h-6 w-6 text-bordeaux-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Inventory Management</h3>
-                  <p className="text-gray-600 text-sm">
-                    Track wine inventory, manage suppliers, and automate reordering.
-                  </p>
-                </div>
-                
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
-                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
-                    <Zap className="h-6 w-6 text-bordeaux-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">Automated Shipping</h3>
-                  <p className="text-gray-600 text-sm">
-                    Automated shipping labels, tracking, and delivery notifications.
-                  </p>
-                </div>
-                
-                <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 border border-gray-200">
-                  <div className="w-12 h-12 bg-bordeaux-100 rounded-lg flex items-center justify-center mb-4">
-                    <CheckCircle className="h-6 w-6 text-bordeaux-600" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">24/7 Support</h3>
-                  <p className="text-gray-600 text-sm">
-                    Dedicated support team with phone, email, and live chat options.
-                  </p>
-                </div>
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-bordeaux-100 hover:border-bordeaux-200 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
+              <div className="w-16 h-16 bg-gradient-to-br from-bordeaux-100 to-bordeaux-200 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <span className="text-2xl">📊</span>
               </div>
+              <h3 className="text-xl font-bold text-bordeaux-900 mb-4">Analytics & Insights</h3>
+              <p className="text-taupe-600 leading-relaxed">
+                Make data-driven decisions with comprehensive analytics, member insights, and business performance metrics.
+              </p>
+            </div>
+          </div>
+
+          {/* Enhanced Statistics */}
+          <div 
+            ref={statsReveal.ref}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
+          >
+            <div className="text-center group">
+              <div className="text-3xl md:text-4xl font-bold text-bordeaux-900 mb-2 group-hover:scale-110 transition-transform duration-300">
+                500+
+              </div>
+              <div className="text-taupe-600 font-medium">Wine Clubs</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="text-3xl md:text-4xl font-bold text-bordeaux-900 mb-2 group-hover:scale-110 transition-transform duration-300">
+                50K+
+              </div>
+              <div className="text-taupe-600 font-medium">Members</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="text-3xl md:text-4xl font-bold text-bordeaux-900 mb-2 group-hover:scale-110 transition-transform duration-300">
+                98%
+              </div>
+              <div className="text-taupe-600 font-medium">Satisfaction</div>
+            </div>
+            
+            <div className="text-center group">
+              <div className="text-3xl md:text-4xl font-bold text-bordeaux-900 mb-2 group-hover:scale-110 transition-transform duration-300">
+                24/7
+              </div>
+              <div className="text-taupe-600 font-medium">Support</div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-10 w-20 h-20 bg-bordeaux-200 rounded-full opacity-20 animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-champagne-200 rounded-full opacity-20 animate-pulse delay-1000" />
+      <div className="absolute top-1/2 left-5 w-16 h-16 bg-bordeaux-100 rounded-full opacity-30 animate-pulse delay-500" />
     </section>
   );
-};
-
-export default Hero;
+}

@@ -1,31 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { routes } from 'wasp/client/router';
-import { 
-  FaWineBottle, 
-  FaHeart, 
-  FaUsers, 
-  FaAward,
-  FaGlobe,
-  FaLeaf,
-  FaShieldAlt,
-  FaStar,
-  FaLinkedin,
-  FaTwitter,
-  FaInstagram
-} from 'react-icons/fa';
 import Button from '../components/ui/Button';
 
-interface TeamMember {
-  name: string;
-  role: string;
-  bio: string;
-  image: string;
-  color: string;
-}
-
-const AboutPage: React.FC = () => {
+export default function AboutPage() {
   const { t } = useTranslation();
 
   // Fallback function for translations
@@ -34,34 +11,34 @@ const AboutPage: React.FC = () => {
     return translation === key ? fallback : translation;
   };
 
-  const values = [
+  const [_setValues] = useState(() => (_values: any) => {
+    // TODO: Implement form handling
+  });
+
+  const _values = [
     {
-      icon: <FaHeart className="w-8 h-8" />,
-      title: tFallback('about.values.passion.title', 'Passion for Wine'),
-      description: tFallback('about.values.passion.description', 'We\'re driven by our love for exceptional wines and the stories behind them'),
-      color: 'bg-bordeaux-100 dark:bg-bordeaux-900/30'
+      icon: '🍷',
+      title: 'Curated Selection',
+      description: 'Expertly chosen wines from boutique producers'
     },
     {
-      icon: <FaLeaf className="w-8 h-8" />,
-      title: tFallback('about.values.sustainability.title', 'Sustainable Practices'),
-      description: tFallback('about.values.sustainability.description', 'We partner with wineries committed to environmental stewardship'),
-      color: 'bg-champagne-100 dark:bg-champagne-900/30'
+      icon: '🌱',
+      title: 'Sustainable',
+      description: 'Supporting eco-friendly wine production'
     },
     {
-      icon: <FaUsers className="w-8 h-8" />,
-      title: tFallback('about.values.community.title', 'Community First'),
-      description: tFallback('about.values.community.description', 'Building connections through shared appreciation of fine wine'),
-      color: 'bg-bordeaux-100 dark:bg-bordeaux-900/30'
+      icon: '👥',
+      title: 'Community',
+      description: 'Join a community of wine enthusiasts'
     },
     {
-      icon: <FaShieldAlt className="w-8 h-8" />,
-      title: tFallback('about.values.quality.title', 'Uncompromising Quality'),
-      description: tFallback('about.values.quality.description', 'Every wine in our selection meets our rigorous standards'),
-      color: 'bg-champagne-100 dark:bg-champagne-900/30'
+      icon: '🛡️',
+      title: 'Quality Assured',
+      description: 'Every bottle meets our high standards'
     }
   ];
 
-  const teamMembers = [
+  const _teamMembers = [
     {
       name: tFallback('about.team.1.name', 'Jean-Pierre Dubois'),
       role: tFallback('about.team.1.role', 'Master Sommelier & Founder'),
@@ -85,7 +62,7 @@ const AboutPage: React.FC = () => {
     },
   ];
 
-  const stats = [
+  const _stats = [
     { number: '500+', label: tFallback('about.stats.wines', 'Wines Curated') },
     { number: '50+', label: tFallback('about.stats.regions', 'Wine Regions') },
     { number: '1000+', label: tFallback('about.stats.members', 'Happy Members') },
@@ -93,7 +70,15 @@ const AboutPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-champagne-50 via-white to-bordeaux-50 dark:from-bordeaux-950 dark:via-bordeaux-900 dark:to-bordeaux-950">
+    <div className="min-h-screen bg-gradient-to-br from-bordeaux-50 via-champagne-50 to-bordeaux-100">
+      {/* Background Blurred Shapes */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-bordeaux-200 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-champagne-300 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-bordeaux-300 rounded-full blur-3xl opacity-10"></div>
+      </div>
+
+      <div className="relative z-10">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-bordeaux-900/20 to-champagne-900/20"></div>
@@ -109,7 +94,7 @@ const AboutPage: React.FC = () => {
               <Button to="/pricing" variant="primary" size="lg">
                 {tFallback('about.hero.cta', 'Join Our Club')}
               </Button>
-              <Button to={routes.ContactRoute?.to || '/contact'} variant="secondary" size="lg">
+              <Button to={'/contact'} variant="secondary" size="lg">
                 {tFallback('about.hero.contact', 'Contact Us')}
               </Button>
             </div>
@@ -153,7 +138,7 @@ const AboutPage: React.FC = () => {
       <section className="py-20 bg-white dark:bg-bordeaux-900/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {_stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl md:text-5xl font-bold text-bordeaux-600 dark:text-champagne-400 mb-2">
                   {stat.number}
@@ -232,7 +217,7 @@ const AboutPage: React.FC = () => {
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
+            {_teamMembers.map((member, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div 
                   className="h-48 bg-cover bg-center"
@@ -271,14 +256,13 @@ const AboutPage: React.FC = () => {
             <Button to="/pricing" variant="primary" size="lg">
               {tFallback('about.cta.primary', 'Join Our Club')}
             </Button>
-            <Button to={routes.ContactRoute?.to || '/contact'} variant="secondary" size="lg">
+            <Button to={'/contact'} variant="secondary" size="lg">
               {tFallback('about.cta.secondary', 'Learn More')}
             </Button>
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
-};
-
-export default AboutPage; 
+} 

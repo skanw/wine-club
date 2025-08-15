@@ -24,7 +24,7 @@ interface FeaturedBottle {
 }
 
 const PremiumSubscriptionPage: React.FC = () => {
-  const [activeTheme, setActiveTheme] = useState<'red' | 'white'>('red');
+  const [activeTheme, _setActiveTheme] = useState('red');
   const [activeTab, setActiveTab] = useState<'red' | 'white'>('red');
 
   const heroAnimation = useScrollAnimation({ animationType: 'fadeIn' });

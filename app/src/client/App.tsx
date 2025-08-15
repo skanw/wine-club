@@ -1,7 +1,10 @@
 import './Main.css';
 import './i18n/config'; // Initialize i18n
-import AppNavbar from './components/AppNavbar';
+
+import ModernNavbar from './components/modern/ModernNavbar';
 import CookieConsentBanner from './components/cookie-consent/Banner';
+import AccessibilityAudit from './components/AccessibilityAudit';
+import PerformanceMonitor from './components/PerformanceMonitor';
 import { useMemo, useEffect } from 'react';
 import { routes } from 'wasp/client/router';
 import { Outlet, useLocation } from 'react-router-dom';
@@ -16,11 +19,13 @@ import i18n from './i18n/config';
  */
 export default function App() {
   const location = useLocation();
-  const { data: user } = useAuth();
-  const isLandingPage = useIsLandingPage();
+  const { data: _user } = useAuth();
+  const _isLandingPage = useIsLandingPage();
 
   const shouldDisplayAppNavBar = useMemo(() => {
-    return location.pathname !== routes.LoginRoute.build() && location.pathname !== routes.SignupRoute.build();
+    const shouldShow = location.pathname !== routes.LoginRoute.to && location.pathname !== routes.SignupRoute.to;
+    console.log('App.tsx - shouldDisplayAppNavBar:', shouldShow, 'pathname:', location.pathname);
+    return shouldShow;
   }, [location]);
 
   const isAdminDashboard = useMemo(() => {
@@ -49,7 +54,7 @@ export default function App() {
           <Outlet />
         ) : (
           <>
-            {shouldDisplayAppNavBar && <AppNavbar />}
+            {shouldDisplayAppNavBar && <ModernNavbar />}
             <main className='responsive-container-fluid flex-1'>
               <Outlet />
             </main>
@@ -57,6 +62,14 @@ export default function App() {
         )}
       </div>
       <CookieConsentBanner />
+      
+      {/* Development Tools - Only show in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <>
+          <AccessibilityAudit />
+          <PerformanceMonitor />
+        </>
+      )}
     </I18nextProvider>
   );
 }

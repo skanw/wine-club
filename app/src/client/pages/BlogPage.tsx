@@ -1,17 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { routes } from 'wasp/client/router';
-import { 
-  FaCalendarAlt, 
-  FaUser, 
-  FaTag, 
-  FaArrowRight,
-  FaWineBottle,
-  FaGlobe,
-  FaStar
-} from 'react-icons/fa';
-import Button from '../components/ui/Button';
+import _Button from '../components/ui/Button'
 
 interface BlogPost {
   id: number;
@@ -101,18 +90,27 @@ const BlogPage: React.FC = () => {
     },
   ];
 
-  const categories = [
-    { name: tFallback('blog.categories.wineGuide', 'Wine Guides'), icon: <FaWineBottle />, count: 12 },
-    { name: tFallback('blog.categories.regions', 'Wine Regions'), icon: <FaGlobe />, count: 8 },
-    { name: tFallback('blog.categories.grapes', 'Grape Varieties'), icon: <FaWineBottle />, count: 15 },
-    { name: tFallback('blog.categories.reviews', 'Wine Reviews'), icon: <FaStar />, count: 20 }
-  ];
+  const [_categories] = useState([
+    'All',
+    'Wine Reviews',
+    'Industry News',
+    'Tasting Notes',
+    'Food Pairing'
+  ])
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-champagne-50 via-white to-bordeaux-50">
+    <div className="min-h-screen bg-gradient-to-br from-bordeaux-50 via-champagne-50 to-bordeaux-100">
+      {/* Background Blurred Shapes */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-bordeaux-200 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-champagne-300 rounded-full blur-3xl opacity-20"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-bordeaux-300 rounded-full blur-3xl opacity-10"></div>
+      </div>
+
+      <div className="relative z-10">
       {/* Hero Section */}
       <section className="py-20 text-center">
-        <div className="container-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-6xl font-bold text-bordeaux-900 mb-6">
             {tFallback('blog.hero.title', 'Wine Wisdom & Insights')}
           </h1>
@@ -124,7 +122,7 @@ const BlogPage: React.FC = () => {
 
       {/* Featured Post */}
       <section className="py-16">
-        <div className="container-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-bordeaux-900 mb-8">
             {tFallback('blog.featured.section', 'Featured Article')}
           </h2>
@@ -165,7 +163,7 @@ const BlogPage: React.FC = () => {
 
       {/* Blog Posts Grid */}
       <section className="py-16">
-        <div className="container-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-bordeaux-900 mb-12">
             {tFallback('blog.latest.title', 'Latest Articles')}
           </h2>
@@ -231,6 +229,7 @@ const BlogPage: React.FC = () => {
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 };

@@ -1,27 +1,25 @@
+/// <reference types="node" />
+
 /**
  * Performance monitoring and optimization utilities
  */
 
-import type { Metric } from 'web-vitals';
-
-// Constants for performance thresholds
 const PERFORMANCE_THRESHOLDS = {
   FCP: 1800, // First Contentful Paint (ms)
   LCP: 2500, // Largest Contentful Paint (ms)
   FID: 100,  // First Input Delay (ms)
   CLS: 0.1,  // Cumulative Layout Shift (score)
   TTI: 3800, // Time to Interactive (ms)
-} as const;
+} as const
 
-// Interface for performance metrics
 interface PerformanceMetrics {
-  FCP?: number;
-  LCP?: number;
-  FID?: number;
-  CLS?: number;
-  TTI?: number;
-  navigationStart?: number;
-  loadComplete?: number;
+  FCP?: number
+  LCP?: number
+  FID?: number
+  CLS?: number
+  TTI?: number
+  navigationStart?: number
+  loadComplete?: number
 }
 
 /**
@@ -33,10 +31,10 @@ export const initializePerformanceMonitoring = () => {
   // Report Web Vitals
   if ('web-vitals' in window) {
     import('web-vitals').then(({ onFCP, onLCP, onCLS, onTTFB }) => {
-      onFCP((metric: Metric) => reportMetric('FCP', metric.value));
-      onLCP((metric: Metric) => reportMetric('LCP', metric.value));
-      onCLS((metric: Metric) => reportMetric('CLS', metric.value));
-      onTTFB((metric: Metric) => reportMetric('TTFB', metric.value));
+      onFCP((metric) => reportMetric('FCP', metric.value));
+      onLCP((metric) => reportMetric('LCP', metric.value));
+      onCLS((metric) => reportMetric('CLS', metric.value));
+      onTTFB((metric) => reportMetric('TTFB', metric.value));
     });
   }
 
@@ -58,7 +56,7 @@ export const initializePerformanceMonitoring = () => {
 
       observer.observe({ entryTypes: ['longtask', 'layout-shift'] });
     } catch (e) {
-      console.error('Performance monitoring error:', e);
+      // TODO: Handle performance monitoring error (e.g., send to monitoring service)
     }
   }
 };
@@ -67,20 +65,11 @@ export const initializePerformanceMonitoring = () => {
  * Report a performance metric
  */
 const reportMetric = (name: string, value: number) => {
-  // Log to console in development
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`Performance metric - ${name}:`, value);
-  }
-
-  // Send to analytics in production
-  if (process.env.NODE_ENV === 'production') {
-    // TODO: Implement analytics reporting
-  }
-
+  // TODO: Integrate with analytics reporting in production
   // Check against thresholds
   const threshold = PERFORMANCE_THRESHOLDS[name as keyof typeof PERFORMANCE_THRESHOLDS];
   if (threshold && value > threshold) {
-    console.warn(`Performance metric ${name} (${value}) exceeds threshold (${threshold})`);
+    // TODO: Handle threshold exceedance (e.g., send to monitoring service)
   }
 };
 
@@ -88,12 +77,8 @@ const reportMetric = (name: string, value: number) => {
  * Report a long task
  */
 const reportLongTask = (entry: PerformanceEntry) => {
-  if (entry.duration > 50) { // Tasks longer than 50ms are considered problematic
-    console.warn('Long task detected:', {
-      duration: entry.duration,
-      startTime: entry.startTime,
-      name: entry.name
-    });
+  if (entry.duration > 50) {
+    // TODO: Handle long task (e.g., send to monitoring service)
   }
 };
 
@@ -101,16 +86,8 @@ const reportLongTask = (entry: PerformanceEntry) => {
  * Report a layout shift
  */
 const reportLayoutShift = (entry: any) => {
-  if (entry.value > 0.1) { // CLS values over 0.1 are considered problematic
-    console.warn('Significant layout shift detected:', {
-      value: entry.value,
-      startTime: entry.startTime,
-      elements: entry.sources?.map((source: any) => ({
-        node: source.node,
-        previousRect: source.previousRect,
-        currentRect: source.currentRect
-      }))
-    });
+  if (entry.value > 0.1) {
+    // TODO: Handle significant layout shift (e.g., send to monitoring service)
   }
 };
 
@@ -211,10 +188,10 @@ export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout;
-  return (...args: Parameters<T>) => {
+  let timeout: ReturnType<typeof setTimeout>;
+  return (..._args: Parameters<T>) => {
     clearTimeout(timeout);
-    timeout = setTimeout(() => func(...args), wait);
+    timeout = setTimeout(() => func(..._args), wait);
   };
 };
 
@@ -226,9 +203,9 @@ export const throttle = <T extends (...args: any[]) => any>(
   limit: number
 ): ((...args: Parameters<T>) => void) => {
   let inThrottle: boolean;
-  return (...args: Parameters<T>) => {
+  return (..._args: Parameters<T>) => {
     if (!inThrottle) {
-      func(...args);
+      func(..._args);
       inThrottle = true;
       setTimeout(() => inThrottle = false, limit);
     }

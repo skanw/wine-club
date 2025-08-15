@@ -10,14 +10,13 @@ import {
   Eye,
   EyeOff,
   Check,
-  AlertCircle
 } from 'lucide-react';
 
 const AccountPage: React.FC = () => {
   const { data: user } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [_isLoading, _setIsLoading] = useState(false);
 
   const tabs = [
     { id: 'profile', name: 'Profile', icon: User },

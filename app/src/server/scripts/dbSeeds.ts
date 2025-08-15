@@ -1,10 +1,7 @@
-import { type User } from 'wasp/entities';
-import { faker } from '@faker-js/faker';
-import type { PrismaClient } from '@prisma/client';
-import { sanitizeAndSerializeProviderData } from 'wasp/auth/utils';
-import { getSubscriptionPaymentPlanIds, SubscriptionStatus } from '../../shared/plans';
+import { PrismaClient } from '@prisma/client';
 
-// Define MockUserData explicitly to avoid type issues
+const prisma = new PrismaClient();
+
 type MockUserData = {
   email: string;
   username: string;
@@ -12,49 +9,68 @@ type MockUserData = {
   isAdmin: boolean;
   credits: number;
   loyaltyPoints: number;
-  subscriptionStatus: SubscriptionStatus | null;
+  subscriptionStatus: string | null;
   lemonSqueezyCustomerPortalUrl: string | null;
   paymentProcessorUserId: string | null;
   datePaid: Date | null;
   subscriptionPlan: string | null;
 };
 
-/**
- * This function, which we've imported in `app.db.seeds` in the `main.wasp` file,
- * seeds the database with mock users via the `wasp db seed` command.
- * For more info see: https://wasp.sh/docs/data-model/backends#seeding-the-database
- */
-export async function seedMockUsers(prismaClient: PrismaClient) {
-  await Promise.all(generateMockUsersData(50).map((data) => prismaClient.user.create({ data })));
-}
-
-function generateMockUsersData(numOfUsers: number): MockUserData[] {
-  return faker.helpers.multiple(generateMockUserData, { count: numOfUsers });
-}
-
-function generateMockUserData(): MockUserData {
-  const firstName = faker.person.firstName();
-  const lastName = faker.person.lastName();
-  const subscriptionStatus = faker.helpers.arrayElement<SubscriptionStatus | null>([
-    ...Object.values(SubscriptionStatus),
-    null,
-  ]);
-  const now = new Date();
-  const createdAt = faker.date.past({ refDate: now });
-  const timePaid = faker.date.between({ from: createdAt, to: now });
-  const credits = subscriptionStatus ? 0 : faker.number.int({ min: 0, max: 10 });
-  const hasUserPaidOnStripe = !!subscriptionStatus || credits > 3;
-  return {
-    email: faker.internet.email({ firstName, lastName }),
-    username: faker.internet.userName({ firstName, lastName }),
-    createdAt,
+const mockUsers: MockUserData[] = [
+  {
+    email: 'admin@wineclubpro.com',
+    username: 'admin',
+    createdAt: new Date(),
     isAdmin: false,
-    credits,
-    loyaltyPoints: 0,
-    subscriptionStatus,
+    credits: 10,
+    loyaltyPoints: 100,
+    subscriptionStatus: null,
     lemonSqueezyCustomerPortalUrl: null,
-    paymentProcessorUserId: hasUserPaidOnStripe ? `cus_test_${faker.string.uuid()}` : null,
-    datePaid: hasUserPaidOnStripe ? faker.date.between({ from: createdAt, to: timePaid }) : null,
-    subscriptionPlan: subscriptionStatus ? faker.helpers.arrayElement(getSubscriptionPaymentPlanIds()) : null,
-  };
+    paymentProcessorUserId: null,
+    datePaid: null,
+    subscriptionPlan: null,
+  },
+  {
+    email: 'user@wineclubpro.com',
+    username: 'user',
+    createdAt: new Date(),
+    isAdmin: false,
+    credits: 3,
+    loyaltyPoints: 50,
+    subscriptionStatus: null,
+    lemonSqueezyCustomerPortalUrl: null,
+    paymentProcessorUserId: null,
+    datePaid: null,
+    subscriptionPlan: null,
+  },
+];
+
+export const seedMockUsers = async () => {
+  // TODO: Integrate with logging/monitoring if needed
+  for (const userData of mockUsers) {
+    const existingUser = await prisma.user.findUnique({
+      where: { email: userData.email }
+    })
+    if (!existingUser) {
+      await prisma.user.create({
+        data: {
+          email: userData.email,
+          username: userData.username,
+          createdAt: userData.createdAt,
+          isAdmin: userData.isAdmin,
+          credits: userData.credits,
+          loyaltyPoints: userData.loyaltyPoints,
+          subscriptionStatus: userData.subscriptionStatus,
+          lemonSqueezyCustomerPortalUrl: userData.lemonSqueezyCustomerPortalUrl,
+          paymentProcessorUserId: userData.paymentProcessorUserId,
+          datePaid: userData.datePaid,
+          subscriptionPlan: userData.subscriptionPlan,
+        }
+      })
+      // TODO: Log user creation if needed
+    } else {
+      // TODO: Log user already exists if needed
+    }
+  }
+  // TODO: Log seeding completion if needed
 }

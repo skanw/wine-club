@@ -7,9 +7,7 @@ import {
   DollarSign, 
   TrendingUp, 
   Wine, 
-  Calendar,
   Settings,
-  FileText,
   Bell
 } from 'lucide-react';
 

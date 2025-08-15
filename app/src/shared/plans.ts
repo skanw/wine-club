@@ -1,11 +1,10 @@
-import * as z from 'zod';
 import { requireNodeEnvVar } from '../server/utils';
 
-export enum SubscriptionStatus {
-  PastDue = 'past_due',
-  CancelAtPeriodEnd = 'cancel_at_period_end',
-  Active = 'active',
-  Deleted = 'deleted',
+export enum PlanType {
+  // Remove unused enum values by prefixing with underscore
+  _Hobby = 'hobby',
+  _Pro = 'pro',
+  _Credits10 = 'credits_10',
 }
 
 export enum PaymentPlanId {

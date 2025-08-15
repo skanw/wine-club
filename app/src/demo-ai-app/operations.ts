@@ -1,11 +1,10 @@
 import * as z from 'zod';
-import { type Task, type User, type GptResponse } from 'wasp/entities';
+import { type Task, type GptResponse } from 'wasp/entities';
 import { type AuthUser } from 'wasp/auth';
 import { HttpError } from 'wasp/server';
 import { type GenerateGptResponse, type CreateTask, type DeleteTask, type UpdateTask, type GetGptResponses, type GetAllTasksByUser } from 'wasp/server/operations';
 import { GeneratedSchedule } from './schedule';
 import OpenAI from 'openai';
-import { SubscriptionStatus } from '../shared/plans';
 import { ensureArgsSchemaOrThrowHttpError } from '../server/validation';
 
 const openai = setupOpenAI();
@@ -55,14 +54,14 @@ export const generateGptResponse: GenerateGptResponse<GenerateGptResponseInput, 
     const hasCredits = context.user.credits > 0;
     const hasValidSubscription =
       !!context.user.subscriptionStatus &&
-      context.user.subscriptionStatus !== SubscriptionStatus.Deleted &&
-      context.user.subscriptionStatus !== SubscriptionStatus.PastDue;
+      context.user.subscriptionStatus !== 'deleted' &&
+      context.user.subscriptionStatus !== 'past_due';
     const canUserContinue = hasCredits || hasValidSubscription;
 
     if (!canUserContinue) {
       throw new HttpError(402, 'User has not paid or is out of credits');
     } else {
-      console.log('decrementing credits');
+      // TODO: Decrement credits and log if needed
       await context.entities.User.update({
         where: { id: context.user.id },
         data: {
@@ -157,8 +156,7 @@ export const generateGptResponse: GenerateGptResponse<GenerateGptResponseInput, 
       throw new HttpError(500, 'Bad response from OpenAI');
     }
 
-    console.log('gpt function call arguments: ', gptArgs);
-
+    // TODO: Log GPT function call arguments if needed
     await context.entities.GptResponse.create({
       data: {
         user: { connect: { id: context.user.id } },
@@ -178,7 +176,7 @@ export const generateGptResponse: GenerateGptResponse<GenerateGptResponseInput, 
         },
       });
     }
-    console.error(error);
+    // TODO: Log error if needed
     const statusCode = error.statusCode || 500;
     const errorMessage = error.message || 'Internal server error';
     throw new HttpError(statusCode, errorMessage);

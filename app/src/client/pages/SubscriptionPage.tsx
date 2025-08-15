@@ -29,8 +29,8 @@ const SubscriptionPage: React.FC = () => {
   // Micro-interaction hooks
   useCustomCursor('.hero-section');
   const { getButtonProps } = useEnhancedButton();
-  const { addRef } = useIntersectionAnimation();
-  const { isMobile } = useMobileOptimizations();
+  const { addRef: _addRef } = useIntersectionAnimation();
+  const { isMobile: _isMobile } = useMobileOptimizations();
 
   // Simple animation triggers
   const [animationsTriggered, setAnimationsTriggered] = useState({
@@ -189,7 +189,6 @@ const SubscriptionPage: React.FC = () => {
                 async () => {
                   // Simulate subscription flow
                   await new Promise(resolve => setTimeout(resolve, 2000));
-                  console.log('Subscription started!');
                 },
                 'subscribe-button hero-cta'
               )}

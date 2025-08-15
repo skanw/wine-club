@@ -1,0 +1,321 @@
+/* ================================
+   WINE CLUB SAAS - MINIMALIST DESIGN
+   Single Champagne Theme
+   ================================ */
+
+:root {
+  /* ================================
+     MINIMALIST COLOR PALETTE
+     ================================ */
+  
+  --minimalist-bg: #ffffff;
+  --minimalist-text: var(--bordeaux-900);
+  --minimalist-accent: var(--champagne-200);
+  --minimalist-border: var(--border-primary);
+  --minimalist-shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* ================================
+   MINIMALIST LAYOUT
+   ================================ */
+
+.minimalist-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.minimalist-section {
+  padding: var(--section-padding-lg) 0;
+}
+
+.minimalist-hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--minimalist-bg);
+}
+
+.minimalist-hero-content {
+  max-width: 740px;
+  padding: 2rem;
+}
+
+.minimalist-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: var(--weight-bold);
+  color: var(--minimalist-text);
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.minimalist-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.minimalist-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ================================
+   MINIMALIST CARDS
+   ================================ */
+
+.minimalist-card {
+  background: var(--minimalist-bg);
+  border: 1px solid var(--minimalist-border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all var(--transition-normal);
+}
+
+.minimalist-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px var(--minimalist-shadow);
+}
+
+.minimalist-card-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--minimalist-text);
+  margin-bottom: 1rem;
+}
+
+.minimalist-card-content {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ================================
+   MINIMALIST BUTTONS
+   ================================ */
+
+.minimalist-btn {
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.minimalist-btn-primary {
+  background: var(--bordeaux-900);
+  color: white;
+}
+
+.minimalist-btn-primary:hover {
+  background: var(--bordeaux-800);
+  transform: translateY(-2px);
+}
+
+.minimalist-btn-secondary {
+  background: transparent;
+  color: var(--minimalist-text);
+  border: 1px solid var(--minimalist-border);
+}
+
+.minimalist-btn-secondary:hover {
+  background: var(--minimalist-accent);
+  border-color: var(--bordeaux-400);
+  transform: translateY(-2px);
+}
+
+/* ================================
+   MINIMALIST NAVIGATION
+   ================================ */
+
+.minimalist-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--minimalist-border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.minimalist-navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.minimalist-navbar-logo {
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  color: var(--minimalist-text);
+  text-decoration: none;
+}
+
+.minimalist-navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.minimalist-navbar-link {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-normal);
+}
+
+.minimalist-navbar-link:hover {
+  color: var(--minimalist-text);
+}
+
+.minimalist-navbar-link.active {
+  color: var(--bordeaux-900);
+  font-weight: var(--weight-semibold);
+}
+
+/* ================================
+   MINIMALIST FORMS
+   ================================ */
+
+.minimalist-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  border: 1px solid var(--minimalist-border);
+  border-radius: 8px;
+  background: var(--minimalist-bg);
+  color: var(--minimalist-text);
+  transition: all var(--transition-normal);
+}
+
+.minimalist-input:focus {
+  outline: none;
+  border-color: var(--bordeaux-900);
+  box-shadow: 0 0 0 3px rgba(90, 30, 27, 0.1);
+}
+
+.minimalist-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ================================
+   MINIMALIST GRID
+   ================================ */
+
+.minimalist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.minimalist-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 3rem;
+  align-items: center;
+}
+
+/* ================================
+   RESPONSIVE DESIGN
+   ================================ */
+
+@media (max-width: 768px) {
+  .minimalist-hero-content {
+    padding: 1.5rem;
+  }
+  
+  .minimalist-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .minimalist-navbar-nav {
+    display: none;
+  }
+  
+  .minimalist-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .minimalist-container {
+    padding: 0 1rem;
+  }
+  
+  .minimalist-card {
+    padding: 1.5rem;
+  }
+}
+
+/* ================================
+   ACCESSIBILITY
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .minimalist-card,
+  .minimalist-btn,
+  .minimalist-input {
+    transition: none;
+  }
+  
+  .minimalist-card:hover,
+  .minimalist-btn:hover {
+    transform: none;
+  }
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+
+@media print {
+  .minimalist-navbar {
+    position: static;
+    background: white;
+    border-bottom: 1px solid #000;
+  }
+  
+  .minimalist-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+  
+  .minimalist-btn {
+    background: none !important;
+    color: #000 !important;
+    border: 1px solid #000 !important;
+  }
+} 

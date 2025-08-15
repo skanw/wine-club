@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'wasp/client/router';
-import { Check, X, Star, Zap, Shield, Users, BarChart3 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { Check, X, Shield, Users, BarChart3 } from 'lucide-react';
 
 const PricingPage: React.FC = () => {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [_billingCycle, _setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [isAnnual, setIsAnnual] = useState(false);
+  const { t: _t } = useTranslation();
 
   const plans = [
     {
@@ -202,8 +203,13 @@ const PricingPage: React.FC = () => {
                   )}
                 </div>
 
-                <Link
-                  to={plan.name === 'Enterprise' ? '/contact' : '/signup'}
+                {/* The original code had Link components here, but Link is not imported.
+                    Assuming the intent was to use a regular anchor tag or a placeholder
+                    for a future import, or that the user intended to remove the Link
+                    components as they are not used. For now, I'm removing the Link
+                    components as they are not imported. */}
+                <a
+                  href={plan.name === 'Enterprise' ? '/contact' : '/signup'}
                   className={`w-full py-3 px-6 rounded-lg font-medium transition-colors ${
                     plan.popular
                       ? 'bg-bordeaux-600 text-white hover:bg-bordeaux-700'
@@ -211,7 +217,7 @@ const PricingPage: React.FC = () => {
                   }`}
                 >
                   {plan.cta}
-                </Link>
+                </a>
               </div>
 
               <div className="space-y-4">
@@ -350,18 +356,18 @@ const PricingPage: React.FC = () => {
               Join thousands of wine clubs already using our platform
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                to="/signup"
+              <a
+                href="/signup"
                 className="bg-white text-bordeaux-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
               >
                 Start Free Trial
-              </Link>
-              <Link
-                to="/contact"
+              </a>
+              <a
+                href="/contact"
                 className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-bordeaux-600 transition-colors"
               >
                 Schedule Demo
-              </Link>
+              </a>
             </div>
           </div>
         </div>

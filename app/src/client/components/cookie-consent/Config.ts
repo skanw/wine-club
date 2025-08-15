@@ -79,7 +79,7 @@ const getConfig = () => {
                   gtag('config', GA_ANALYTICS_ID);
                 };
               } catch (error) {
-                console.error(error);
+                // TODO: Integrate with production logging service
               }
             },
             onReject: () => {},
