@@ -1,0 +1,179 @@
+{
+  "testSuites": {
+    "basic": {
+      "description": "Basic user flow tests for core functionality",
+      "script": "scripts/test-user-flows.cjs",
+      "scenarios": [
+        "Landing Page Experience",
+        "User Registration Flow", 
+        "Wine Cave Discovery",
+        "Subscription Checkout",
+        "User Dashboard",
+        "Mobile Responsiveness",
+        "Accessibility",
+        "Performance"
+      ]
+    },
+    "comprehensive": {
+      "description": "Comprehensive scenario-based tests for all user journeys",
+      "script": "scripts/comprehensive-user-flows.cjs",
+      "scenarios": [
+        "Wine Cave Discovery & Onboarding",
+        "Subscription Signup & Payment Flow",
+        "AI Sommelier Interaction",
+        "Wine Rating & Review System",
+        "Shipping & Delivery Tracking",
+        "User Dashboard & Account Management",
+        "Admin Dashboard & Analytics",
+        "Mobile Responsiveness & Touch Interactions",
+        "Accessibility & Keyboard Navigation",
+        "Performance & Loading States",
+        "Error Handling & Edge Cases",
+        "Internationalization & Localization"
+      ]
+    },
+    "wine-specific": {
+      "description": "Specialized tests for wine industry specific features",
+      "script": "scripts/wine-specific-flows.cjs",
+      "scenarios": [
+        "Wine Tasting Experience",
+        "Cellar Management",
+        "Sommelier Consultation",
+        "Wine Education & Learning",
+        "Wine Recommendations Engine",
+        "Wine Club Membership Management",
+        "Wine Events & Tastings",
+        "Wine Pairing & Food Matching",
+        "Wine Storage & Aging",
+        "Wine Community & Social Features"
+      ]
+    }
+  },
+  "testSettings": {
+    "baseUrl": "http://localhost:3000",
+    "timeouts": {
+      "pageLoad": 30000,
+      "elementWait": 5000,
+      "actionDelay": 1000
+    },
+    "viewport": {
+      "desktop": { "width": 1280, "height": 720 },
+      "tablet": { "width": 768, "height": 1024 },
+      "mobile": { "width": 375, "height": 667 }
+    },
+    "browserOptions": {
+      "headless": false,
+      "slowMo": 100,
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    },
+    "screenshots": {
+      "enabled": true,
+      "directory": "test-screenshots",
+      "onFailure": true,
+      "onSuccess": false
+    }
+  },
+  "userProfiles": {
+    "newUser": {
+      "email": "test-new@example.com",
+      "password": "TestPassword123!",
+      "name": "Test New User"
+    },
+    "returningUser": {
+      "email": "test-returning@example.com", 
+      "password": "TestPassword123!",
+      "name": "Test Returning User"
+    },
+    "adminUser": {
+      "email": "admin@example.com",
+      "password": "AdminPassword123!",
+      "name": "Admin User"
+    }
+  },
+  "testData": {
+    "wineCaves": [
+      {
+        "name": "Bordeaux Boutique",
+        "region": "Bordeaux, France",
+        "specialty": "Red Wines"
+      },
+      {
+        "name": "Champagne Cellar",
+        "region": "Champagne, France", 
+        "specialty": "Sparkling Wines"
+      },
+      {
+        "name": "Tuscany Treasures",
+        "region": "Tuscany, Italy",
+        "specialty": "Italian Reds"
+      }
+    ],
+    "wines": [
+      {
+        "name": "Château Margaux 2015",
+        "type": "Red",
+        "region": "Bordeaux",
+        "price": 850
+      },
+      {
+        "name": "Dom Pérignon 2012",
+        "type": "Sparkling",
+        "region": "Champagne", 
+        "price": 250
+      },
+      {
+        "name": "Sassicaia 2018",
+        "type": "Red",
+        "region": "Tuscany",
+        "price": 450
+      }
+    ],
+    "subscriptionTiers": [
+      {
+        "name": "Starter",
+        "price": 99,
+        "winesPerMonth": 2
+      },
+      {
+        "name": "Connoisseur", 
+        "price": 199,
+        "winesPerMonth": 4
+      },
+      {
+        "name": "Collector",
+        "price": 399,
+        "winesPerMonth": 6
+      }
+    ]
+  },
+  "accessibility": {
+    "wcagLevel": "AA",
+    "colorContrast": {
+      "minimum": 4.5,
+      "largeText": 3.0
+    },
+    "touchTargets": {
+      "minimumSize": 44
+    },
+    "keyboardNavigation": {
+      "required": true,
+      "skipLinks": true
+    }
+  },
+  "performance": {
+    "thresholds": {
+      "pageLoad": 3000,
+      "firstContentfulPaint": 1500,
+      "largestContentfulPaint": 2500,
+      "cumulativeLayoutShift": 0.1,
+      "firstInputDelay": 100
+    }
+  },
+  "reporting": {
+    "outputFormats": ["console", "json", "html"],
+    "includeScreenshots": true,
+    "includePerformance": true,
+    "includeAccessibility": true,
+    "generateRecommendations": true
+  }
+} 

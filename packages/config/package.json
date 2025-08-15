@@ -1,0 +1,17 @@
+{
+  "name": "@wineclub/config",
+  "version": "1.0.0",
+  "description": "Shared configuration for WineClub monorepo",
+  "main": "tailwind-preset.js",
+  "files": [
+    "tailwind-preset.js",
+    "eslint-preset.js",
+    "typescript-preset.json"
+  ],
+  "scripts": {
+    "build": "echo 'Config package build placeholder'"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.0"
+  }
+}

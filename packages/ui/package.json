@@ -1,0 +1,24 @@
+{
+  "name": "@wineclub/ui",
+  "version": "1.0.0",
+  "description": "Shared UI components and design tokens for WineClub",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "echo 'UI package build placeholder'",
+    "dev": "echo 'UI package dev placeholder'"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
