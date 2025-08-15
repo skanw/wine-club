@@ -17,10 +17,11 @@ import {
   Check
 } from 'lucide-react';
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../components/ui/EnhancedCard';
-import EnhancedButton from '../components/ui/EnhancedButton';
-import { ProgressiveStepper, ExpandableSection, Accordion } from '../components/ui/ProgressiveDisclosure';
-import { AccessibleInput, AccessibleTextarea, AccessibleSelect, FormGroup, FormActions } from '../components/ui/AccessibleForm';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '../../components/ui/EnhancedCard';
+import EnhancedButton from '../../components/ui/EnhancedButton';
+import { ProgressiveStepper, ExpandableSection, Accordion } from '../../components/ui/ProgressiveDisclosure';
+import { AccessibleInput, AccessibleTextarea, AccessibleSelect, FormGroup, FormActions } from '../../components/ui/AccessibleForm';
+import { cn } from '../../cn';
 
 export default function UIDesignPrinciplesShowcase() {
   const [activeSection, setActiveSection] = useState('overview');
@@ -109,7 +110,7 @@ export default function UIDesignPrinciplesShowcase() {
           />
         </FormGroup>
       ),
-      validation: () => formData.firstName && formData.lastName && formData.email
+      validation: () => Boolean(formData.firstName && formData.lastName && formData.email)
     },
     {
       id: 'preferences',
@@ -140,7 +141,7 @@ export default function UIDesignPrinciplesShowcase() {
           />
         </FormGroup>
       ),
-      validation: () => formData.plan
+      validation: () => Boolean(formData.plan)
     },
     {
       id: 'payment',

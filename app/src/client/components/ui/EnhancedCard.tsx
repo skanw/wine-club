@@ -162,8 +162,6 @@ const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
     children,
     ...props 
   }, ref) => {
-    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
-    
     // Hierarchy styles (Principle 1: Hierarchy)
     const hierarchyStyles = {
       primary: level <= 2 ? 'typography-h2' : 'typography-h3',
@@ -171,26 +169,36 @@ const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
       tertiary: 'typography-h4'
     };
     
-    return (
-      <Tag
-        ref={ref}
-        className={cn(
-          // Base styles
-          'font-semibold leading-tight tracking-tight',
-          
-          // Hierarchy styles (Principle 1: Hierarchy)
-          hierarchyStyles[hierarchy],
-          
-          // Color contrast (Principle 4: Contrast)
-          'text-bordeaux-900',
-          
-          className
-        )}
-        {...props}
-      >
-        {children}
-      </Tag>
+    const baseClassName = cn(
+      // Base styles
+      'font-semibold leading-tight tracking-tight',
+      
+      // Hierarchy styles (Principle 1: Hierarchy)
+      hierarchyStyles[hierarchy],
+      
+      // Color contrast (Principle 4: Contrast)
+      'text-bordeaux-900',
+      
+      className
     );
+    
+    // Create the appropriate heading element
+    switch (level) {
+      case 1:
+        return <h1 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h1>;
+      case 2:
+        return <h2 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h2>;
+      case 3:
+        return <h3 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h3>;
+      case 4:
+        return <h4 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h4>;
+      case 5:
+        return <h5 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h5>;
+      case 6:
+        return <h6 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h6>;
+      default:
+        return <h3 ref={ref as React.Ref<HTMLHeadingElement>} className={baseClassName} {...props}>{children}</h3>;
+    }
   }
 );
 CardTitle.displayName = 'CardTitle';

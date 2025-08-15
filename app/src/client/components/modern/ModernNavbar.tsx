@@ -142,7 +142,6 @@ export default function ModernNavbar() {
                 size="md"
                 className="w-full align-horizontal-center"
                 rightIcon={<ArrowRight className="h-4 w-4" />}
-                onClick={() => setIsMenuOpen(false)}
               >
                 Get Started
               </EnhancedButton>

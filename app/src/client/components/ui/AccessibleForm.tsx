@@ -27,6 +27,8 @@ interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'>
   rightIcon?: ReactNode;
   loading?: boolean;
   showPasswordToggle?: boolean;
+  optional?: boolean;
+  helpText?: string;
 }
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -35,6 +37,7 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   error?: string;
   success?: string;
   resize?: 'none' | 'vertical' | 'horizontal' | 'both';
+  optional?: boolean;
 }
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -163,6 +166,8 @@ export const AccessibleInput = forwardRef<HTMLInputElement, InputProps>(
     rightIcon,
     loading = false,
     showPasswordToggle = false,
+    optional = false,
+    helpText,
     type = 'text',
     className,
     ...props
@@ -269,6 +274,8 @@ export const AccessibleInput = forwardRef<HTMLInputElement, InputProps>(
           error={error}
           success={success}
           required={props.required}
+          optional={optional}
+          helpText={helpText}
         >
           {inputComponent}
         </FormField>
@@ -288,6 +295,7 @@ export const AccessibleTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>
     error,
     success,
     resize = 'vertical',
+    optional = false,
     className,
     ...props
   }, ref) => {
@@ -336,6 +344,7 @@ export const AccessibleTextarea = forwardRef<HTMLTextAreaElement, TextareaProps>
           error={error}
           success={success}
           required={props.required}
+          optional={optional}
         >
           {textareaComponent}
         </FormField>

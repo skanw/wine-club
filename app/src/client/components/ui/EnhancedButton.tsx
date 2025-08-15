@@ -56,17 +56,20 @@ interface ButtonElementProps extends BaseButtonProps,
 
 // Link element props
 interface LinkElementProps extends BaseButtonProps, 
-  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps> {
+  Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, keyof BaseButtonProps | 'aria-current'> {
   as?: 'a';
   href: string;
   to?: never;
+  'aria-current'?: boolean | "true" | "false" | "date" | "time" | "location" | "page" | "step";
 }
 
 // Router Link props
-interface RouterLinkProps extends BaseButtonProps {
+interface RouterLinkProps extends BaseButtonProps, 
+  Omit<React.ComponentProps<typeof Link>, keyof BaseButtonProps | 'to' | 'aria-current'> {
   as?: 'link';
   to: string;
   href?: never;
+  'aria-current'?: boolean | "true" | "false" | "date" | "time" | "location" | "page" | "step";
 }
 
 export type EnhancedButtonProps = ButtonElementProps | LinkElementProps | RouterLinkProps;
@@ -201,14 +204,16 @@ const EnhancedButton = forwardRef<
     </div>
   );
 
-  // Common props for all element types
+  // Common props for all element types (excluding specific props)
+  const { onError, formAction, formEncType, formMethod, formNoValidate, formTarget, type: _, ...restProps } = props as any;
+  
   const commonProps = {
     className: buttonClasses,
     style,
     'aria-disabled': disabled || loading,
     'aria-busy': loading,
-    'aria-current': isCurrentStep ? 'step' : undefined,
-    ...props
+    'aria-current': isCurrentStep ? ('step' as const) : undefined,
+    ...restProps
   };
 
   // Render anchor element
@@ -242,11 +247,11 @@ const EnhancedButton = forwardRef<
   }
 
   // Default to button element
-  const buttonProps = props as ButtonElementProps;
+  const { type = "button", ...buttonProps } = props as ButtonElementProps;
   return (
     <button
       ref={ref as React.Ref<HTMLButtonElement>}
-      type="button"
+      type={type}
       disabled={disabled || loading}
       {...commonProps}
       {...buttonProps}
