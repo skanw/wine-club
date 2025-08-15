@@ -4,15 +4,17 @@
 
 WineSAAS is a comprehensive SaaS platform for luxury wine club management, featuring AI-powered recommendations, inventory management, subscription handling, and premium user experiences.
 
+This project is based on [OpenSaas](https://opensaas.sh) template and consists of three main directories:
+
 ## 📁 Project Structure
 
 ```
 wineSAAS/
 ├── wine-club-saas/          # Main application
-│   ├── app/                 # Wasp application
+│   ├── app/                 # Wasp web app
 │   ├── docs/                # Documentation
-│   ├── e2e-tests/           # End-to-end testing
-│   └── blog/                # Marketing blog
+│   ├── e2e-tests/           # Playwright tests
+│   └── blog/                # Astro blog/docs (Starlight template)
 └── README.md               # This file
 ```
 
@@ -100,4 +102,4 @@ Proprietary - All rights reserved
 
 ## 🆘 Support
 
-For technical issues or questions, please refer to the documentation or create an issue in the repository. 
+For technical issues or questions, please refer to the documentation or create an issue in the repository.

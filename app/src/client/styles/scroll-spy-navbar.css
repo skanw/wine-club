@@ -1,0 +1,260 @@
+/* ==========================================
+   📍 SCROLL-SPY NAVBAR STYLES
+   ========================================== */
+
+.scroll-spy-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.scroll-spy-navbar.sticky {
+  transform: translateY(0);
+  opacity: 1;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-items {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 48px;
+}
+
+.navbar-item {
+  position: relative;
+}
+
+.navbar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+  border-radius: 25px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.navbar-link:hover {
+  color: rgba(0, 0, 0, 0.9);
+  background: rgba(139, 21, 56, 0.1);
+  transform: translateY(-2px);
+}
+
+.navbar-link.active {
+  color: #8B1538;
+  background: rgba(139, 21, 56, 0.15);
+  font-weight: 600;
+  transform: translateY(-2px);
+}
+
+.navbar-underline {
+  position: absolute;
+  bottom: 8px;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: linear-gradient(135deg, #8B1538, #A01B42);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-link.active .navbar-underline {
+  transform: scaleX(1);
+}
+
+.navbar-link:hover .navbar-underline {
+  transform: scaleX(0.7);
+  background: linear-gradient(135deg, #8B1538, #6B2420);
+}
+
+/* 🌓 Theme Variations */
+.theme-red .scroll-spy-navbar {
+  background: rgba(90, 30, 27, 0.95);
+  border-bottom-color: rgba(139, 21, 56, 0.3);
+}
+
+.theme-red .navbar-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.theme-red .navbar-link:hover {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.theme-red .navbar-link.active {
+  color: #F3E9D2;
+  background: rgba(243, 233, 210, 0.15);
+}
+
+.theme-white .scroll-spy-navbar {
+  background: rgba(243, 233, 210, 0.95);
+  border-bottom-color: rgba(218, 165, 32, 0.3);
+}
+
+.theme-white .navbar-link {
+  color: rgba(90, 30, 27, 0.8);
+}
+
+.theme-white .navbar-link:hover {
+  color: rgba(90, 30, 27, 1);
+  background: rgba(218, 165, 32, 0.1);
+}
+
+.theme-white .navbar-link.active {
+  color: #8B6914;
+  background: rgba(139, 105, 20, 0.15);
+}
+
+.theme-white .navbar-underline,
+.theme-white .navbar-link:hover .navbar-underline {
+  background: linear-gradient(135deg, #DAA520, #8B6914);
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 16px;
+    height: 60px;
+  }
+  
+  .navbar-items {
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .navbar-link {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .navbar-underline {
+    left: 16px;
+    right: 16px;
+    bottom: 6px;
+  }
+  
+  .scroll-spy-navbar {
+    position: relative;
+    transform: none;
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-items {
+    gap: 16px;
+  }
+  
+  .navbar-link {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
+
+/* 🎯 Focus States for Accessibility */
+.navbar-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.3);
+  border-radius: 25px;
+}
+
+.theme-red .navbar-link:focus {
+  box-shadow: 0 0 0 3px rgba(243, 233, 210, 0.3);
+}
+
+.theme-white .navbar-link:focus {
+  box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.3);
+}
+
+/* 🏃‍♂️ Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-spy-navbar,
+  .navbar-link,
+  .navbar-underline {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .navbar-link:hover,
+  .navbar-link.active {
+    transform: none !important;
+  }
+}
+
+/* 🌊 Loading State */
+.navbar-link.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.navbar-link.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border: 1px solid transparent;
+  border-top: 1px solid currentColor;
+  border-radius: 50%;
+  animation: navbar-spin 1s linear infinite;
+}
+
+@keyframes navbar-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 🎨 Scroll Progress Indicator */
+.scroll-spy-navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(135deg, #8B1538, #A01B42);
+  transform-origin: left;
+  transform: scaleX(var(--scroll-progress, 0));
+  transition: transform 0.1s ease;
+  z-index: 1;
+}
+
+.theme-red .scroll-spy-navbar::before {
+  background: linear-gradient(135deg, #F3E9D2, #DAA520);
+}
+
+.theme-white .scroll-spy-navbar::before {
+  background: linear-gradient(135deg, #DAA520, #8B6914);
+} 

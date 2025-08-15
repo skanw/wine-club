@@ -1,0 +1,406 @@
+/* ================================
+   LUXURY CTA BUTTONS & MICRO-INTERACTIONS
+   ================================ */
+
+/* Base Luxury Button Styles */
+.luxury-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 50px; /* Pill-shaped */
+  border: 2px solid transparent;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  letter-spacing: 0.025em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  
+  /* Soft drop shadow */
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.05);
+  
+  /* Prevent text selection */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Primary Luxury Button */
+.luxury-btn-primary {
+  background: var(--gradient-bordeaux-champagne);
+  color: white;
+  border-color: transparent;
+}
+
+.luxury-btn-primary:hover {
+  background: var(--gradient-cta-hover);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(185, 28, 28, 0.25),
+    0 4px 12px rgba(230, 200, 117, 0.15);
+}
+
+.luxury-btn-primary:active {
+  background: var(--gradient-cta-pressed);
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/* Secondary Luxury Button */
+.luxury-btn-secondary {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--bordeaux-700);
+  border-color: var(--champagne-300);
+  backdrop-filter: blur(10px);
+}
+
+.luxury-btn-secondary:hover {
+  background: rgba(255, 255, 255, 1);
+  border-color: var(--bordeaux-400);
+  color: var(--bordeaux-800);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 25px rgba(230, 200, 117, 0.2),
+    0 4px 12px rgba(185, 28, 28, 0.1);
+}
+
+.luxury-btn-secondary:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/* Ghost Luxury Button */
+.luxury-btn-ghost {
+  background: transparent;
+  color: var(--bordeaux-700);
+  border-color: var(--bordeaux-300);
+}
+
+.luxury-btn-ghost:hover {
+  background: var(--overlay-bordeaux-soft);
+  border-color: var(--bordeaux-500);
+  color: var(--bordeaux-800);
+  transform: translateY(-1px);
+}
+
+/* ================================
+   ICON ANIMATIONS
+   ================================ */
+
+.luxury-btn .icon {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.luxury-btn:hover .icon {
+  transform: translateX(4px);
+}
+
+.luxury-btn:hover .icon-up {
+  transform: translateY(-4px);
+}
+
+.luxury-btn:hover .icon-scale {
+  transform: scale(1.1);
+}
+
+/* ================================
+   LIQUID RIPPLE EFFECT
+   ================================ */
+
+.luxury-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.luxury-btn:active::before {
+  width: 300px;
+  height: 300px;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.luxury-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   BUTTON SIZES
+   ================================ */
+
+.luxury-btn-sm {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  gap: 0.5rem;
+}
+
+.luxury-btn-lg {
+  padding: 1.25rem 2.5rem;
+  font-size: 1.25rem;
+  gap: 1rem;
+}
+
+.luxury-btn-xl {
+  padding: 1.5rem 3rem;
+  font-size: 1.375rem;
+  gap: 1rem;
+}
+
+/* ================================
+   BUTTON STATES
+   ================================ */
+
+.luxury-btn:disabled,
+.luxury-btn.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.luxury-btn:disabled:hover,
+.luxury-btn.disabled:hover {
+  background: var(--gradient-bordeaux-champagne);
+  transform: none;
+  box-shadow: 
+    0 4px 14px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.luxury-btn.loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.luxury-btn.loading .icon {
+  animation: luxury-spin 1s linear infinite;
+}
+
+/* ================================
+   LOADING SPINNER
+   ================================ */
+
+@keyframes luxury-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.luxury-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: luxury-spin 1s ease-in-out infinite;
+}
+
+/* ================================
+   BUTTON GROUPS
+   ================================ */
+
+.luxury-btn-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.luxury-btn-group .luxury-btn {
+  flex: 1;
+  min-width: max-content;
+}
+
+@media (max-width: 640px) {
+  .luxury-btn-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .luxury-btn-group .luxury-btn {
+    width: 100%;
+  }
+}
+
+/* ================================
+   FOCUS STYLES FOR ACCESSIBILITY
+   ================================ */
+
+.luxury-btn:focus-visible {
+  outline: 2px solid var(--bordeaux-500);
+  outline-offset: 4px;
+  border-radius: 50px;
+}
+
+.luxury-btn-secondary:focus-visible {
+  outline-color: var(--champagne-600);
+}
+
+.luxury-btn-ghost:focus-visible {
+  outline-color: var(--bordeaux-600);
+}
+
+/* ================================
+   DARK MODE ADAPTATIONS
+   ================================ */
+
+.dark .luxury-btn-secondary {
+  background: rgba(17, 24, 39, 0.95);
+  color: var(--champagne-400);
+  border-color: var(--bordeaux-600);
+}
+
+.dark .luxury-btn-secondary:hover {
+  background: rgba(17, 24, 39, 1);
+  border-color: var(--champagne-500);
+  color: var(--champagne-300);
+}
+
+.dark .luxury-btn-ghost {
+  color: var(--champagne-400);
+  border-color: var(--champagne-600);
+}
+
+.dark .luxury-btn-ghost:hover {
+  background: var(--overlay-champagne-soft);
+  border-color: var(--champagne-400);
+  color: var(--champagne-300);
+}
+
+/* ================================
+   RESPONSIVE ADJUSTMENTS
+   ================================ */
+
+@media (max-width: 768px) {
+  .luxury-btn {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    gap: 0.5rem;
+  }
+  
+  .luxury-btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+  }
+  
+  .luxury-btn-xl {
+    padding: 1.125rem 2.25rem;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .luxury-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+  
+  .luxury-btn:hover .icon {
+    transform: translateX(2px);
+  }
+  
+  .luxury-btn:hover .icon-up {
+    transform: translateY(-2px);
+  }
+}
+
+/* ================================
+   HIGH CONTRAST MODE
+   ================================ */
+
+@media (prefers-contrast: high) {
+  .luxury-btn-primary {
+    background: #000000;
+    color: #FFFFFF;
+    border-color: #000000;
+  }
+  
+  .luxury-btn-secondary {
+    background: #FFFFFF;
+    color: #000000;
+    border-color: #000000;
+  }
+  
+  .luxury-btn-ghost {
+    background: transparent;
+    color: #000000;
+    border-color: #000000;
+  }
+  
+  .dark .luxury-btn-primary {
+    background: #FFFFFF;
+    color: #000000;
+    border-color: #FFFFFF;
+  }
+  
+  .dark .luxury-btn-secondary {
+    background: #000000;
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+  
+  .dark .luxury-btn-ghost {
+    color: #FFFFFF;
+    border-color: #FFFFFF;
+  }
+}
+
+/* ================================
+   REDUCED MOTION
+   ================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .luxury-btn,
+  .luxury-btn .icon,
+  .luxury-btn::before {
+    transition: none;
+    animation: none;
+  }
+  
+  .luxury-btn:hover {
+    transform: none;
+  }
+  
+  .luxury-btn:hover .icon {
+    transform: none;
+  }
+}
+
+/* ================================
+   PRINT STYLES
+   ================================ */
+
+@media print {
+  .luxury-btn {
+    background: none !important;
+    color: #000000 !important;
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+} 
