@@ -10,6 +10,20 @@
    ========================================================================== */
 
 :root {
+  /* White-wine luxury palette */
+  --wc-ivory: #FBFAF7;      /* page bg */
+  --wc-shell: #F7F4EE;      /* panel bg */
+  --wc-porcelain: #EEE9DF;  /* hairline borders */
+  --wc-champagne: #E9D9A6;  /* primary */
+  --wc-chablis: #DCCB8A;    /* hover/active */
+  --wc-grape-seed: #6E664C; /* headings/accent */
+  --wc-cave: #2C2A24;       /* body text */
+
+  /* Shape + depth */
+  --wc-r-card: 28px;
+  --wc-r-hero: 36px;
+  --wc-shadow: 0 8px 30px rgba(0,0,0,.07);
+
   /* Primary Brand Colors - Champagne */
   --color-champagne-50: #fefcf7;
   --color-champagne-100: #fdf8ed;
@@ -229,6 +243,11 @@
    ========================================================================== */
 
 :root {
+  /* Motion preferences */
+  --motion-duration: 300ms;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --motion-stagger: 100ms;
+  
   /* Transitions */
   --transition-all: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-colors: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out, fill 0.15s ease-in-out, stroke 0.15s ease-in-out;
@@ -530,6 +549,67 @@
 
 /* Border Radius Utilities */
 .rounded-none { border-radius: var(--radius-none); }
+
+/* ==========================================================================
+   MOTION & ACCESSIBILITY
+   ========================================================================== */
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 0ms;
+    --transition-all: none;
+    --transition-colors: none;
+    --transition-opacity: none;
+    --transition-shadow: none;
+    --transition-transform: none;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Motion utilities */
+.animate-fade-in {
+  animation: fade-in var(--motion-duration) var(--motion-ease) forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up var(--motion-duration) var(--motion-ease) forwards;
+}
+
+.animate-stagger-1 { animation-delay: calc(var(--motion-stagger) * 1); }
+.animate-stagger-2 { animation-delay: calc(var(--motion-stagger) * 2); }
+.animate-stagger-3 { animation-delay: calc(var(--motion-stagger) * 3); }
+.animate-stagger-4 { animation-delay: calc(var(--motion-stagger) * 4); }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .rounded-sm { border-radius: var(--radius-sm); }
 .rounded { border-radius: var(--radius-base); }
 .rounded-md { border-radius: var(--radius-md); }

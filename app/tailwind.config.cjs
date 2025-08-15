@@ -28,10 +28,12 @@ module.exports = {
         'title-sm': ['20px', '26px'],
         'title-xsm': ['18px', '24px'],
         
-        // New unified typography scale
+        // New unified typography scale + Fluid display sizes
         'display-2xl': ['4.5rem', { lineHeight: '1.1', letterSpacing: '-0.05em' }],
         'display-xl': ['3.75rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
         'display-lg': ['3rem', { lineHeight: '1.1', letterSpacing: '-0.025em' }],
+        'display-fluid': ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '1.1', letterSpacing: '-0.05em' }],
+        'hero-fluid': ['clamp(1.875rem, 4vw, 3rem)', { lineHeight: '1.2', letterSpacing: '-0.025em' }],
         
         'h1': ['2.25rem', { lineHeight: '1.25', letterSpacing: '-0.025em' }],
         'h2': ['1.875rem', { lineHeight: '1.25', letterSpacing: '-0.025em' }],
@@ -124,6 +126,15 @@ module.exports = {
           700: '#E57373',  // Light wine (6.1:1 contrast on dark)
         },
         
+        // White-wine luxury palette
+        ivory: 'var(--wc-ivory)',
+        shell: 'var(--wc-shell)', 
+        porcelain: 'var(--wc-porcelain)',
+        champagne: 'var(--wc-champagne)',
+        chablis: 'var(--wc-chablis)',
+        'grape-seed': 'var(--wc-grape-seed)',
+        cave: 'var(--wc-cave)',
+
         // Luxury color palette additions
         bordeaux: {
           50: '#FEF2F2',   // Lightest Bordeaux
@@ -354,6 +365,10 @@ module.exports = {
         'luxury': 'cubic-bezier(0.4, 0, 0.2, 1)',
         'micro': 'ease-out',
       },
+      borderRadius: {
+        'card': 'var(--wc-r-card)',
+        'hero': 'var(--wc-r-hero)',
+      },
       animation: {
         'luxury-fade': 'luxury-fade 0.6s ease-out forwards',
         'luxury-slide': 'luxury-slide 0.8s ease-out forwards',
@@ -379,6 +394,7 @@ module.exports = {
         },
       },
       boxShadow: {
+        'wc': 'var(--wc-shadow)',
         'luxury': '0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05)',
         'luxury-lg': '0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.05)',
         'luxury-xl': '0 25px 50px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1)',

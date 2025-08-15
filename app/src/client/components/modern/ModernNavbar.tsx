@@ -24,130 +24,120 @@ export default function ModernNavbar() {
   console.log('Navigation items:', navigationItems);
 
   return (
-    <nav 
-      className="relative z-10 bg-white/95 backdrop-blur-sm border-b border-bordeaux-100"
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      {/* Skip Link for Accessibility (Principle 5) */}
+    <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-200">
+      {/* Skip Link for Accessibility */}
       <a href="#main-content" className="skip-link">
         Skip to main content
       </a>
 
-      <div className="container-system py-6">
-        <div className="align-horizontal-between">
-          {/* Logo with Hierarchy (Principle 1) */}
-          <Link to="/" className="group-related flex items-center space-x-2 focus-ring rounded-lg">
-            <div className="w-8 h-8 bg-bordeaux-600 rounded-lg flex items-center justify-center">
-              <Wine className="h-5 w-5 text-white" />
+      {/* Rounded container navbar */}
+      <div className="mx-4 mt-4">
+        <div className="bg-shell/95 backdrop-blur-md shadow-wc rounded-card border border-porcelain">
+          <div className="max-w-7xl mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              <Link to="/" className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-champagne/50 rounded-lg p-1 transition-all duration-200">
+                <div className="w-8 h-8 bg-gradient-to-br from-champagne to-chablis rounded-lg flex items-center justify-center shadow-md">
+                  <Wine className="h-5 w-5 text-grape-seed" />
+                </div>
+                <span className="text-xl font-bold text-cave">WineClub</span>
+              </Link>
+
+              {/* Desktop Navigation */}
+              <div className="hidden md:flex items-center space-x-8">
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="text-grape-seed hover:text-cave font-medium transition-colors duration-200 relative group"
+                  >
+                    {item.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-champagne transition-all duration-200 group-hover:w-full"></span>
+                  </Link>
+                ))}
+                
+                {user ? (
+                  <Link 
+                    to="/member-portal" 
+                    className="text-grape-seed hover:text-cave font-medium transition-colors duration-200"
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link 
+                    to="/login" 
+                    className="text-grape-seed hover:text-cave font-medium transition-colors duration-200"
+                  >
+                    Log in
+                  </Link>
+                )}
+                
+                {/* Pill CTA Button */}
+                <Link 
+                  to={routes.SignupRoute.to}
+                  className="bg-champagne hover:bg-chablis text-cave font-semibold px-6 py-2.5 rounded-full transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
+                >
+                  Get Started
+                </Link>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden p-2 text-grape-seed hover:text-cave transition-colors duration-200"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
+                aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </button>
             </div>
-            <span className="typography-h3 text-bordeaux-900">WineClub</span>
-          </Link>
 
-          {/* Desktop Navigation with Proper Alignment (Principle 7) */}
-          <div className="hidden md:flex align-vertical-center group-navigation">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className="interactive-subtle typography-body-small font-medium text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md px-3 py-2"
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            {user ? (
-              <Link 
-                to="/member-portal" 
-                className="interactive-subtle typography-body-small font-medium text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md px-3 py-2"
-              >
-                Dashboard
-              </Link>
-            ) : (
-              <Link 
-                to="/login" 
-                className="interactive-subtle typography-body-small font-medium text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md px-3 py-2"
-              >
-                Log in
-              </Link>
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+              <div className="md:hidden mt-4 pt-4 border-t border-porcelain space-y-3">
+                {navigationItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="block text-grape-seed hover:text-cave font-medium py-2 transition-colors duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+                
+                {user ? (
+                  <Link 
+                    to="/member-portal" 
+                    className="block text-grape-seed hover:text-cave font-medium py-2 transition-colors duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                ) : (
+                  <Link 
+                    to="/login" 
+                    className="block text-grape-seed hover:text-cave font-medium py-2 transition-colors duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Log in
+                  </Link>
+                )}
+                
+                <div className="pt-3">
+                  <Link 
+                    to={routes.SignupRoute.to}
+                    className="block text-center bg-champagne hover:bg-chablis text-cave font-semibold px-6 py-3 rounded-full transition-all duration-200"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Get Started
+                  </Link>
+                </div>
+              </div>
             )}
-            
-            <EnhancedButton
-              as="link"
-              to={routes.SignupRoute.to}
-              variant="primary"
-              size="sm"
-              rightIcon={<ArrowRight className="h-4 w-4" />}
-            >
-              Get Started
-            </EnhancedButton>
           </div>
-
-          {/* Mobile Menu Button with Accessibility (Principle 5) */}
-          <button
-            className="md:hidden p-2 text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
         </div>
-
-        {/* Mobile Menu with Progressive Disclosure (Principle 2) */}
-        {isMenuOpen && (
-          <div 
-            id="mobile-menu"
-            className="md:hidden mt-4 bg-white/95 backdrop-blur-sm radius-large shadow-xl border border-bordeaux-100 p-6 space-y-4 animate-fade-in-down"
-            role="menu"
-          >
-            {navigationItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                role="menuitem"
-                className="block interactive-subtle typography-body-small font-medium text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md px-3 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            
-            {user ? (
-              <Link 
-                to="/member-portal" 
-                role="menuitem"
-                className="block interactive-subtle typography-body-small font-medium text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md px-3 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Dashboard
-              </Link>
-            ) : (
-              <Link 
-                to="/login" 
-                role="menuitem"
-                className="block interactive-subtle typography-body-small font-medium text-bordeaux-700 hover:text-bordeaux-900 focus-ring rounded-md px-3 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Log in
-              </Link>
-            )}
-            
-            <div className="pt-2 border-t border-bordeaux-200">
-              <EnhancedButton
-                as="link"
-                to={routes.SignupRoute.to}
-                variant="primary"
-                size="md"
-                className="w-full align-horizontal-center"
-                rightIcon={<ArrowRight className="h-4 w-4" />}
-              >
-                Get Started
-              </EnhancedButton>
-            </div>
-          </div>
-        )}
       </div>
     </nav>
   );

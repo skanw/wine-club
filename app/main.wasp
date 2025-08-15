@@ -72,7 +72,7 @@ app OpenSaaS {
 // Core Routes
 route LandingPageRoute { path: "/", to: LandingPage }
 page LandingPage {
-  component: import LandingPage from "@src/client/pages/LandingPage"
+  component: import WhiteWineLandingPage from "@src/client/pages/WhiteWineLandingPage"
 }
 
 route ModernLandingPageRoute { path: "/modern", to: ModernLandingPage }
