@@ -73,7 +73,7 @@
 }
 
 .privacy-toggle.disabled {
-  @apply bg-champagne-300;
+  background-color: #DCCB8A;
 }
 
 .privacy-toggle-thumb {
@@ -144,7 +144,17 @@
 }
 
 .address-suggestion {
-  @apply block w-full text-left p-2 hover:bg-champagne-100 rounded cursor-pointer transition-colors;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: colors 0.15s ease-in-out;
+}
+
+.address-suggestion:hover {
+  background-color: #F7F4EE;
 }
 
 /* French Phone Number */

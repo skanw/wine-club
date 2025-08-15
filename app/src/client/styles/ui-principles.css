@@ -209,7 +209,8 @@
 }
 
 .contrast-low {
-  @apply bg-champagne-50 text-bordeaux-700;
+  background-color: #F7F4EE;
+  color: #6E664C;
 }
 
 /* Focus States with High Contrast */

@@ -18,14 +18,35 @@
   }
   
   body {
-    @apply bg-ivory text-cave font-sans;
+    background-color: #FBFAF7;
+    color: #2C2A24;
+    font-family: 'Inter', system-ui, sans-serif;
   }
   
   /* Skip link for accessibility */
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50;
-    @apply bg-champagne text-cave px-4 py-2 rounded-lg font-medium;
-    @apply transition-all duration-200;
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  
+  .skip-link:focus {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 50;
+    background-color: #E9D9A6;
+    color: #2C2A24;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 200ms ease-in-out;
+    width: auto;
+    height: auto;
+    overflow: visible;
   }
 }
 
