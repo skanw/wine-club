@@ -1,60 +1,40 @@
-# WineClub - Luxury Wine Club Management Platform
+# WineSAAS - Luxury Wine Club Management Platform
 
 ## 🍷 Overview
 
-WineClub is a comprehensive SaaS platform for luxury wine club management, featuring AI-powered recommendations, inventory management, subscription handling, and premium user experiences with a sophisticated white-wine luxury theme.
+WineSAAS is a comprehensive SaaS platform for luxury wine club management, featuring AI-powered recommendations, inventory management, subscription handling, and premium user experiences.
 
-## 📁 Monorepo Structure
+This project is based on [OpenSaas](https://opensaas.sh) template and consists of three main directories:
+
+## 📁 Project Structure
 
 ```
-wineclub-monorepo/
-├── apps/
-│   ├── core/                 # Main Wasp application
-│   └── marketing/            # Astro blog/marketing site
-├── packages/
-│   ├── ui/                   # Shared UI components and design tokens
-│   └── config/               # Shared configuration
-├── tests/
-│   └── e2e/                  # End-to-end tests
-├── infra/
-│   ├── docker/               # Docker configurations
-│   └── deploy/               # Deployment manifests
-└── archive/                  # Legacy files preserved for reference
+wineSAAS/
+├── wine-club-saas/          # Main application
+│   ├── app/                 # Wasp web app
+│   ├── docs/                # Documentation
+│   ├── e2e-tests/           # Playwright tests
+│   └── blog/                # Astro blog/docs (Starlight template)
+└── README.md               # This file
 ```
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 20+ LTS
-- npm 8.0+
 - Wasp CLI
 - PostgreSQL
 
 ### Development Setup
 ```bash
-# Install dependencies for all workspaces
-npm install
-
-# Start the core application
-npm run core:dev
-
-# Start the marketing site (in another terminal)
-npm run marketing:dev
-
-# Run E2E tests
-npm run e2e:test
+cd wine-club-saas/app
+wasp start
 ```
 
-### Build & Deploy
+### Testing
 ```bash
-# Build all applications
-npm run build
-
-# Run tests across all packages
-npm run test
-
-# Lint all code
-npm run lint
+cd wine-club-saas/e2e-tests
+npm test
 ```
 
 ## 🏗️ Architecture
@@ -66,18 +46,13 @@ npm run lint
 - **Payments**: Stripe + LemonSqueezy
 - **File Storage**: AWS S3
 - **Analytics**: Google Analytics + Plausible
-- **Build Tool**: Turbo for efficient monorepo builds
 
 ## 🎨 Design System
 
-### **White-Wine Luxury Palette**
-- **Ivory**: #FBFAF7 (page backgrounds)
-- **Shell**: #F7F4EE (panel backgrounds)
-- **Porcelain**: #EEE9DF (hairline borders)
-- **Champagne**: #E9D9A6 (primary accent)
-- **Chablis**: #DCCB8A (hover/active states)
-- **Grape Seed**: #6E664C (headings/accent text)
-- **Cave**: #2C2A24 (body text)
+### **Luxury Color Palette**
+- **Bordeaux Theme**: Deep Bordeaux (#5A1E1B) with elegant crimson accents
+- **Champagne Theme**: Pale Gold (#F3E9D2) with warm taupe highlights
+- **Base Neutrals**: Soft ivory (#F9F7F1), pure white (#FFFFFF), anthracite (#333333)
 
 ### **Typography**
 - **Headlines**: Inter (Geometric Sans-serif) - 48px H1, 32px H2, 24px H3
@@ -85,38 +60,23 @@ npm run lint
 - **Microcopy**: Inter with uppercase navigation and wide tracking
 
 ### **Components & Interactions**
-- **Luxury Animations**: Smooth fade-in-up effects with staggered timing
-- **Glass Morphism**: Backdrop blur and transparency effects
+- **Dual Theme System**: Instant switching with smooth CSS transitions
+- **Premium Animations**: Wine-themed scroll effects (pour, swirl, reveal)
 - **Responsive Design**: Mobile-first with elegant breakpoints
 - **Accessibility**: WCAG AA compliant with high contrast ratios
 
-## 📦 Package Structure
-
-### Apps
-- **`apps/core/`**: Main Wasp application with white-wine luxury theme
-- **`apps/marketing/`**: Astro-based marketing site and blog
-
-### Packages
-- **`packages/ui/`**: Shared React components and design tokens
-- **`packages/config/`**: Shared Tailwind, ESLint, and TypeScript configs
-
-### Infrastructure
-- **`infra/docker/`**: Docker configurations for deployment
-- **`infra/deploy/`**: GitHub Actions, deployment manifests
-
 ## 📚 Documentation
 
-- [Migration Guide](./MIGRATION.md) - Complete migration documentation
-- [Technical Documentation](./apps/core/docs/)
-- [API Reference](./apps/core/src/)
-- [Testing Guide](./tests/e2e/)
+- [Technical Documentation](./wine-club-saas/docs/)
+- [API Reference](./wine-club-saas/app/src/)
+- [Testing Guide](./wine-club-saas/e2e-tests/)
 
 ## 🔧 Development Workflow
 
 1. **Feature Development**: Create feature branches
 2. **Testing**: Run e2e tests before merging
 3. **Code Review**: Follow TypeScript + ESLint standards
-4. **Deployment**: Automated via GitHub Actions
+4. **Deployment**: Automated via Wasp
 
 ## 📊 Key Features
 
@@ -127,13 +87,6 @@ npm run lint
 - **Analytics Dashboard**: Business insights
 - **Multi-language Support**: i18n implementation
 - **Responsive Design**: Mobile-first approach
-- **Luxury UI**: White-wine theme with premium animations
-
-## 🚢 Deployment
-
-- **Docker**: Containerized deployments with multi-stage builds
-- **CI/CD**: GitHub Actions for automated testing and deployment
-- **Environment**: Comprehensive environment variable management
 
 ## 🤝 Contributing
 
@@ -145,10 +98,8 @@ npm run lint
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Proprietary - All rights reserved
 
-## 🔗 Links
+## 🆘 Support
 
-- [Live Demo](https://wineclub-demo.vercel.app)
-- [Documentation](https://wineclub-docs.vercel.app)
-- [Support](mailto:support@wineclub.com)
+For technical issues or questions, please refer to the documentation or create an issue in the repository.
