@@ -1,0 +1,644 @@
+app OpenSaaS {
+  wasp: {
+    version: "^0.18.0"
+  },
+
+  title: "VinClub",
+
+  head: [
+    "<link rel='icon' href='/favicon.ico' />",
+    "<meta charset='utf-8' />",
+    "<meta name='description' content='Plateforme de gestion pour cavistes indépendants. Gérez vos membres, campagnes marketing et abonnements de box de vin.' />",
+    "<meta name='author' content='VinClub' />",
+    "<meta name='keywords' content='caviste, vin, box de vin, abonnement, marketing, cave, vinclub' />",
+    
+    "<meta property='og:type' content='website' />",
+    "<meta property='og:title' content='VinClub - Votre système de croissance pour cave' />",
+    "<meta property='og:site_name' content='VinClub' />",
+    "<meta property='og:url' content='https://vinclub.fr' />",
+    "<meta property='og:description' content='Plateforme de gestion pour cavistes indépendants. Gérez vos membres, campagnes marketing et abonnements de box de vin.' />",
+    "<meta property='og:image' content='https://vinclub.fr/public-banner.webp' />",
+    "<meta name='twitter:image' content='https://vinclub.fr/public-banner.webp' />",
+    "<meta name='twitter:image:width' content='800' />",
+    "<meta name='twitter:image:height' content='400' />",
+    "<meta name='twitter:card' content='summary_large_image' />",
+    // TODO: You can put your Plausible analytics scripts below (https://docs.opensaas.sh/guides/analytics/):
+    // NOTE: Plausible does not use Cookies, so you can simply add the scripts here.
+    // Google, on the other hand, does, so you must instead add the script dynamically
+    // via the Cookie Consent component after the user clicks the "Accept" cookies button.
+    // Uncomment and configure when ready to use Plausible analytics:
+    // "<script defer data-domain='your-site-id' src='https://plausible.io/js/script.js'></script>",  // for production
+    // "<script defer data-domain='your-site-id' src='https://plausible.io/js/script.local.js'></script>",  // for development
+  ],
+
+  // 🔐 Auth out of the box! https://wasp.sh/docs/auth/overview
+  auth: {
+    userEntity: User,
+    methods: {
+      // NOTE: If you decide to not use email auth, make sure to also delete the related routes and pages below.
+      //   (RequestPasswordReset(Route|Page), PasswordReset(Route|Page), EmailVerification(Route|Page))
+      email: {
+        fromField: {
+          name: "VinClub",
+          email: "me@example.com"
+        },
+        emailVerification: {
+          clientRoute: EmailVerificationRoute,
+          getEmailContentFn: import { getVerificationEmailContent } from "@src/auth/email-and-pass/emails",
+        },
+        passwordReset: {
+          clientRoute: PasswordResetRoute,
+          getEmailContentFn: import { getPasswordResetEmailContent } from "@src/auth/email-and-pass/emails",
+        },
+        userSignupFields: import { getEmailUserFields } from "@src/auth/userSignupFields",
+      },
+      // Uncomment to enable Google Auth (check https://wasp.sh/docs/auth/social-auth/google for setup instructions):
+      // google: { // Guide for setting up Auth via Google
+      //   userSignupFields: import { getGoogleUserFields } from "@src/auth/userSignupFields",
+      //   configFn: import { getGoogleAuthConfig } from "@src/auth/userSignupFields",
+      // },
+      // Uncomment to enable GitHub Auth (check https://wasp.sh/docs/auth/social-auth/github for setup instructions):
+      // gitHub: {
+      //   userSignupFields: import { getGitHubUserFields } from "@src/auth/userSignupFields",
+      //   configFn: import { getGitHubAuthConfig } from "@src/auth/userSignupFields",
+      // },
+      // Uncomment to enable Discord Auth (check https://wasp.sh/docs/auth/social-auth/discord for setup instructions):
+      // discord: {
+      //   userSignupFields: import { getDiscordUserFields } from "@src/auth/userSignupFields",
+      //   configFn: import { getDiscordAuthConfig } from "@src/auth/userSignupFields"
+      // }
+    },
+    onAuthFailedRedirectTo: "/login",
+    onAuthSucceededRedirectTo: "/dashboard",
+  },
+
+  db: {
+    // Run `wasp db seed` to seed the database with the seed functions below:
+    seeds: [
+      // Populates the database with a bunch of fake users to work with during development.
+      import { seedMockUsers } from "@src/server/scripts/dbSeeds",
+      // Loi Evin: default pre-vetted campaign templates
+      import { seedEvinTemplates } from "@src/server/scripts/dbSeeds",
+    ]
+  },
+
+  client: {
+    rootComponent: import App from "@src/client/App",
+  },
+
+  server: {
+    middlewareConfigFn: import { serverMiddlewareFn } from "@src/server/serverSetup",
+  },
+
+  emailSender: {
+    // NOTE: "Dummy" provider is just for local development purposes.
+    //   Make sure to check the server logs for the email confirmation url (it will not be sent to an address)!
+    //   Once you are ready for production, switch to e.g. "SendGrid" or "Mailgun" providers.
+    provider: Dummy,
+    defaultFrom: {
+      name: "VinClub",
+      // When using a real provider, e.g. SendGrid, you must use the same email address that you configured your account to send out emails with!
+      email: "me@example.com"
+    },
+  },
+}
+
+route LandingPageRoute { path: "/", to: LandingPage }
+page LandingPage {
+  component: import LandingPage from "@src/landing-page/LandingPage"
+}
+
+//#region Feature Pages
+route GestionMembresRoute { path: "/features/gestion-membres", to: GestionMembresPage }
+page GestionMembresPage {
+  component: import GestionMembresPage from "@src/landing-page/features/GestionMembresPage"
+}
+
+route CampagnesMarketingRoute { path: "/features/campagnes-marketing", to: CampagnesMarketingPage }
+page CampagnesMarketingPage {
+  component: import CampagnesMarketingPage from "@src/landing-page/features/CampagnesMarketingPage"
+}
+
+route AbonnementsRoute { path: "/features/abonnements", to: AbonnementsPage }
+page AbonnementsPage {
+  component: import AbonnementsPage from "@src/landing-page/features/AbonnementsPage"
+}
+
+route DailyDropRoute { path: "/features/daily-drop", to: DailyDropPage }
+page DailyDropPage {
+  component: import DailyDropPage from "@src/landing-page/features/DailyDropPage"
+}
+
+route CalculatorRoute { path: "/calculateur", to: CalculatorPage }
+page CalculatorPage {
+  component: import RevenueCalculatorPage from "@src/landing-page/RevenueCalculatorPage"
+}
+//#endregion
+
+//#region Auth Pages
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+  component: import Login from "@src/auth/LoginPage"
+}
+
+route SignupRoute { path: "/signup", to: SignupPage }
+page SignupPage {
+  component: import { Signup } from "@src/auth/SignupPage"
+}
+
+route RequestPasswordResetRoute { path: "/request-password-reset", to: RequestPasswordResetPage }
+page RequestPasswordResetPage {
+  component: import { RequestPasswordResetPage } from "@src/auth/email-and-pass/RequestPasswordResetPage",
+}
+
+route PasswordResetRoute { path: "/password-reset", to: PasswordResetPage }
+page PasswordResetPage {
+  component: import { PasswordResetPage } from "@src/auth/email-and-pass/PasswordResetPage",
+}
+
+route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
+page EmailVerificationPage {
+  component: import { EmailVerificationPage } from "@src/auth/email-and-pass/EmailVerificationPage",
+}
+//#endregion
+
+//#region User
+route AccountRoute { path: "/account", to: AccountPage }
+page AccountPage {
+  authRequired: true,
+  component: import Account from "@src/user/AccountPage"
+}
+
+query getPaginatedUsers {
+  fn: import { getPaginatedUsers } from "@src/user/operations",
+  entities: [User]
+}
+
+action updateIsUserAdminById {
+  fn: import { updateIsUserAdminById } from "@src/user/operations",
+  entities: [User]
+}
+//#endregion
+
+//#region Dashboard
+route DashboardRoute { path: "/dashboard", to: DashboardPage }
+page DashboardPage {
+  authRequired: true,
+  component: import DashboardPage from "@src/dashboard/DashboardPage"
+}
+
+query getDashboardStats {
+  fn: import { getDashboardStats } from "@src/dashboard/operations",
+  entities: [Member, Subscription, Campaign, SubscriptionPlan, Product]
+}
+//#endregion
+
+//#region VinClub Inventory Management
+route InventoryRoute { path: "/inventory", to: InventoryPage }
+page InventoryPage {
+  authRequired: true,
+  component: import InventoryPage from "@src/inventory/ProductListPage"
+}
+
+route InventoryImportRoute { path: "/inventory/import", to: InventoryImportPage }
+page InventoryImportPage {
+  authRequired: true,
+  component: import InventoryImportPage from "@src/inventory/InventoryImportPage"
+}
+
+query getPaginatedProducts {
+  fn: import { getPaginatedProducts } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+
+query getProductById {
+  fn: import { getProductById } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+
+action analyzeInventoryStructure {
+  fn: import { analyzeInventoryStructure } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+
+action importInventoryFromFile {
+  fn: import { importInventoryFromFile } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+
+action createProduct {
+  fn: import { createProduct } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+
+action updateProduct {
+  fn: import { updateProduct } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+
+action deleteProduct {
+  fn: import { deleteProduct } from "@src/inventory/operations",
+  entities: [Product, Cave]
+}
+//#endregion
+
+//#region VinClub Cave Settings
+route CaveSettingsRoute { path: "/settings", to: CaveSettingsPage }
+page CaveSettingsPage {
+  authRequired: true,
+  component: import CaveSettingsPage from "@src/cave/CaveSettingsPage"
+}
+
+query getCave {
+  fn: import { getCave } from "@src/cave/operations",
+  entities: [Cave]
+}
+
+action updateCave {
+  fn: import { updateCave } from "@src/cave/operations",
+  entities: [Cave]
+}
+
+action uploadCaveLogo {
+  fn: import { uploadCaveLogo } from "@src/cave/operations",
+  entities: [Cave]
+}
+//#endregion
+
+//#region VinClub Member Management
+route MembersRoute { path: "/members", to: MembersPage }
+page MembersPage {
+  authRequired: true,
+  component: import MembersPage from "@src/member/MemberListPage"
+}
+
+route MemberAddRoute { path: "/members/add", to: MemberAddPage }
+page MemberAddPage {
+  authRequired: true,
+  component: import MemberAddPage from "@src/member/QuickAddForm"
+}
+
+route MemberDetailRoute { path: "/members/:id", to: MemberDetailPage }
+page MemberDetailPage {
+  authRequired: true,
+  component: import MemberDetailPage from "@src/member/MemberDetailPage"
+}
+
+route MemberImportRoute { path: "/members/import", to: MemberImportPage }
+page MemberImportPage {
+  authRequired: true,
+  component: import MemberImportPage from "@src/member/MemberImportPage"
+}
+
+query getPaginatedMembers {
+  fn: import { getPaginatedMembers } from "@src/member/operations",
+  entities: [Member, Cave]
+}
+
+query getMemberById {
+  fn: import { getMemberById } from "@src/member/operations",
+  entities: [Member, Subscription, CampaignMessage]
+}
+
+action createMember {
+  fn: import { createMember } from "@src/member/operations",
+  entities: [Member, Cave]
+}
+
+action updateMember {
+  fn: import { updateMember } from "@src/member/operations",
+  entities: [Member]
+}
+
+action deleteMember {
+  fn: import { deleteMember } from "@src/member/operations",
+  entities: [Member]
+}
+
+action analyzeMembersStructure {
+  fn: import { analyzeMembersStructure } from "@src/member/importOperations",
+  entities: [Member, Cave]
+}
+
+action importMembersFromFile {
+  fn: import { importMembersFromFile } from "@src/member/importOperations",
+  entities: [Member, Cave]
+}
+//#endregion
+
+//#region VinClub Campaign Management
+route CampaignsRoute { path: "/campaigns", to: CampaignsPage }
+page CampaignsPage {
+  authRequired: true,
+  component: import CampaignsPage from "@src/campaign/CampaignListPage"
+}
+
+route CampaignNewRoute { path: "/campaigns/new", to: CampaignNewPage }
+page CampaignNewPage {
+  authRequired: true,
+  component: import CampaignNewPage from "@src/campaign/DailyDropCreator"
+}
+
+route CampaignDetailRoute { path: "/campaigns/:id", to: CampaignDetailPage }
+page CampaignDetailPage {
+  authRequired: true,
+  component: import CampaignDetailPage from "@src/campaign/CampaignDetailPage"
+}
+
+query getPaginatedCampaigns {
+  fn: import { getPaginatedCampaigns } from "@src/campaign/operations",
+  entities: [Campaign, Cave]
+}
+
+query getCampaignById {
+  fn: import { getCampaignById } from "@src/campaign/operations",
+  entities: [Campaign, CampaignMessage]
+}
+
+action createCampaign {
+  fn: import { createCampaign } from "@src/campaign/operations",
+  entities: [Campaign, Cave, EvinTemplate]
+}
+
+action sendCampaign {
+  fn: import { sendCampaign } from "@src/campaign/operations",
+  entities: [Campaign, CampaignMessage, Member]
+}
+
+action updateCampaign {
+  fn: import { updateCampaign } from "@src/campaign/operations",
+  entities: [Campaign]
+}
+
+action deleteCampaign {
+  fn: import { deleteCampaign } from "@src/campaign/operations",
+  entities: [Campaign, CampaignMessage]
+}
+
+// Loi Evin: pre-vetted templates for cavistes
+query getEvinTemplates {
+  fn: import { getEvinTemplates } from "@src/evin/operations",
+  entities: [EvinTemplate]
+}
+//#endregion
+
+//#region Loi Evin Admin (Templates)
+query getAdminEvinTemplates {
+  fn: import { getAdminEvinTemplates } from "@src/evin/operations",
+  entities: [EvinTemplate]
+}
+
+action createEvinTemplate {
+  fn: import { createEvinTemplate } from "@src/evin/operations",
+  entities: [EvinTemplate]
+}
+
+action updateEvinTemplate {
+  fn: import { updateEvinTemplate } from "@src/evin/operations",
+  entities: [EvinTemplate]
+}
+
+action deleteEvinTemplate {
+  fn: import { deleteEvinTemplate } from "@src/evin/operations",
+  entities: [EvinTemplate]
+}
+//#endregion
+
+//#region VinClub Subscription Management
+route SubscriptionsRoute { path: "/subscriptions", to: SubscriptionsPage }
+page SubscriptionsPage {
+  authRequired: true,
+  component: import SubscriptionsPage from "@src/subscription/SubscriptionListPage"
+}
+
+route SubscriptionPlansRoute { path: "/subscriptions/plans", to: SubscriptionPlansPage }
+page SubscriptionPlansPage {
+  authRequired: true,
+  component: import SubscriptionPlansPage from "@src/subscription/PlanListPage"
+}
+
+route WineBoxesRoute { path: "/wine-boxes", to: WineBoxesPage }
+page WineBoxesPage {
+  authRequired: true,
+  component: import WineBoxesPage from "@src/subscription/WineBoxPackingListPage"
+}
+
+query getPaginatedSubscriptions {
+  fn: import { getPaginatedSubscriptions } from "@src/subscription/operations",
+  entities: [Subscription, Member, SubscriptionPlan, Cave]
+}
+
+query getSubscriptionById {
+  fn: import { getSubscriptionById } from "@src/subscription/operations",
+  entities: [Subscription, Member, SubscriptionPlan]
+}
+
+query getWineBoxes {
+  fn: import { getWineBoxes } from "@src/subscription/operations",
+  entities: [WineBox, Subscription, Member, SubscriptionPlan]
+}
+
+action createSubscriptionPlan {
+  fn: import { createSubscriptionPlan } from "@src/subscription/operations",
+  entities: [SubscriptionPlan, Cave]
+}
+
+action createSubscription {
+  fn: import { createSubscription } from "@src/subscription/operations",
+  entities: [Subscription, Member, SubscriptionPlan, Cave]
+}
+
+action updateSubscription {
+  fn: import { updateSubscription } from "@src/subscription/operations",
+  entities: [Subscription, SubscriptionPlan]
+}
+
+action cancelSubscription {
+  fn: import { cancelSubscription } from "@src/subscription/operations",
+  entities: [Subscription]
+}
+
+action updateWineBoxStatus {
+  fn: import { updateWineBoxStatus } from "@src/subscription/operations",
+  entities: [WineBox, Subscription]
+}
+//#endregion
+
+//#region Payment
+route PricingPageRoute { path: "/pricing", to: PricingPage }
+page PricingPage {
+  component: import PricingPage from "@src/payment/PricingPage"
+}
+
+route CheckoutRoute { path: "/checkout", to: CheckoutPage }
+page CheckoutPage {
+  authRequired: true,
+  component: import Checkout from "@src/payment/CheckoutPage"
+}
+
+query getCustomerPortalUrl {
+  fn: import { getCustomerPortalUrl } from  "@src/payment/operations",
+  entities: [User]
+}
+
+action generateCheckoutSession {
+  fn: import { generateCheckoutSession } from "@src/payment/operations",
+  entities: [User]
+}
+
+api paymentsWebhook {
+  fn: import { paymentsWebhook } from "@src/payment/webhook",
+  entities: [User, Subscription, WineBox, Member, SubscriptionPlan],
+  middlewareConfigFn: import { paymentsMiddlewareConfigFn } from "@src/payment/webhook",
+  httpRoute: (POST, "/payments-webhook")
+}
+//#endregion
+
+//#region Integrations
+api twilioWebhook {
+  fn: import { handleTwilioWebhook } from "@src/integrations/twilio/webhook",
+  entities: [Member],
+  middlewareConfigFn: import { twilioWebhookMiddleware } from "@src/integrations/twilio/webhook",
+  httpRoute: (POST, "/webhooks/twilio"),
+  auth: false
+}
+
+api brevoWebhook {
+  fn: import { handleBrevoWebhook } from "@src/integrations/brevo/webhook",
+  entities: [Member, CampaignMessage, Campaign],
+  middlewareConfigFn: import { brevoWebhookMiddleware } from "@src/integrations/brevo/webhook",
+  httpRoute: (POST, "/webhooks/brevo"),
+  auth: false
+}
+
+api notifyMe {
+  fn: import { handleNotifyMe } from "@src/landing-page/notifyMeApi",
+  entities: [WaitlistSignup],
+  httpRoute: (POST, "/notify-me"),
+  auth: false
+}
+//#endregion
+
+//#region File Upload
+route FileUploadRoute { path: "/file-upload", to: FileUploadPage }
+page FileUploadPage {
+  authRequired: true,
+  component: import FileUpload from "@src/file-upload/FileUploadPage"
+}
+
+action createFile {
+  fn: import { createFile } from "@src/file-upload/operations",
+  entities: [User, File]
+}
+
+query getAllFilesByUser {
+  fn: import { getAllFilesByUser } from "@src/file-upload/operations",
+  entities: [User, File]
+}
+
+query getDownloadFileSignedURL {
+  fn: import { getDownloadFileSignedURL } from "@src/file-upload/operations",
+  entities: [User, File]
+}
+//#endregion
+
+//#region Analytics
+query getDailyStats {
+  fn: import { getDailyStats } from "@src/analytics/operations",
+  entities: [User, DailyStats]
+}
+
+job dailyStatsJob {
+  executor: PgBoss,
+  perform: {
+    fn: import { calculateDailyStats } from "@src/analytics/stats"
+  },
+  schedule: {
+    cron: "0 * * * *" // every hour. useful in production
+    // cron: "* * * * *" // every minute. useful for debugging
+  },
+  entities: [User, DailyStats, Logs, PageViewSource]
+}
+//#endregion
+
+//#region Admin Dashboard
+route AdminRoute { path: "/admin", to: AnalyticsDashboardPage }
+page AnalyticsDashboardPage {
+  authRequired: true,
+  component: import AnalyticsDashboardPage from "@src/admin/dashboards/analytics/AnalyticsDashboardPage"
+}
+
+route AdminUsersRoute { path: "/admin/users", to: AdminUsersPage }
+page AdminUsersPage {
+  authRequired: true,
+  component: import AdminUsers from "@src/admin/dashboards/users/UsersDashboardPage"
+}
+
+route AdminInventoryRoute { path: "/admin/inventory", to: AdminInventoryPage }
+page AdminInventoryPage {
+  authRequired: true,
+  component: import AdminInventory from "@src/admin/dashboards/inventory/InventoryPage"
+}
+
+route AdminOperationsRoute { path: "/admin/operations", to: AdminOperationsPage }
+page AdminOperationsPage {
+  authRequired: true,
+  component: import AdminOperations from "@src/admin/dashboards/operations/OperationsPage"
+}
+
+route AdminSettingsRoute { path: "/admin/settings", to: AdminSettingsPage }
+page AdminSettingsPage {
+  authRequired: true,
+  component: import AdminSettings from "@src/admin/elements/settings/SettingsPage"
+}
+
+route AdminCalendarRoute { path: "/admin/calendar", to: AdminCalendarPage }
+page AdminCalendarPage {
+  authRequired: true,
+  component: import AdminCalendar from "@src/admin/elements/calendar/CalendarPage"
+}
+
+
+route AdminUIButtonsRoute { path: "/admin/ui/buttons", to: AdminUIButtonsPage }
+page AdminUIButtonsPage {
+  authRequired: true,
+  component: import AdminUI from "@src/admin/elements/ui-elements/ButtonsPage"
+}
+
+// Admin Operations (Queries)
+query getAdminPlatformStats {
+  fn: import { getAdminPlatformStats } from "@src/admin/operations",
+  entities: [User, Cave, Campaign, Subscription, Member, CampaignMessage]
+}
+
+query getCavisteHealthScores {
+  fn: import { getCavisteHealthScores } from "@src/admin/operations",
+  entities: [Cave, Campaign, Member, Subscription, MessageQueueItem]
+}
+
+query getInventoryTrends {
+  fn: import { getInventoryTrends } from "@src/admin/operations",
+  entities: [Campaign, Product]
+}
+
+query getOperationsStatus {
+  fn: import { getOperationsStatus } from "@src/admin/operations",
+  entities: [WebhookLog, MessageQueueItem, SyncEvent]
+}
+
+route NotFoundRoute { path: "*", to: NotFoundPage }
+page NotFoundPage {
+  component: import { NotFoundPage } from "@src/client/components/NotFoundPage"
+}
+//#endregion
+
+//#region Contact Form Messages
+// TODO: 
+// add functionality to allow users to send messages to admin
+// and make them accessible via the admin dashboard
+route AdminMessagesRoute { path: "/admin/messages", to: AdminMessagesPage }
+page AdminMessagesPage {
+  authRequired: true,
+  component: import AdminMessages from "@src/admin/dashboards/messages/MessagesPage"
+}
+//#endregion

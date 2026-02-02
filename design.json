@@ -1,0 +1,70 @@
+{
+    "design_system_profile": {
+      "name": "Vintage Oenology Luxury",
+      "version": "1.0",
+      "aesthetic_summary": "A sophisticated, high-end identity that pairs deep, textured wine tones with sharp, high-contrast typography. The look is minimalist but dramatic, relying on large-scale serif text and generous negative space.",
+      "visual_rules": {
+        "color_palette": {
+          "primary_brand": {
+            "name": "Pantone Vintage Wine",
+            "hex": "#3F1521",
+            "usage": "Primary Text, Logos, Heavy Borders",
+            "description": "A deep, near-black burgundy that replaces standard black for a warmer, richer feel."
+          },
+          "background": {
+            "name": "Label Stock Cream",
+            "hex": "#F4F4F0",
+            "usage": "Main Background / Canvas",
+            "description": "An off-white, paper-like tone to mimic high-quality wine label stock."
+          },
+          "accents": {
+            "name": "Gold Foil (Optional)",
+            "hex": "#A48F5D",
+            "usage": "Small icon details or thin divider lines"
+          }
+        },
+        "typography": {
+          "primary_typeface": {
+            "style": "Modern Didone Display",
+            "characteristics": [
+              "Extreme contrast between thick and thin strokes",
+              "Hairline serifs",
+              "Elegant, upright posture"
+            ],
+            "emulation_fonts": [
+              "Bodoni Moda",
+              "Didot",
+              "Italiana",
+              "Prata"
+            ]
+          },
+          "typesetting_rules": {
+            "headline_treatment": {
+              "case": "Uppercase",
+              "tracking": "Medium-wide (0.05em to 0.1em)",
+              "layout": "Vertical orientation (rotated 90 degrees) or massive horizontal scaling to fill the viewport.",
+              "kerning": "Optical/Manual spacing for a 'logo' feel."
+            },
+            "secondary_text": {
+              "style": "Clean Serif or Geometric Sans",
+              "size": "Small (12px - 14px)",
+              "case": "Uppercase",
+              "tracking": "Wide (0.15em)",
+              "alignment": "Aligned to the baseline or cap-height of the massive headline."
+            }
+          },
+          "composition_strategy": {
+            "grid": "Asymmetrical",
+            "whitespace": "Extensive. Text is treated as the primary image.",
+            "rotation": "Use vertical text rotation for major headlines to mimic the bottle label aesthetic.",
+            "texture": "Clean, flat colors or subtle paper grain texture overlay."
+          }
+        },
+        "ui_components_context": {
+          "cards": "Flat, sharp corners. No drop shadows. Use borders defined by the 'Vintage Wine' color (1px solid).",
+          "buttons": "Ghost buttons (Transparent fill, #3F1521 border, #3F1521 text). Hover: Solid #3F1521 fill, White text.",
+          "icons": "Minimalist, heraldic or organic shapes (e.g., small grapes, leaves, crests) in solid fill."
+        }
+      }
+    }
+  }

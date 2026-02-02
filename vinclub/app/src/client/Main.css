@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,700&family=Didot&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .chat-height {
+    @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+  }
+  .inbox-height {
+    @apply h-[calc(100vh_-_8.125rem)] lg:h-[calc(100vh_-_5.625rem)];
+  }
+
+  /* Text gradient utilities */
+  .text-gradient-primary {
+    background: linear-gradient(to right, hsl(var(--secondary-muted)), hsl(var(--secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-primary-diagonal {
+    background: linear-gradient(135deg, hsl(var(--secondary-muted)), hsl(var(--secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Border gradient utilities */
+  .border-gradient-primary {
+    background: linear-gradient(to right, hsl(var(--secondary-muted)), hsl(var(--secondary)));
+    padding: 1px;
+  }
+
+  .border-gradient-primary > * {
+    background: hsl(var(--background));
+  }
+
+  /* Vintage Oenology Typography Utilities */
+  .text-primary-brand {
+    font-family: 'Bodoni Moda', 'Didot', 'Italiana', 'Prata', serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.075em; /* Medium-wide: 0.05em to 0.1em */
+    text-align: left;
+  }
+
+  .text-primary-descriptor {
+    font-family: 'Bodoni Moda', 'Didot', 'Italiana', 'Prata', serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.15em; /* Wide tracking */
+    font-size: 13px; /* Small: 12px - 14px */
+    text-align: left;
+  }
+
+  /* Vertical text rotation utility for headlines */
+  .text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+  }
+}
+
+/* RC Slider custom styles for alignment */
+.rc-slider-handle {
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+}
+
+.rc-slider-mark {
+  top: 18px;
+}
+
+.rc-slider-mark-text {
+  font-size: 12px;
+  color: #6b7280;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.rc-slider-mark-text-active {
+  color: #7C2D12;
+}
+
+/* Here is an example of how to add a custom font. 
+* Fonts are stored in the public/fonts folder.
+* They are defined first here, then need to be referenced in the tailwind.config.js file
+* under `theme.extend.fontFamily`, and then can be used as a tailwind class, e.g. className='font-satoshi'.
+*/
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* third-party libraries CSS */
+
+.tableCheckbox:checked ~ div span {
+  @apply opacity-100;
+}
+.tableCheckbox:checked ~ div {
+  @apply bg-primary border-primary;
+}
+
+.apexcharts-legend-text {
+  @apply !text-muted-foreground;
+}
+.apexcharts-text {
+  @apply !fill-muted-foreground;
+}
+.apexcharts-xcrosshairs {
+  @apply !fill-border;
+}
+.apexcharts-gridline {
+  @apply !stroke-border;
+}
+.apexcharts-series.apexcharts-pie-series path {
+  @apply dark:!stroke-transparent;
+}
+.apexcharts-legend-series {
+  @apply !inline-flex gap-1.5;
+}
+.apexcharts-tooltip.apexcharts-theme-light {
+  @apply dark:!bg-card dark:!border-border;
+}
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+  @apply dark:!bg-muted dark:!border-border;
+}
+.apexcharts-xaxistooltip,
+.apexcharts-yaxistooltip {
+  @apply dark:!bg-muted dark:!border-muted dark:!text-muted-foreground;
+}
+.apexcharts-xaxistooltip-bottom:after {
+  @apply dark:!border-b-muted;
+}
+.apexcharts-xaxistooltip-bottom:before {
+  @apply dark:!border-b-muted;
+}
+
+@layer base {
+  :root {
+    /* VINTAGE OENOLOGY LUXURY (LIGHT) */
+    /* Convert hex to HSL for compatibility */
+    --vintage-wine: #3F1521; /* Pantone Vintage Wine - Primary Brand */
+    --label-cream: #F4F4F0; /* Label Stock Cream - Background */
+    --gold-foil: #A48F5D; /* Gold Foil - Accents */
+    
+    --background: 60 20% 96%; /* Label Stock Cream #F4F4F0 */
+    --foreground: 340 50% 15%; /* Vintage Wine #3F1521 */
+    --card: 60 20% 98%; /* Slightly lighter cream */
+    --card-foreground: 340 50% 15%; /* Vintage Wine */
+    --card-accent: 60 20% 98%;
+    --card-accent-foreground: 340 50% 15%;
+    --card-subtle: 60 15% 94%;
+    --card-subtle-foreground: 340 50% 15%;
+    --popover: 60 20% 98%;
+    --popover-foreground: 340 50% 15%;
+    --primary: 340 50% 15%; /* Vintage Wine #3F1521 */
+    --primary-foreground: 0 0% 98%; /* White text on vintage wine */
+    --secondary: 45 30% 50%; /* Gold Foil #A48F5D */
+    --secondary-foreground: 340 50% 15%;
+    --secondary-muted: 45 25% 65%;
+    --secondary-muted-foreground: 340 50% 15%;
+    --muted: 60 10% 90%;
+    --muted-foreground: 340 30% 40%;
+    --accent: 45 30% 50%; /* Gold Foil */
+    --accent-foreground: 340 50% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 140 50% 40%;
+    --success-foreground: 0 0% 98%;
+    --warning: 36 100% 50%;
+    --warning-foreground: 0 0% 98%;
+    --border: 340 50% 15%; /* Vintage Wine #3F1521 */
+    --input: 340 50% 15%;
+    --ring: 340 50% 15%; /* Vintage Wine */
+    --radius: 0; /* Sharp corners - no border radius */
+  }
+
+  .dark {
+    /* VINTAGE OENOLOGY LUXURY (DARK) - Maintain label cream aesthetic */
+    --background: 60 20% 96%; /* Keep label cream even in dark mode */
+    --foreground: 340 50% 15%; /* Vintage Wine */
+    --card: 60 20% 98%;
+    --card-foreground: 340 50% 15%;
+    --card-accent: 60 20% 98%;
+    --card-accent-foreground: 340 50% 15%;
+    --card-subtle: 60 15% 94%;
+    --card-subtle-foreground: 340 50% 15%;
+    --popover: 60 20% 98%;
+    --popover-foreground: 340 50% 15%;
+    --primary: 340 50% 15%; /* Vintage Wine */
+    --primary-foreground: 0 0% 98%;
+    --secondary: 45 30% 50%; /* Gold Foil */
+    --secondary-foreground: 340 50% 15%;
+    --secondary-muted: 45 25% 65%;
+    --secondary-muted-foreground: 340 50% 15%;
+    --muted: 60 10% 90%;
+    --muted-foreground: 340 30% 40%;
+    --accent: 45 30% 50%;
+    --accent-foreground: 340 50% 15%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 140 50% 40%;
+    --success-foreground: 0 0% 98%;
+    --warning: 36 100% 50%;
+    --warning-foreground: 0 0% 98%;
+    --border: 340 50% 15%; /* Vintage Wine */
+    --input: 340 50% 15%;
+    --ring: 340 50% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Bodoni Moda', 'Didot', 'Italiana', 'Prata', serif;
+  }
+}

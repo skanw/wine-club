@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Wasp
+vinclub/app/.wasp/
+
+# Env and secrets (do not commit)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Embedded repo (cursor-starter); remove to track as submodule or copy
+cursor-starter/

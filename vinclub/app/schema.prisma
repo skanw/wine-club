@@ -1,0 +1,443 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  OWNER
+  MANAGER
+  HELPER
+}
+
+enum CampaignType {
+  daily_drop
+  newsletter
+  event
+}
+
+enum CampaignStatus {
+  draft
+  scheduled
+  sending
+  sent
+  failed
+}
+
+enum SubscriptionStatus {
+  active
+  paused
+  cancelled
+  past_due
+}
+
+enum WineBoxStatus {
+  pending
+  packed
+  shipped
+  ready_for_pickup
+}
+
+enum BillingCycle {
+  monthly
+  quarterly
+  yearly
+}
+
+enum MessageChannel {
+  sms
+  email
+}
+
+enum EvinTemplateType {
+  arrivage
+  flash
+  box
+}
+
+enum MessageStatus {
+  pending
+  sent
+  delivered
+  failed
+  opened
+  clicked
+}
+
+model Cave {
+  id                    String          @id @default(uuid())
+  name                  String
+  address               String?
+  phone                 String?
+  email                 String?
+  logoUrl               String?
+  stripeAccountId       String?
+  twilioPhoneNumber     String?
+  brevoSenderEmail      String?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+
+  users                 User[]
+  members               Member[]
+  campaigns             Campaign[]
+  subscriptionPlans      SubscriptionPlan[]
+  products              Product[]
+}
+
+model User {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  email                     String?         @unique
+  username                  String?         @unique
+  isAdmin                   Boolean         @default(false)
+  role                      UserRole        @default(HELPER)
+  caveId                    String?
+  cave                      Cave?           @relation(fields: [caveId], references: [id], onDelete: SetNull)
+
+  paymentProcessorUserId    String?         @unique
+  lemonSqueezyCustomerPortalUrl String?     // You can delete this if you're not using Lemon Squeezy as your payments processor.
+  subscriptionStatus        String?         // 'active', 'cancel_at_period_end', 'past_due', 'deleted'
+  subscriptionPlan          String?         // 'hobby', 'pro'
+  datePaid                  DateTime?
+  credits                   Int             @default(3)
+
+  gptResponses              GptResponse[]
+  contactFormMessages       ContactFormMessage[]
+  tasks                     Task[]
+  files                     File[]
+
+  @@index([caveId])
+}
+
+model GptResponse {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+
+  user                      User            @relation(fields: [userId], references: [id])
+  userId                    String
+
+  content                   String
+}
+
+model Task {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  user                      User            @relation(fields: [userId], references: [id])
+  userId                    String
+
+  description               String
+  time                      String          @default("1")
+  isDone                    Boolean         @default(false)
+}
+
+model File {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  user                      User            @relation(fields: [userId], references: [id])
+  userId                    String
+
+  name                      String
+  type                      String
+  key                       String
+  uploadUrl                 String
+}
+
+model DailyStats {
+  id                               Int             @id @default(autoincrement())
+  date                             DateTime        @default(now()) @unique
+
+  totalViews                       Int             @default(0)
+  prevDayViewsChangePercent        String          @default("0")
+  userCount                        Int             @default(0)
+  paidUserCount                    Int             @default(0)
+  userDelta                        Int             @default(0)
+  paidUserDelta                    Int             @default(0)
+  totalRevenue                     Float           @default(0)
+  totalProfit                      Float           @default(0)
+
+  sources                          PageViewSource[]
+}
+
+model PageViewSource {
+  @@id([date, name])
+  name                     String
+  date                     DateTime        @default(now())
+
+  dailyStats               DailyStats?     @relation(fields: [dailyStatsId], references: [id])
+  dailyStatsId             Int?
+
+  visitors                 Int
+}
+
+model Logs {
+  id                       Int             @id @default(autoincrement())
+  createdAt                DateTime        @default(now())
+
+  message                  String
+  level                    String
+}
+
+model ContactFormMessage {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+
+  user                      User            @relation(fields: [userId], references: [id])
+  userId                    String
+
+  content                   String
+  isRead                    Boolean         @default(false)
+  repliedAt                 DateTime?
+}
+
+model Member {
+  id                        String          @id @default(uuid())
+  caveId                    String
+  cave                      Cave            @relation(fields: [caveId], references: [id], onDelete: Cascade)
+  name                      String
+  email                     String?
+  phone                     String
+  preferredRegion           String?
+  tags                      Json            @default("[]")
+  customFields              Json            @default("{}") // Dynamic custom fields from imports
+  consentEmail              Boolean         @default(false)
+  consentSms                Boolean         @default(false)
+  consentGdprLoggedAt       DateTime?
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+  deletedAt                 DateTime?
+
+  subscriptions             Subscription[]
+  campaignMessages          CampaignMessage[]
+
+  @@unique([caveId, phone])
+  @@unique([caveId, email])
+  @@index([caveId])
+  @@index([phone])
+  @@index([email])
+  @@index([caveId, phone])
+  @@index([deletedAt])
+}
+
+model Campaign {
+  id                        String          @id @default(uuid())
+  caveId                    String
+  cave                      Cave            @relation(fields: [caveId], references: [id], onDelete: Cascade)
+  name                      String
+  type                      CampaignType    @default(daily_drop)
+  status                    CampaignStatus  @default(draft)
+  productName               String
+  productPrice              Float
+  message                   String
+  imageUrl                  String?
+  audience                  Json            // { type: "all" | "tag" | "region" | "custom", value: string[] }
+  channels                  Json            // ["sms", "email"]
+  maxQuantity               Int?
+  sentCount                 Int             @default(0)
+  deliveredCount            Int             @default(0)
+  openedCount               Int             @default(0)
+  clickedCount              Int             @default(0)
+  createdAt                 DateTime        @default(now())
+  sentAt                    DateTime?
+
+  campaignMessages          CampaignMessage[]
+
+  @@index([caveId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([sentAt])
+  @@index([caveId, status])
+  @@index([caveId, status, sentAt])
+}
+
+model CampaignMessage {
+  id                        String          @id @default(uuid())
+  campaignId                String
+  campaign                  Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  memberId                  String
+  member                    Member          @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  channel                   MessageChannel
+  status                    MessageStatus   @default(pending)
+  externalId                String?         // Brevo messageId for email; null for SMS
+  sentAt                    DateTime?
+  deliveredAt               DateTime?
+  openedAt                  DateTime?
+  clickedAt                 DateTime?
+  createdAt                 DateTime        @default(now())
+
+  @@index([campaignId])
+  @@index([memberId])
+  @@index([status])
+  @@index([externalId])
+  @@index([campaignId, status])
+  @@index([memberId, createdAt])
+}
+
+model SubscriptionPlan {
+  id                        String          @id @default(uuid())
+  caveId                    String
+  cave                      Cave            @relation(fields: [caveId], references: [id], onDelete: Cascade)
+  name                      String
+  description               String?
+  amount                    Float
+  currency                  String          @default("EUR")
+  billingCycle              BillingCycle    @default(monthly)
+  wineCount                 Int
+  isActive                  Boolean         @default(true)
+  createdAt                 DateTime        @default(now())
+
+  subscriptions             Subscription[]
+
+  @@index([caveId])
+  @@index([isActive])
+}
+
+model Subscription {
+  id                        String          @id @default(uuid())
+  caveId                    String
+  cave                      Cave            @relation(fields: [caveId], references: [id], onDelete: Cascade)
+  memberId                  String
+  member                    Member          @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  planId                    String
+  plan                      SubscriptionPlan @relation(fields: [planId], references: [id])
+  stripeSubscriptionId      String?
+  amount                    Float
+  currency                  String          @default("EUR")
+  status                    SubscriptionStatus @default(active)
+  billingCycle              BillingCycle    @default(monthly)
+  nextBillingDate           DateTime?
+  createdAt                 DateTime        @default(now())
+  updatedAt                 DateTime        @updatedAt
+  cancelledAt               DateTime?
+
+  wineBoxes                 WineBox[]
+
+  @@index([caveId])
+  @@index([memberId])
+  @@index([planId])
+  @@index([status])
+  @@index([nextBillingDate])
+  @@index([caveId, status])
+  @@index([caveId, status, nextBillingDate])
+  @@index([memberId, status])
+}
+
+model WineBox {
+  id                        String          @id @default(uuid())
+  subscriptionId            String
+  subscription              Subscription    @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  billingCycle              String          // Format: YYYY-MM
+  status                    WineBoxStatus   @default(pending)
+  trackingNumber            String?
+  packedAt                  DateTime?
+  shippedAt                 DateTime?
+  createdAt                 DateTime        @default(now())
+
+  @@index([subscriptionId])
+  @@index([billingCycle])
+  @@index([status])
+  @@index([createdAt])
+  @@index([subscriptionId, status])
+}
+
+model Product {
+  id              String   @id @default(uuid())
+  caveId          String
+  cave            Cave     @relation(fields: [caveId], references: [id], onDelete: Cascade)
+  name            String
+  vintage         Int?
+  region          String?
+  appellation     String?
+  wineType        String?  // red, white, rosé, sparkling
+  price           Float
+  stockQuantity   Int      @default(0)
+  description     String?
+  imageUrl        String?
+  tags            Json     @default("[]")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([caveId])
+  @@index([name])
+  @@index([region])
+  @@unique([caveId, name, vintage])
+}
+
+// Admin monitoring models
+
+model WebhookLog {
+  id          String    @id @default(uuid())
+  provider    String    // "stripe", "twilio"
+  eventType   String
+  status      String    // "success", "failed", "pending"
+  payload     Json?
+  errorMsg    String?
+  processedAt DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([provider, createdAt])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model MessageQueueItem {
+  id          String    @id @default(uuid())
+  caveId      String
+  channel     String    // "sms", "email"
+  status      String    // "queued", "sending", "sent", "failed"
+  recipientId String
+  errorMsg    String?
+  createdAt   DateTime  @default(now())
+  processedAt DateTime?
+
+  @@index([caveId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([caveId, status])
+}
+
+model SyncEvent {
+  id        String    @id @default(uuid())
+  caveId    String
+  userId    String?
+  operation String
+  status    String    // "pending", "synced", "failed"
+  dataSize  Int?
+  createdAt DateTime  @default(now())
+  syncedAt  DateTime?
+
+  @@index([caveId, status])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// Loi Evin: platform-wide pre-vetted campaign templates (admin-managed)
+model EvinTemplate {
+  id        String          @id @default(uuid())
+  name      String
+  slug      String          @unique
+  body      String          // Text with placeholders: [Nom du vin], [Prix], [Cave], etc.
+  type      EvinTemplateType
+  isActive  Boolean         @default(true)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@index([isActive])
+  @@index([type])
+}
+
+// Waitlist: visitors who want to be notified when the software is ready
+model WaitlistSignup {
+  id        String   @id @default(uuid())
+  email     String   // stored lowercase for consistency
+  createdAt DateTime @default(now())
+
+  @@unique([email])
+  @@index([createdAt])
+}
