@@ -5,15 +5,17 @@ Run all commands from this directory (`vinclub/app`), where `main.wasp` lives.
 ## Quick run order
 
 1. **Install flyctl** (if needed): `brew install flyctl`
-2. **Log in** (opens browser; do this in your terminal): `fly auth login`
-3. **Launch** (creates client, server, db): `wasp deploy fly launch vinclub cdg`
-4. **Secrets + custom domain**: `./scripts/fly-post-launch.sh` then add the A/AAAA records at your DNS provider.
-5. **Brevo**: Add webhook URL in Brevo dashboard; optionally set `BREVO_API_KEY` and `BREVO_SENDER_EMAIL` as Fly server secrets.
+2. **Add payment info** (required even for free tier): Go to https://fly.io/dashboard/billing and add a credit card
+3. **Log in** (opens browser; do this in your terminal): `fly auth login`
+4. **Launch** (creates client, server, db): `wasp deploy fly launch vinclub cdg`
+5. **Secrets + custom domain**: `./scripts/fly-post-launch.sh` then add the A/AAAA records at your DNS provider.
+6. **Brevo**: Add webhook URL in Brevo dashboard; optionally set `BREVO_API_KEY` and `BREVO_SENDER_EMAIL` as Fly server secrets.
 
 ## 1. First-time deploy (no fly tomls yet)
 
-1. **Install and log in**
+1. **Prerequisites**
    - Install [flyctl](https://fly.io/docs/flyctl/install/) (e.g. `brew install flyctl`)
+   - **Add payment information** (required even for free tier): Go to https://fly.io/dashboard/billing and add a credit card. Fly.io requires this before creating apps.
    - Run in your terminal (browser will open): `fly auth login`
 
 2. **Launch the app** (creates client, server, and DB on Fly)
